@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CRT1 — ATOMAT LAB</title>
+
+<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --rust:#cd6c27;
+  --acid:#b6d228;
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --muted:#bdbdbd;
+  --blue:#0000ff;
+}
+
+*{box-sizing:border-box;}
+html,body{
+  margin:0;
+  font-family:'Neue Kaine',sans-serif;
+  background:var(--bg);
+  color:var(--grey);
+}
+
+/* HEADER */
+header{
+  position:sticky; top:0; z-index:40;
+  background:linear-gradient(to bottom, rgba(255,255,255,.96), rgba(255,255,255,.7));
+  padding:20px 18px;
+  border-bottom:1px solid #eee;
+  display:flex;
+  justify-content:center;
+}
+.nav{display:flex; gap:28px;}
+.nav a{color:var(--grey); text-decoration:none; font-weight:600;}
+.nav a.shop{
+  background:var(--rust);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:8px;
+}
+.cart{
+  position:absolute; right:22px; top:18px;
+}
+.cart .count{
+  background:var(--acid);
+  font-size:12px;
+  font-weight:700;
+  padding:2px 7px;
+  border-radius:99px;
+}
+
+/* PAGE */
+.product-page{
+  max-width:1120px;
+  margin:70px auto;
+  padding:0 18px;
+}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:60px;
+  align-items:center;
+  margin-bottom:90px;
+}
+.hero h1{font-size:42px;}
+.hero .claim{
+  font-size:20px;
+  line-height:1.5;
+  max-width:560px;
+}
+.meta{
+  margin-top:28px;
+  display:flex;
+  gap:28px;
+}
+.price{
+  font-size:26px;
+  font-weight:700;
+}
+.add-btn{
+  background:var(--rust);
+  color:#fff;
+  padding:14px 28px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+}
+.hero img{
+  max-width:320px;
+  border-radius:16px;
+  box-shadow:0 16px 40px rgba(0,0,0,.1);
+}
+
+/* VALUE GRID */
+.value-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+  margin-bottom:90px;
+}
+.value{
+  border-top:2px solid var(--grey);
+  padding-top:18px;
+}
+.value h3{
+  margin:0 0 6px;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+.value p{
+  margin:0;
+  line-height:1.55;
+}
+
+/* DESIGN BLOCK */
+.design-block{
+  max-width:720px;
+  margin:0 auto 90px;
+  padding-left:26px;
+  border-left:4px solid var(--acid);
+  line-height:1.6;
+}
+
+/* ACCORDION */
+.accordion{
+  max-width:760px;
+  margin:0 auto 90px;
+}
+.accordion-item{
+  border:2px solid var(--grey);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+.accordion-item button{
+  width:100%;
+  padding:16px 20px;
+  background:#fff;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  text-align:left;
+}
+.accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
+  padding:0 20px;
+}
+.accordion-content p{
+  margin:14px 0;
+  line-height:1.55;
+}
+
+/* GALLERY */
+.gallery-wrap{
+  max-width:860px;
+  margin:0 auto 120px;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  padding:14px;
+  border:2px solid var(--blue);
+  border-radius:20px;
+}
+.gallery-item{
+  overflow:hidden;
+  border-radius:14px;
+  transition:transform .25s ease;
+}
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* FOOTER */
+.footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
+}
+
+/* ROTATING LOGO */
+.spin-wrapper{
+  position:fixed;
+  left:14px; bottom:14px;
+  width:110px; height:110px;
+  animation:spin 18s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero,.value-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="/">HOME</a>
+    <a href="/shop" class="shop">SHOP</a>
+    <a href="/about">ABOUT</a>
+    <a href="/contact">CONTACT</a>
+  </nav>
+  <div class="cart">🛒 <span class="count" id="cart-count">0</span></div>
+</header>
+
+<main class="product-page">
+
+<section class="hero">
+  <div>
+    <h1>CRT1</h1>
+    <p class="claim">
+      CRT1 is an artisan contact microphone designed for curious minds.
+      It captures hidden vibration and movement inside materials — including water —
+      revealing sounds that normally remain unheard.
+      A solid entry point into the world of contact microphones and experimental listening.
+    </p>
+    <div class="meta">
+      <span class="price">42 EUR</span>
+      <a href="#" class="add-btn" onclick="addToCart()">ADD TO CART</a>
+    </div>
+  </div>
+  <img src="https://lh3.googleusercontent.com/d/1vVP_ZMFRI7nHlLeWpX5rtQVGN6UH9OV7">
+</section>
+
+<section class="value-grid">
+  <div class="value">
+    <h3>CAPTURE THE UNSEEN</h3>
+    <p>Reveals vibration and movement inside solid objects and liquids.</p>
+  </div>
+  <div class="value">
+    <h3>DESIGNED FOR EXPERIMENTATION</h3>
+    <p>Ideal for sound exploration, sampling, and creative discovery.</p>
+  </div>
+  <div class="value">
+    <h3>PLUG & LISTEN</h3>
+    <p>Connect directly to recording devices or instrument inputs.</p>
+  </div>
+</section>
+
+<section class="design-block">
+  CRT1 is intentionally simple, robust, and expressive.
+  Built for hands-on exploration, it encourages direct interaction with surfaces,
+  structures, and environments — above technical complexity.
+</section>
+
+<section class="accordion">
+
+  <div class="accordion-item">
+    <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
+    <div class="accordion-content">
+      <p>
+        Contact microphone · Mono TS 6.3 mm output<br>
+        Submersible & waterproof<br>
+        3D-printed PLA enclosure
+      </p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
+    <div class="accordion-content">
+      <p>
+        CRT1 contact microphone<br>
+        1.5 m instrument cable (6.3 mm TS)
+      </p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <button onclick="toggleAccordion(2)">USE CASES</button>
+    <div class="accordion-content">
+      <p>
+        Field recording · Object resonance · Underwater sound exploration ·
+        Experimental music · Sound design
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<section class="gallery-wrap">
+  <div class="gallery-grid" id="gallery">
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1RpWXUpEaco4-IhAjVSTZp64nUGaLDKFX"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/17FoF5mn4nfhh8AdgXDzz9aKy9wGzuZ09"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/15UHkmSlRga9G5I3ClCiMzvN8_Od5XnwA"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1tviUfc0vuN5YhXglGlh9PDL-0MIK0v9j"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/118k--rqEWDF2Ha4-VzfhF93CsgVwQsGI"></div>
+  </div>
+</section>
+
+</main>
+
+<section class="footer">
+  <div>
+    © ATOMAT LAB — tools that listen<br>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
+      contact@atomatlab.com
+    </a>
+  </div>
+  <div style="width:1px;height:60px;background:#d4d4d4;"></div>
+  <div>
+    <a href="/terms-of-service">Terms</a><br>
+    <a href="/privacy-policy">Privacy</a><br>
+    <a href="/refund-policy">Refunds</a>
+  </div>
+</section>
+
+<a href="https://atomatlab.com" class="spin-wrapper">
+  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" style="width:100%">
+</a>
+
+<script>
+function addToCart(){
+  const c=document.getElementById('cart-count');
+  c.textContent=Number(c.textContent)+1;
+}
+
+function toggleAccordion(n){
+  const panels=document.querySelectorAll('.accordion-content');
+  panels[n].style.maxHeight =
+    panels[n].style.maxHeight ? null : panels[n].scrollHeight+"px";
+}
+
+/* MAGNIFYING GRID */
+const items=document.querySelectorAll('.gallery-item');
+const gallery=document.getElementById('gallery');
+
+gallery.addEventListener('mousemove',e=>{
+  const rect=gallery.getBoundingClientRect();
+  const mx=e.clientX-rect.left;
+  const my=e.clientY-rect.top;
+
+  items.forEach(item=>{
+    const r=item.getBoundingClientRect();
+    const cx=r.left-rect.left+r.width/2;
+    const cy=r.top-rect.top+r.height/2;
+    const d=Math.hypot(mx-cx,my-cy);
+    const scale=Math.max(.85,1.25-d/300);
+    item.style.transform=`scale(${scale})`;
+  });
+});
+
+gallery.addEventListener('mouseleave',()=>{
+  items.forEach(i=>i.style.transform='scale(1)');
+});
+</script>
+
+</body>
+</html>

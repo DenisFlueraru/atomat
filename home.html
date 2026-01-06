@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ATOMAT LAB — Tools that listen</title>
+
+<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --rust:#cd6c27;
+  --acid:#b6d228;
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --muted:#bdbdbd;
+}
+
+html,body{height:100%; margin:0; font-family:'Neue Kaine',sans-serif; background:var(--bg); color:var(--grey);}
+
+/* Header */
+header{
+  position:sticky; top:0; z-index:40;
+  background:linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.6));
+  display:flex; align-items:center; justify-content:center;
+  padding:20px 18px; border-bottom:1px solid #eee;
+}
+.nav {
+  display:flex; gap:28px; align-items:center;
+}
+.nav a{ text-decoration:none; color:var(--grey); font-weight:600; letter-spacing:0.6px; }
+.cart {
+  position: absolute; right:22px; top:18px; font-size:22px;
+}
+.cart .dot {
+  position:absolute; right:-6px; top:-6px; width:12px; height:12px; background:var(--acid); border-radius:50%; box-shadow:0 0 6px rgba(182,210,40,0.35);
+  display:none;
+}
+
+/* HERO: circular image + rotating text */
+.hero {
+  display:flex; align-items:center; justify-content:center;
+  padding:48px 18px 30px;
+}
+.hero-inner {
+  position:relative;
+  width:800px; height:800px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* outer rotating text using SVG textPath */
+.circle-svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.rotating-wrap { animation: spinSlow 40s linear infinite; transform-origin:50% 50%; }
+@keyframes spinSlow { from{ transform: rotate(0deg); } to{ transform: rotate(360deg);} }
+
+/* center mask image with soft fade to white edges */
+.center-image {
+  position:relative;
+  width:450px; height:450px;
+  border-radius:100%;
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 50px 30px rgba(0,0,0,0.08);
+  z-index:4;
+  cursor:pointer;
+}
+.center-image img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* soften edges: radial gradient overlay to fade to white */
+.center-image::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background: radial-gradient(circle at center, rgba(255,255,255,0) 55%, rgba(255,255,255,1) 92%);
+}
+
+/* subtitle under hero */
+.hero-sub {
+  text-align:center; margin-top:18px; color:#444; max-width:720px; margin-left:auto; margin-right:auto;
+  font-size:15px;
+}
+
+/* Reviews area */
+.reviews-wrap{
+  margin-top:36px;
+  background:var(--grey); color:#fff;
+  padding:64px 18px 96px;
+  position:relative;
+  overflow:hidden;
+}
+.reviews-inner{ max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:18px; align-items:center; }
+
+.reviews-title{ color:var(--acid); font-weight:700; letter-spacing:0.6px; margin-bottom:12px; font-size:20px; }
+
+.carousel {
+  width:100%; max-width:920px; height:160px; position:relative; display:flex; align-items:center; justify-content:center; overflow:visible;
+}
+
+.review {
+  position:absolute;
+  width:62%;
+  max-width:620px;
+  left:50%;
+  transform:translateX(-50%) scale(0.95);
+  background:#141414;
+  border-left:6px solid var(--rust);
+  padding:22px 26px;
+  border-radius:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  color:#fff;
+  opacity:0;
+  pointer-events:none;
+  transition: transform 700ms cubic-bezier(.2,.9,.3,1), opacity 700ms ease;
+  z-index:1;
+}
+.review.center {
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+  pointer-events:auto;
+  z-index:3;
+}
+
+/* Hide dots */
+.dots { display:none; }
+
+/* footer */
+footer{ text-align:center; padding:28px 12px; color:var(--grey); border-top:1px solid #eee; margin-top:40px; }
+
+/* flipping logo bottom-left */
+.spin-wrapper {
+  position: fixed; left:14px; bottom:14px; width:110px; height:110px; z-index:50; display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.flip-image { width:100%; height:100%; object-fit:contain; transition: transform .6s ease; }
+
+/* 360° rotation animation (combines flip change and continuous spin) */
+@keyframes bigSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spin-wrapper.spin360 { animation: bigSpin 18s linear infinite; }
+
+/* Responsive */
+@media (max-width:900px){
+  .hero-inner{ width:300px; height:300px; }
+  .center-image{ width:180px; height:180px; }
+  .review{ width:80%; }
+}
+@media(max-width:520px){
+  .hero-inner{ width:240px; height:240px; }
+  .center-image{ width:140px; height:140px; }
+  .review{ width:90%; left:50%; transform:translateX(-50%) scale(1); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" aria-label="Main">
+    <a href="#">HOME</a>
+    <a href="#shop">SHOP</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+
+  <div class="cart" aria-hidden="false" title="Cart">
+    🛒
+    <span class="dot" id="cart-dot"></span>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div>
+      <div class="hero-inner">
+
+        <!-- rotating SVG text path -->
+        <svg class="circle-svg rotating-wrap" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+           <path id="circlePath" d="M50,20
+a30,30 0 1,1 0,60
+a30,30 0 1,1 0,-60" />
+          </defs>
+          <text font-family="Neue Kaine, sans-serif" font-size="4" fill="#444" >
+            <textPath href="#circlePath" startOffset="0%">
+              + devices built for sound explorers, artists, and those who listen beyond the surface +
+        
+            </textPath>
+          </text>
+        </svg>
+
+        <!-- center clickable image -->
+        <a class="center-image" id="centerShopLink" href="https://atomatlab.com/shop" title="Visit shop">
+          <img src="https://lh3.googleusercontent.com/d/1q1S6hm7zgfIlNC0I8C70cXgxdg87aHK2" alt="Atomat Lab emblem">
+        </a>
+      </div>
+  </section>
+
+<!-- GLITCHY TEXT EFFECT -->
+<div id="glitch-container" style="position:absolute; inset:0; pointer-events:none; z-index:1000;"></div>
+
+<script>
+const colors = ['#0000ff','#b6d228','#cd6c27','#fefefe']; // palette
+
+const glitchContainer = document.getElementById('glitch-container');
+
+function createGlitchText(text){
+  const glitchWrapper = document.createElement('div');
+  glitchWrapper.style.position = 'absolute';
+  glitchWrapper.style.fontFamily = "'Neue Kaine', sans-serif";
+  glitchWrapper.style.fontWeight = '700';
+  glitchWrapper.style.fontSize = `${Math.random()*20 + 20}px`;
+  glitchWrapper.style.pointerEvents = 'none';
+  glitchWrapper.style.userSelect = 'none';
+  glitchWrapper.style.opacity = '0';
+  glitchWrapper.style.whiteSpace = 'nowrap';
+
+  // Random neon color
+  const color = colors[Math.floor(Math.random()*colors.length)];
+  glitchWrapper.style.color = color;
+
+  // Glowing/fade shadow
+  glitchWrapper.style.textShadow = `
+    0 0 6px ${color},
+    0 0 12px ${color},
+    0 0 18px ${color},
+    0 0 24px ${color},
+    0 0 30px ${color}
+  `;
+
+  glitchWrapper.innerText = text;
+
+  // Random position
+  const x = Math.random() * window.innerWidth * 0.9;
+  const y = Math.random() * window.innerHeight * 0.8;
+  glitchWrapper.style.left = `${x}px`;
+  glitchWrapper.style.top = `${y}px`;
+
+  glitchContainer.appendChild(glitchWrapper);
+
+  // Animate: fade in + small movement + rotation
+  setTimeout(()=>{
+    glitchWrapper.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
+    glitchWrapper.style.opacity = '1';
+    glitchWrapper.style.transform = `translate(${Math.random()*20-10}px, ${Math.random()*20-10}px) rotate(${Math.random()*10-5}deg)`;
+  }, 10);
+
+  // Fade out after a short random duration
+  setTimeout(()=>{
+    glitchWrapper.style.opacity='0';
+    setTimeout(()=> glitchWrapper.remove(), 500);
+  }, 250 + Math.random()*300);
+}
+
+// Randomly spawn multiple glitch duplicates
+function spawnGlitch(){
+  const flashes = Math.floor(Math.random()*5) + 3; // 3–7 flashes
+  for(let i=0;i<flashes;i++){
+    setTimeout(()=> createGlitchText('tools that listen'), i*30);
+  }
+
+  // Occasionally spawn a single one somewhere else
+  if(Math.random()<0.5){
+    setTimeout(()=> createGlitchText('tools that listen'), flashes*40);
+  }
+
+  // Next glitch spawn in 2–6s
+  setTimeout(spawnGlitch, Math.random()*4000 + 2000);
+}
+
+// Start glitch effect
+spawnGlitch();
+
+// Keep container full-screen on resize
+window.addEventListener('resize', ()=>{
+  glitchContainer.style.width = window.innerWidth+'px';
+  glitchContainer.style.height = window.innerHeight+'px';
+});
+</script>
+
+  <!-- REVIEWS -->
+  <section class="reviews-wrap" aria-label="Reviews">
+    <div class="reviews-inner">
+      <div class="reviews-title">What people say</div>
+
+      <div class="carousel" id="carousel">
+        <div class="review center">It is a brilliant piece of kit. I had a few issues getting it work but that was my fault, I would recommend this seller and any thing they sell to anybody. Top class communication. Five Stars</div>
+        <div class="review">This is exactly what i was looking for! I’ll made some experiment asap..🫟</div>
+        <div class="review">Good service, good reaction time and good product!</div>
+        <div class="review">Excellent microphone and excellent service by Dennis !</div>
+        <div class="review">Works well and quality of sound is accurate</div>
+        <div class="review">These are great little piezo pickups, the design and execution is great and the form factor of the 3D printed shell is really nice to work with, it has a good quality cable and connector so I’m really looking forward to working with these. Denis was great on the contact side too, he’s clearly put a lot of love into these creations.</div>
+        <div class="review">Great Mic. I really like it and ordered one more.</div>
+        <div class="review">Amazing mic, picks up loads of sounds</div>
+        <div class="review">The product arrived very quickly and Denis was very helpful and patient in giving me some technical advice since it was my first time using a contact mic! It is a lovely little device to experiment and play with!</div>
+        <div class="review">This contact microphone is well-made and works perfectly. The sound quality is clear, and the build feels solid. Shipping was quick, and Denis was friendly and helpful. Would definitely recommend!</div>
+        <div class="review">great communication with seller !</div>
+        <div class="review">Great microphone. Good quality. Pick's up interesting noises from mobile phones, laptops and other devices.</div>
+        <div class="review">Really high quality, much better sensitivity than other electro-magnetic mic imho, they are able to pick a more diverse range of sounds</div>
+        <div class="review">Very useful microphones especially for samples if you're into making music. Recommend them also for the fun of discovering day to day inaudible sounds.</div>
+        <div class="review">Sehr freundlich, hilfbereit, schneller Versand und schnelle Antworten! Es gab sogar ein Geschenk. Vielen Dank, gerne wieder!!!</div>
+        <div class="review">Interesting microphone, serves its purpose.</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer with centered layout + vertical divider -->
+<section class="footer" aria-label="Footer" style="
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  color:var(--grey);
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
+">
+
+  <!-- Left block -->
+  <div style="line-height:1.6;">
+    © ATOMAT LAB — tools that listen<br>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">
+      contact@atomatlab.com
+    </a>
+  </div>
+
+  <!-- vertical divider -->
+  <div style="
+    width:1px;
+    height:60px;
+    background:#d4d4d4;
+    opacity:0.8;
+  "></div>
+
+  <!-- Right block -->
+  <div style="
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-size:15px;
+  ">
+    <a href="/terms-of-service" style="color:var(--grey); text-decoration:none; font-weight:600;">
+      Terms of Service
+    </a>
+    <a href="/privacy-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">
+      Privacy Policy
+    </a>
+    <a href="/refund-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">
+      Refund Policy
+    </a>
+  </div>
+
+</section>
+
+<!-- Flipping / rotating logo bottom-left -->
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper spin360" title="AtomatLab">
+  <img id="rotating-logo" class="flip-image" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
+</a>
+
+<script>
+// REVIEW CAROUSEL: only center visible
+(function(){
+  const carousel = document.getElementById('carousel');
+  const reviews = Array.from(carousel.querySelectorAll('.review'));
+  let index = 0;
+  const total = reviews.length;
+
+  function render(){
+    reviews.forEach((r,i)=>{
+      r.classList.remove('center');
+      r.style.opacity = '0';
+      r.style.pointerEvents = 'none';
+      r.style.zIndex = '1';
+    });
+    reviews[index].classList.add('center');
+    reviews[index].style.opacity = '1';
+    reviews[index].style.pointerEvents = 'auto';
+    reviews[index].style.zIndex = '3';
+  }
+
+  function next(){
+    index = (index + 1) % total;
+    render();
+  }
+
+  // initial render
+  render();
+
+  // auto-play
+  let timer = setInterval(next, 3600);
+  // click carousel to advance
+  carousel.addEventListener('click', ()=> { next(); clearInterval(timer); timer=setInterval(next,3600); });
+})();
+
+// Center image click demo
+document.getElementById('centerShopLink').addEventListener('click', function(e){
+  // navigates normally to shop
+});
+
+// Flipping / rotating logo
+(function(){
+  const rotatingLogo = document.getElementById('rotating-logo');
+  const imgs = [
+    'https://lh3.googleusercontent.com/d/1KlB2RLVsabxJ-HLGBKaCUKha6qPRdliK',
+    'https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd'
+  ];
+  imgs.forEach(u=>{ const im=new Image(); im.src=u; });
+  let i=0;
+  setInterval(()=> {
+    i = (i+1) % imgs.length;
+    rotatingLogo.classList.toggle('flipped');
+    setTimeout(()=> rotatingLogo.src = imgs[i], 260);
+  }, 3000);
+})();
+</script>
+</body>
+</html>

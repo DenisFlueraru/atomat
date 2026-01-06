@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATOMAT LAB — Shop</title>
+<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --rust:#cd6c27;
+  --acid:#b6d228;
+  --blue:#3b82f6;
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --muted:#bdbdbd;
+}
+
+/* GENERAL */
+html,body{margin:0;font-family:'Neue Kaine',sans-serif;background:var(--bg);color:var(--grey);}
+*{box-sizing:border-box;}
+a{color:inherit;text-decoration:none;}
+
+/* HEADER */
+header{
+  position:sticky;top:0;z-index:40;
+  background:linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.6));
+  display:flex;align-items:center;justify-content:center;padding:20px 18px;border-bottom:1px solid #eee;
+}
+.nav{display:flex;gap:28px;align-items:center;}
+.nav a{position: relative;padding-bottom:4px;font-weight:600;letter-spacing:0.6px;}
+.nav a:hover::after{ width:100%; }
+.nav a::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:2px; background:var(--acid); transition: width 0.3s ease;}
+.nav a.shop-link {background: var(--rust); color:#fff; padding:4px 10px; border-radius:6px;}
+
+/* CART */
+.cart { position:absolute; right:22px; top:18px; font-size:22px; cursor:pointer; }
+.cart .dot { position:absolute; right:-6px; top:-6px; width:12px; height:12px; background:var(--acid); border-radius:50%; box-shadow:0 0 6px rgba(182,210,40,0.35); display:none; }
+
+/* SHOP GRID + SIDEBAR */
+.shop-section{ display:flex; padding:60px 18px; max-width:1200px; margin:0 auto; gap:24px; }
+.category-sidebar{
+  width:180px; background:#fff; border:2px dashed var(--muted); border-radius:12px; padding:20px; font-weight:700; font-size:16px; display:flex; flex-direction:column; gap:12px; position:sticky; top:90px; height:fit-content; box-shadow:0 6px 12px rgba(0,0,0,0.05);
+  transition: color 0.3s ease;
+}
+.category-sidebar .coming-soon{ font-weight:400; font-style:italic; color:var(--muted); transition: color 0.3s ease; }
+
+/* GRID: 2x2 layout for top 4 products */
+.shop-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:32px; flex-grow:1; }
+
+/* PRODUCT CARD */
+.product{ background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; cursor:pointer; position:relative; transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease; border:2px solid transparent; }
+.product:hover { transform:scale(1.02); box-shadow:0 15px 30px rgba(0,0,0,0.12); border-color:var(--blue); }
+.product img{ width:100%; object-fit:cover; aspect-ratio:1/1; border-radius:12px 12px 0 0; transition: transform 0.4s ease; }
+.product:hover img{ transform:scale(1.05); }
+.product-content{ padding:16px; display:flex; flex-direction:column; gap:8px; }
+.product-title{ font-weight:700; font-size:18px; color:var(--grey); }
+.product-desc{ font-size:14px; color:#555; flex-grow:1; line-height:1.4; }
+
+/* Accordion details */
+.product-details{ max-height:0; overflow:hidden; transition: max-height 0.4s ease, padding 0.3s ease; background:rgba(59,130,246,0.05); padding:0 16px; border-radius:0 0 12px 12px; margin-top:0; }
+.product-details.open{ padding:12px 16px; max-height:400px; }
+.product-details p{ margin:6px 0; font-size:13px; line-height:1.4; color:#444; }
+
+/* Footer */
+footer{ text-align:center; padding:40px 12px; color:var(--grey); border-top:1px solid #eee; font-size:14px; margin-top:60px; }
+
+/* Rotating logo */
+.spin-wrapper{ position: fixed; left:14px; bottom:14px; width:110px; height:110px; z-index:50; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+.flip-image{ width:100%; height:100%; object-fit:contain; transition: transform .6s ease; }
+.spin-wrapper.spin360{ animation: rotateLogo 18s linear infinite; }
+@keyframes rotateLogo{ from{ transform: rotate(0deg);} to{ transform: rotate(360deg);} }
+
+/* Add cart button */
+.add-cart{ background:var(--rust); color:#fff; padding:8px 14px; font-size:14px; border-radius:8px; cursor:pointer; user-select:none; text-align:center; transition: background 0.3s ease, transform 0.2s ease; }
+.add-cart:hover{ background:var(--blue); color:#fff; transform:scale(1.05); }
+
+/* Accordion toggle */
+.toggle-details{ font-size:13px; font-weight:700; color:var(--blue); cursor:pointer; align-self:flex-start; transition: color 0.3s ease; }
+.toggle-details:hover{ color:var(--rust); }
+
+/* Scroll-trigger for sidebar colors */
+.scrolled .category-sidebar div:first-child{ color:var(--muted); }
+.scrolled .category-sidebar .coming-soon{ color:#2f2f2f; }
+
+/* Responsive */
+@media(max-width:900px){ .shop-section{ flex-direction:column; } .category-sidebar{ width:100%; flex-direction:row; justify-content:space-around; margin-bottom:24px; height:auto; position:relative; top:0; } .shop-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#">HOME</a>
+    <a href="#shop" class="shop-link">SHOP</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+  <div class="cart" title="Cart">🛒<span class="dot" id="cart-dot"></span></div>
+</header>
+
+<main>
+  <section class="shop-section">
+    <!-- Sidebar -->
+    <div class="category-sidebar">
+      <div>Microphones</div>
+      <div class="coming-soon">Preamps (coming soon)</div>
+    </div>
+
+    <!-- Products -->
+    <div class="shop-grid">
+
+      <!-- Top Row -->
+      <div class="product">
+        <img src="https://lh3.googleusercontent.com/d/1LXmx0lzytjtG2YSTwDm0WBwWxYLqdn6g" alt="FIELD5">
+        <div class="product-content">
+          <div class="product-title">FIELD5</div>
+          <div class="product-desc">Phantom-powered contact microphone</div>
+          <div class="toggle-details" onclick="toggleDetails(this)">+ Show details</div>
+          <div class="product-details">
+            <p>Frequency: 10Hz–18kHz · Phantom powered · 175g</p>
+            <p>Comes with cable and mounting accessories</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">140 EUR</div>
+            <div class="add-cart" onclick="addToCart('FIELD5',14000)">Add to cart</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="https://lh3.googleusercontent.com/d/1odFPvwHii42S57Z8j5PcPMKwBxhAZ4L3" alt="CRT2">
+        <div class="product-content">
+          <div class="product-title">CRT2</div>
+          <div class="product-desc">Rugged versatile contact microphone</div>
+          <div class="toggle-details" onclick="toggleDetails(this)">+ Show details</div>
+          <div class="product-details">
+            <p>Custom 3D-printed shell with copper shielding</p>
+            <p>Water-resistant, 1.5m cable, 6.3mm jack, capacitor to tame harsh frequencies</p>
+            <p>Great for field recording and sonic experimentation</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">52 EUR</div>
+            <div class="add-cart" onclick="addToCart('CRT2',5200)">Add to cart</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="product">
+        <img src="https://lh3.googleusercontent.com/d/13hXGDk9BZJ9dMPNo-i5VsRvNZ6AOqXEw" alt="ERT">
+        <div class="product-content">
+          <div class="product-title">ERT</div>
+          <div class="product-desc">EMF microphone for electronic circuits</div>
+          <div class="toggle-details" onclick="toggleDetails(this)">+ Show details</div>
+          <div class="product-details">
+            <p>Capture sounds from electronics: clocks, phones, displays, TVs</p>
+            <p>Requires telephone for courier delivery</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">42 EUR</div>
+            <div class="add-cart" onclick="addToCart('ERT',4200)">Add to cart</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="https://lh3.googleusercontent.com/d/1vVP_ZMFRI7nHlLeWpX5rtQVGN6UH9OV7" alt="CRT1">
+        <div class="product-content">
+          <div class="product-title">CRT1</div>
+          <div class="product-desc">Artisan submersible contact microphone</div>
+          <div class="toggle-details" onclick="toggleDetails(this)">+ Show details</div>
+          <div class="product-details">
+            <p>3D printed PLA case, submersible, mono TS 6.3 jack, 1.5m cable</p>
+            <p>Perfect for recording hidden vibrations in any environment</p>
+          </div>
+          <div class="product-footer">
+            <div class="price">42 EUR</div>
+            <div class="add-cart" onclick="addToCart('CRT1',4200)">Add to cart</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  © ATOMAT LAB — tools that listen | <a href="mailto:contact@atomatlab.com" style="color:var(--grey)">contact@atomatlab.com</a>
+</footer>
+
+<a href="https://atomatlab.com" target="_blank" class="spin-wrapper spin360" title="AtomatLab">
+  <img id="rotating-logo" class="flip-image" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
+</a>
+
+<script>
+let cart = [];
+function addToCart(name, amount){
+  cart.push({name, amount});
+  document.getElementById('cart-dot').style.display = 'inline-block';
+  alert(name+" added to cart (Stripe integration needed)");
+}
+
+/* Accordion toggle for product details */
+function toggleDetails(el){
+  const details = el.nextElementSibling;
+  const isOpen = details.classList.toggle('open');
+  el.textContent = isOpen ? '- Hide details' : '+ Show details';
+}
+
+/* Sidebar scroll color swap */
+window.addEventListener('scroll',()=>{
+  const section = document.querySelector('.shop-section');
+  if(window.scrollY > section.offsetHeight-100){
+    section.classList.add('scrolled');
+  } else {
+    section.classList.remove('scrolled');
+  }
+});
+</script>
+
+</body>
+</html>
