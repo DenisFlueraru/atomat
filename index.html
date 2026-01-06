@@ -19,19 +19,14 @@
 
 /* Reset */
 *{ box-sizing:border-box; }
-html,body{
-  margin:0;
-  background:var(--bg);
-  color:var(--grey);
-  font-family:'Neue Kaine',sans-serif;
-}
+html,body{margin:0; background:var(--bg); color:var(--grey); font-family:'Neue Kaine',sans-serif;}
 
 /* ================= HEADER ================= */
 header{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(255,255,255,0.85);
+  background:rgba(255,255,255,0.2);
   backdrop-filter:blur(10px);
   border-bottom:1px solid #eee;
   display:flex;
@@ -39,12 +34,10 @@ header{
   justify-content:center;
   padding:16px 12px;
 }
-
 .nav{
   display:flex;
   gap:28px;
 }
-
 .nav a{
   text-decoration:none;
   color:var(--grey);
@@ -54,13 +47,11 @@ header{
   border-radius:14px;
   transition: transform .25s ease, color .25s ease, background .25s ease;
 }
-
 .nav a:hover{
   transform:scale(1.08);
   color:var(--blue);
-  background:rgba(0,0,255,0.06);
+  background:rgba(110, 255, 20, 0.33);
 }
-
 .cart{
   margin-left:auto;
   font-size:22px;
@@ -73,10 +64,9 @@ header{
 .hero{
   display:flex;
   justify-content:center;
-  padding:48px 16px 32px;
+  padding:24px 16px 32px;
   position:relative;
 }
-
 .hero-inner{
   position:relative;
   width:clamp(260px,70vw,800px);
@@ -92,7 +82,6 @@ header{
   inset:0;
   animation:spin 40s linear infinite;
 }
-
 @keyframes spin{
   from{ transform:rotate(0deg);}
   to{ transform:rotate(360deg);}
@@ -107,13 +96,11 @@ header{
   box-shadow:0 40px 30px rgba(0,0,0,0.08);
   z-index:2;
 }
-
 .center-image img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-
 .center-image::after{
   content:"";
   position:absolute;
@@ -129,7 +116,6 @@ header{
   z-index:1000;
   overflow:hidden;
 }
-
 .glitch-text{
   position:absolute;
   font-weight:700;
@@ -140,44 +126,58 @@ header{
   transition: opacity .18s ease, transform .18s ease;
 }
 
-/* ================= REVIEWS ================= */
+/* ================= REVIEWS CAROUSEL ================= */
 .reviews{
-  background:#2f2f2f;
-  color:white;
+  background:#f5f5f5;
+  color:#2f2f2f;
   padding:64px 16px 88px;
   text-align:center;
 }
-
 .reviews h2{
   color:var(--acid);
   letter-spacing:.6px;
-  margin-bottom:32px;
+  margin-bottom:48px;
+  font-weight:700;
 }
-
-.carousel{
+.carousel-container{
   position:relative;
-  max-width:900px;
+  max-width:1000px;
   margin:0 auto;
-  height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
 }
-
-.review{
-  position:absolute;
-  inset:0;
-  margin:auto;
-  width:85%;
-  background:#141414;
-  border-left:6px solid var(--rust);
-  padding:22px 26px;
-  border-radius:8px;
-  opacity:0;
-  transform:scale(.95);
-  transition:opacity .6s ease, transform .6s ease;
+.carousel{
+  display:flex;
+  transition: transform 0.6s ease;
 }
-
-.review.active{
+.review-card{
+  background:#fff;
+  border-left:4px solid var(--acid);
+  border-radius:4px;
+  padding:24px;
+  margin:0 12px;
+  box-shadow:0 6px 16px rgba(0,0,0,0.05);
+  min-width:250px;
+  max-width:320px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:left;
+  font-size:14px;
+  line-height:1.5;
+  opacity:0.5;
+  transform: scale(0.9);
+  transition: all 0.6s ease;
+}
+.review-card.center{
   opacity:1;
-  transform:scale(1);
+  transform: scale(1);
+}
+@media(max-width:768px){
+  .review-card{min-width:220px; max-width:260px; padding:18px;}
 }
 
 /* ================= FOOTER ================= */
@@ -191,21 +191,26 @@ footer{
   border-top:1px solid #eee;
   text-align:center;
 }
-
 footer a{
   text-decoration:none;
   color:var(--grey);
   font-weight:600;
 }
+footer a:hover{ color:var(--blue); }
 
-footer a:hover{
-  color:var(--blue);
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  height:110px;
+  object-fit:contain;
+  animation:spinLogo 18s linear infinite;
 }
-
-/* ================= MOBILE ================= */
-@media(max-width:520px){
-  .nav{ gap:12px; font-size:14px; }
-  .review{ font-size:14px; padding:18px 20px; }
+@keyframes spinLogo{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
 }
 </style>
 </head>
@@ -228,13 +233,9 @@ footer a:hover{
 <main>
 <section class="hero">
   <div class="hero-inner">
-
     <svg class="circle-svg" viewBox="0 0 100 100">
       <defs>
-        <path id="circlePath"
-          d="M50,20
-             a30,30 0 1,1 0,60
-             a30,30 0 1,1 0,-60"/>
+        <path id="circlePath" d="M50,20 a30,30 0 1,1 0,60 a30,30 0 1,1 0,-60"/>
       </defs>
       <text font-size="4" fill="#444">
         <textPath href="#circlePath">
@@ -242,20 +243,16 @@ footer a:hover{
         </textPath>
       </text>
     </svg>
-
     <a href="shop.html" class="center-image">
       <img src="https://lh3.googleusercontent.com/d/1q1S6hm7zgfIlNC0I8C70cXgxdg87aHK2" alt="Atomat Lab">
     </a>
-
   </div>
 </section>
 
 <section class="reviews">
   <h2>What people say</h2>
-  <div class="carousel" id="carousel">
-    <div class="review active">Excellent microphone and excellent service by Denis!</div>
-    <div class="review">Amazing mic, picks up loads of sounds</div>
-    <div class="review">Top class communication. Five stars.</div>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel"></div>
   </div>
 </section>
 </main>
@@ -266,23 +263,64 @@ footer a:hover{
     <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a>
   </div>
   <div>
-    <a href="termsofservice.html">Terms</a><br>
-    <a href="privacypolicy.html">Privacy</a><br>
-    <a href="refundpolicy.html">Refunds</a>
+    <a href="termsofservice.html">Terms of Service</a><br>
+    <a href="privacypolicy.html">Privacy Policy</a><br>
+    <a href="refundpolicy.html">Refunds Policy</a>
   </div>
 </footer>
 
-<script>
-// REVIEWS CAROUSEL
-const reviews = document.querySelectorAll('.review');
-let i = 0;
-setInterval(()=>{
-  reviews[i].classList.remove('active');
-  i = (i + 1) % reviews.length;
-  reviews[i].classList.add('active');
-}, 3600);
+<img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
 
-// GLITCH SCRIPT
+<script>
+// ================= REVIEWS CAROUSEL =================
+const reviewsData = [
+  "Excellent microphone and excellent service by Denis!",
+  "Amazing mic, picks up loads of sounds",
+  "Top class communication. Five stars.",
+  "High quality, clear sound, reliable performance.",
+  "User-friendly and very precise in capturing details.",
+  "Perfect for artists exploring new sonic territories."
+  // Add your 60 reviews here
+];
+
+const carousel = document.getElementById('carousel');
+
+// Create cards
+reviewsData.forEach((text)=> {
+  const card = document.createElement('div');
+  card.className='review-card';
+  card.textContent=text;
+  carousel.appendChild(card);
+});
+
+let currentIndex = 0;
+const cards = document.querySelectorAll('.review-card');
+
+function updateCarousel(){
+  cards.forEach((c,i)=>{
+    c.classList.remove('center');
+    let pos = i - currentIndex;
+    // Wrap-around
+    if(pos < -Math.floor(cards.length/2)) pos += cards.length;
+    if(pos > Math.floor(cards.length/2)) pos -= cards.length;
+
+    if(pos===0) c.classList.add('center');
+  });
+  const offset = -currentIndex* (cards[0].offsetWidth + 24); // 24 = margin*2 + gap
+  carousel.style.transform = `translateX(${offset + carousel.parentElement.offsetWidth/2 - cards[0].offsetWidth/2}px)`;
+}
+
+// Auto-swipe
+setInterval(()=>{
+  currentIndex = (currentIndex+1) % cards.length;
+  updateCarousel();
+},4000);
+
+// Initial
+window.addEventListener('load', updateCarousel);
+window.addEventListener('resize', updateCarousel);
+
+// ================= GLITCH SCRIPT =================
 const glitchColors = ['#0000ff','#b6d228','#cd6c27','#2f2f2f'];
 const glitchLayer = document.getElementById('glitch-layer');
 const GLITCH_TEXT = 'tools that listen';
@@ -300,17 +338,12 @@ function spawnGlitch(){
 
 function createGlitch(text){
   const el = document.createElement('div');
-  el.className = 'glitch-text';
+  el.className='glitch-text';
   el.textContent = text;
 
   const color = glitchColors[Math.floor(Math.random()*glitchColors.length)];
   el.style.color = color;
-  el.style.textShadow = `
-    0 0 6px ${color},
-    0 0 14px ${color},
-    0 0 24px ${color}
-  `;
-
+  el.style.textShadow = `0 0 6px ${color}, 0 0 14px ${color}, 0 0 24px ${color}`;
   el.style.fontSize = `${Math.random()*18 + 18}px`;
   el.style.left = `${Math.random()*90}vw`;
   el.style.top = `${Math.random()*85}vh`;
@@ -330,6 +363,5 @@ function createGlitch(text){
 
 spawnGlitch();
 </script>
-
 </body>
 </html>
