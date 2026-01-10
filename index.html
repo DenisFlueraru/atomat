@@ -77,7 +77,6 @@ header{
   user-select:none;
 }
 .nav-mobile{
-  display:none;
   position:fixed;
   top:0; left:0; right:0;
   background:rgba(255,255,255,.95);
@@ -88,6 +87,7 @@ header{
   transform:translateY(-120%);
   transition:transform .3s ease;
   z-index:200;
+  display:flex; /* <--- make sure this is always flex */
 }
 .nav-mobile.open{
   transform:translateY(0);
