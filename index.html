@@ -63,10 +63,7 @@ header{
 }
 .nav a:hover::after{width:100%;}
 
-/* Cart top-right */
-.cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer; z-index:100;}
-
-/* ================= MOBILE NAVIGATION ================= */
+/* Hamburger button for mobile */
 .hamburger{
   display:none;
   position:absolute;
@@ -118,6 +115,10 @@ header{
   color:var(--blue);
 }
 
+/* Remove cart from header on mobile */
+.cart.desktop-cart{display:block;}
+.cart.mobile-cart{display:none;}
+
 /* ================= HERO ================= */
 .hero{display:flex;justify-content:center;padding:20px 16px 32px;position:relative}
 .hero-inner{width:clamp(260px,70vw,800px);aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center}
@@ -164,12 +165,15 @@ header{
 @media(max-width:700px){
   .nav{display:none;}
   .hamburger{display:flex;flex-direction:column;justify-content:space-between;}
+  .cart.desktop-cart{display:none;}
+  .cart.mobile-cart{display:inline-block;}
 }
 </style>
 </head>
 <body>
 
 <header>
+  <!-- Desktop nav -->
   <nav class="nav">
     <a href="index.html">HOME</a>
     <a href="shop.html">SHOP</a>
@@ -177,15 +181,15 @@ header{
     <a href="contact.html">CONTACT</a>
   </nav>
 
-  <!-- Mobile hamburger -->
+  <!-- Hamburger for mobile -->
   <div class="hamburger" id="hamburger">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
-  <!-- Cart -->
-  <div class="cart" title="Cart">🛒</div>
+  <!-- Desktop cart -->
+  <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
 
 <!-- Mobile nav dropdown -->
@@ -194,7 +198,7 @@ header{
   <a href="shop.html">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#" class="cart">🛒 CART</a>
+  <a href="#" class="mobile-cart">CART 🛒</a>
 </div>
 
 <div id="glitch-layer"></div>
@@ -254,8 +258,18 @@ header{
 /* MOBILE NAVIGATION TOGGLE */
 const hamburger = document.getElementById('hamburger');
 const navMobile = document.getElementById('navMobile');
-hamburger.addEventListener('click', ()=>{
+
+// Toggle open/close
+hamburger.addEventListener('click', (e)=>{
+  e.stopPropagation();
   navMobile.classList.toggle('open');
+});
+
+// Close menu if clicking outside
+document.addEventListener('click', (e)=>{
+  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && !hamburger.contains(e.target)){
+    navMobile.classList.remove('open');
+  }
 });
 
 /* ================= REVIEWS TIMELINE AUTOMATED ================= */
@@ -294,63 +308,41 @@ function render(){
   name.textContent = reviews[index].n;
   dot.style.left = `${(index/(reviews.length-1))*100}%`;
 }
-
-function autoPlay(){
-  if(!auto) return;
-  index = (index + 1) % reviews.length;
-  render();
-}
-
-function startTimer(){
-  clearInterval(timer);
-  timer = setInterval(autoPlay, 2500);
-}
-
-dot.onmousedown = e => {
-  auto = false;
-  clearInterval(timer);
-  clearTimeout(manualTimeout);
-  document.onmousemove = ev => {
-    const r = line.getBoundingClientRect();
-    let x = Math.min(Math.max(ev.clientX - r.left, 0), r.width);
-    index = Math.round((x / r.width) * (reviews.length - 1));
+function autoPlay(){if(!auto) return; index = (index+1)%reviews.length; render();}
+function startTimer(){clearInterval(timer); timer = setInterval(autoPlay,2500);}
+dot.onmousedown = e=>{
+  auto=false; clearInterval(timer); clearTimeout(manualTimeout);
+  document.onmousemove=ev=>{
+    const r=line.getBoundingClientRect();
+    let x=Math.min(Math.max(ev.clientX-r.left,0),r.width);
+    index=Math.round((x/r.width)*(reviews.length-1));
     render();
   };
-  document.onmouseup = () => {
-    document.onmousemove = null;
-    manualTimeout = setTimeout(() => {
-      auto = true;
-      startTimer();
-    }, 4000);
+  document.onmouseup=()=>{
+    document.onmousemove=null;
+    manualTimeout=setTimeout(()=>{auto=true; startTimer();},4000);
   };
 };
-
-render();
-startTimer();
+render(); startTimer();
 
 /* ================= GLITCH ================= */
-const glitchColors = ['#0000ff','#b6d228','#cd6c27','#2f2f2f'];
-const glitchLayer = document.getElementById('glitch-layer');
-function spawn(){
-  const n = Math.floor(Math.random()*6)+3;
-  for(let i=0;i<n;i++) setTimeout(make,i*28);
-  setTimeout(spawn,Math.random()*4500+2500);
-}
+const glitchColors=['#0000ff','#b6d228','#cd6c27','#2f2f2f'];
+const glitchLayer=document.getElementById('glitch-layer');
+function spawn(){const n=Math.floor(Math.random()*6)+3; for(let i=0;i<n;i++) setTimeout(make,i*28); setTimeout(spawn,Math.random()*4500+2500);}
 function make(){
-  const g = document.createElement('div');
+  const g=document.createElement('div');
   g.className='glitch-text';
   g.textContent='tools that listen';
-  const c = glitchColors[Math.floor(Math.random()*glitchColors.length)];
-  g.style.color = c;
+  const c=glitchColors[Math.floor(Math.random()*glitchColors.length)];
+  g.style.color=c;
   g.style.textShadow=`0 0 8px ${c},0 0 20px ${c}`;
-  const size = Math.random()*24+14;
-  g.style.fontSize=`${size}px`;
+  g.style.fontSize=`${Math.random()*24+14}px`;
   g.style.left=`${Math.random()*90}vw`;
   g.style.top=`${Math.random()*85}vh`;
   g.style.transform=`rotate(${Math.random()*30-15}deg)`;
   glitchLayer.appendChild(g);
   requestAnimationFrame(()=>g.style.opacity=1);
-  setTimeout(()=>{g.style.opacity=0;setTimeout(()=>g.remove(),400)},300);
+  setTimeout(()=>{g.style.opacity=0; setTimeout(()=>g.remove(),400)},300);
 }
 spawn();
 </script>
