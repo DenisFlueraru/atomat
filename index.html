@@ -18,7 +18,7 @@
 }
 
 /* RESET */
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 html,body{margin:0;font-family:'Neue Kaine',sans-serif;background:var(--bg);color:var(--grey);}
 
 /* ================= HEADER ================= */
@@ -31,9 +31,9 @@ header{
   border-bottom:1px solid #fff;
   display:flex;
   justify-content:center;
-  padding:20px 16px;
+  padding:40px;
 }
-.nav{display:flex;gap:36px}
+.nav{display:flex;gap:36px;}
 .nav a{
   text-decoration:none;
   color:var(--grey);
@@ -60,18 +60,20 @@ header{
 }
 .nav a:hover::after{width:100%;}
 
-/* ================= CART ================= */
-.cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer; z-index:100;}
+/* CART (desktop hidden) */
+.cart.desktop-cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer;}
 
 /* ================= MOBILE NAVIGATION ================= */
 .hamburger{
   display:none;
   position:absolute;
-  right:20px;
+  left:20px;
   top:20px;
-  font-size:28px;
   cursor:pointer;
-  z-index:210;
+  z-index:210; /* make sure it's above nav-mobile */
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
   user-select:none;
 }
 .nav-mobile{
@@ -85,7 +87,7 @@ header{
   transform:translateY(-120%);
   transition:transform .3s ease;
   z-index:200;
-  display:flex;
+  display:flex; /* <--- make sure this is always flex */
 }
 .nav-mobile.open{
   transform:translateY(0);
@@ -101,6 +103,10 @@ header{
 .nav-mobile a:hover{
   background:var(--green);
   color:var(--blue);
+}
+.cart.mobile-cart{
+  display:inline-block;
+  font-size:20px;
 }
 
 /* ================= HERO ================= */
@@ -125,8 +131,6 @@ header{
 /* ================= REVIEWS ================= */
 .reviews{background:var(--offwhite);padding:72px 16px 120px;text-align:center}
 .reviews h2{font-weight:700;letter-spacing:.6px;margin-bottom:40px;font-size:24px}
-
-/* Review box */
 .review-box{max-width:520px;margin:0 auto 28px;background:white;padding:28px 24px;border-radius:10px;box-shadow:0 0 0 1px #ddd,0 10px 24px rgba(0,0,255,.12);min-height:150px}
 .review-text{font-size:16px;margin-bottom:14px}
 .review-stars{letter-spacing:3px;margin-bottom:6px;color:#f5a623}
@@ -162,6 +166,7 @@ header{
 @media(max-width:700px){
   .nav{display:none;}
   .hamburger{display:block;}
+  .cart.desktop-cart{display:none;}
 }
 </style>
 </head>
@@ -175,6 +180,7 @@ header{
     <a href="contact.html">CONTACT</a>
   </nav>
   <div class="hamburger" id="hamburger">+</div>
+  <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
 
 <!-- MOBILE NAV -->
@@ -183,7 +189,7 @@ header{
   <a href="shop.html">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#" class="cart">CART 🛒</a>
+  <a href="#"><span>CART 🛒</span></a>
 </div>
 
 <div id="glitch-layer"></div>
@@ -204,19 +210,16 @@ header{
 
 <section class="reviews">
   <h2>User Feedback</h2>
-
   <div class="review-box">
     <div class="review-text" id="reviewText"></div>
     <div class="review-stars">★★★★★</div>
     <div class="review-name" id="reviewName"></div>
   </div>
-
   <div class="timeline-wrap">
     <div class="timeline">
       <div class="timeline-dot" id="dot"></div>
     </div>
   </div>
-
   <div class="payments">
     <a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
     <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
@@ -243,18 +246,19 @@ header{
 </a>
 
 <script>
+/* ================= MOBILE NAVIGATION TOGGLE ================= */
 const hamburger = document.getElementById('hamburger');
 const navMobile = document.getElementById('navMobile');
 
-// Toggle menu + change + to -
-hamburger.addEventListener('click', (e)=>{
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
   navMobile.classList.toggle('open');
   hamburger.textContent = navMobile.classList.contains('open') ? '-' : '+';
 });
 
-// Click outside closes menu
-document.addEventListener('click', (e)=>{
-  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && e.target !== hamburger){
+// Close menu when clicking outside
+document.addEventListener('click', e => {
+  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && !hamburger.contains(e.target)){
     navMobile.classList.remove('open');
     hamburger.textContent = '+';
   }
