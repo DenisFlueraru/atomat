@@ -64,11 +64,74 @@ header{
   background:var(--green);
 }
 .nav a:hover::after{width:100%;}
+
 .cart{
   position:absolute;
   right:20px;
   top:20px;
   font-size:24px;
+}
+
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{ transform:translateY(0); }
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+.cart.desktop-cart{
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
+}
+@media(max-width:700px){
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart.desktop-cart{display:none;}
 }
 
 /* ================= PAGE ================= */
@@ -135,8 +198,20 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="cart">🛒</div>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
+  <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span>CART 🛒</span></a>
+</div>
 
 <main class="policy-page">
   <h1>Privacy Policy</h1>
@@ -225,4 +300,27 @@ header{
 </a>
 
 </body>
+<script>
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display = 'none';
+});
+
+closeNav.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  hamburger.style.display = 'flex';
+});
+
+document.addEventListener('click', e => {
+  if(navMobile.classList.contains('open') && !navMobile.contains(e.target)){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
+  }
+});
+</script>
 </html>

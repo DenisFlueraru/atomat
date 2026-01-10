@@ -70,6 +70,63 @@ header{
   font-size:24px;
 }
 
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{
+  transform:translateY(0);
+}
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+.cart.mobile-cart{
+  display:inline-block;
+  font-size:20px;
+}
+
 /* ================= PAGE ================= */
 .product-page{
   max-width:1120px;
@@ -253,6 +310,9 @@ header{
 @media(max-width:900px){
   .product-intro,.value-grid{grid-template-columns:1fr;}
   .gallery-grid{grid-template-columns:1fr 1fr;}
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart{display:none;}
 }
 </style>
 </head>
@@ -267,7 +327,19 @@ header{
     <a href="contact.html">CONTACT</a>
   </nav>
   <div class="cart">🛒</div>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
 </header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span>CART 🛒</span></a>
+</div>
 
 <main class="product-page">
 
@@ -392,9 +464,35 @@ modal.addEventListener('click',e=>{
   if(e.target===modal) closeModal();
 });
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape') closeModal();
+</script>
+
+/* ================= MOBILE NAVIGATION TOGGLE ================= */
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display = 'none';
 });
+
+closeNav.addEventListener('click', e => {
+  navMobile.classList.remove('open');
+  hamburger.style.display = 'flex';
+});
+
+document.addEventListener('click', e => {
+  if(
+    navMobile.classList.contains('open') &&
+    !navMobile.contains(e.target) &&
+    !hamburger.contains(e.target)
+  ){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
+  }
+});
+</script>
 </script>
 
 </body>

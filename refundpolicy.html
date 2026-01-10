@@ -71,6 +71,86 @@ header{
   font-size:24px;
 }
 
+/* MOBILE NAVIGATION */
+.hamburger {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 32px;
+  line-height: 32px;
+  user-select: none;
+  z-index: 60;
+  color: var(--grey);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+.hamburger:hover {
+  background-color: var(--green);
+  color: var(--blue);
+}
+.nav-mobile {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 240px;
+  height: 100%;
+  background: var(--bg);
+  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 60px 20px 20px;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.7px;
+  color: var(--grey);
+  transition: right 0.3s ease;
+  z-index: 59;
+}
+.nav-mobile.open {
+  right: 0;
+}
+#close-nav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 32px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--grey);
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+#close-nav:hover {
+  color: var(--blue);
+}
+.nav-mobile a {
+  text-decoration: none;
+  color: var(--grey);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.nav-mobile a:hover {
+  background-color: var(--green);
+  color: var(--blue);
+}
+.cart.mobile-cart {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  display: none;
+}
+
 /* ================= PAGE ================= */
 .policy-page{
   max-width:900px;
@@ -122,6 +202,17 @@ header{
 /* RESPONSIVE */
 @media(max-width:700px){
   .policy-page h1{font-size:32px;}
+  .nav, .cart.desktop-cart {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+@media(min-width:701px){
+  .hamburger {
+    display: none;
+  }
 }
 </style>
 </head>
@@ -135,8 +226,20 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="cart">🛒</div>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
+  <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span>CART 🛒</span></a>
+</div>
 
 <main class="policy-page">
   <h1>Refund Policy</h1>
@@ -217,6 +320,30 @@ header{
 <a href="index.html">
   <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
 </a>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('navMobile');
+  const closeNav = document.getElementById('close-nav');
+  const hamburgerSymbol = document.getElementById('hamburger-symbol');
+
+  hamburger.addEventListener('click', () => {
+    navMobile.classList.add('open');
+    hamburgerSymbol.style.display = 'none';
+  });
+
+  closeNav.addEventListener('click', () => {
+    navMobile.classList.remove('open');
+    hamburgerSymbol.style.display = 'inline';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navMobile.contains(e.target) && !hamburger.contains(e.target)) {
+      navMobile.classList.remove('open');
+      hamburgerSymbol.style.display = 'inline';
+    }
+  });
+</script>
 
 </body>
 </html>
