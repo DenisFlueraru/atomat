@@ -83,7 +83,6 @@ header{
   position:fixed;
   top:0; left:0; right:0;
   background:rgba(255,255,255,.95);
-  backdrop-filter:blur(6px);
   flex-direction:column;
   gap:16px;
   padding:60px 20px 20px;
@@ -168,7 +167,7 @@ header{
 /* ================= RESPONSIVE ================= */
 @media(max-width:700px){
   .nav{display:none;}
-  .hamburger{display:flex;}
+  .hamburger{display:flex; align-items:center; justify-content:center;}
   .cart.desktop-cart{display:none;}
 }
 </style>
@@ -182,7 +181,9 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="hamburger" id="hamburger"><span id="hamburger-symbol">+</span> ATOMAT LAB</div>
+  <div class="hamburger" id="hamburger">
+  <span id="hamburger-symbol">+</span>
+</div>
   <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
 
@@ -254,17 +255,19 @@ const hamburger = document.getElementById('hamburger');
 const hamburgerSymbol = document.getElementById('hamburger-symbol');
 const navMobile = document.getElementById('navMobile');
 
+// Toggle menu open/close
 hamburger.addEventListener('click', e => {
-  e.stopPropagation();
+  e.stopPropagation(); // prevent triggering document click
   navMobile.classList.toggle('open');
-  hamburgerSymbol.textContent = navMobile.classList.contains('open') ? '-' : '+';
+  // Change symbol
+  hamburgerSymbol.textContent = navMobile.classList.contains('open') ? '×' : '+';
 });
 
-// Close menu when clicking outside
+// Close menu if click outside
 document.addEventListener('click', e => {
   if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && !hamburger.contains(e.target)){
     navMobile.classList.remove('open');
-    hamburgerSymbol.textContent = '+';
+    hamburgerSymbol.textContent = '+'; // reset symbol
   }
 });
 
