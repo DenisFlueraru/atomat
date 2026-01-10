@@ -63,6 +63,54 @@ header{
 /* CART */
 .cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer}
 
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;
+  position:absolute;
+  right:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  width:28px;
+  height:22px;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.hamburger div{
+  width:28px;
+  height:3px;
+  background:var(--grey);
+  transition:all .3s;
+}
+.nav-mobile{
+  display:none;
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(6px);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+}
+.nav-mobile.open{
+  transform:translateY(0);
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+
 /* ================= HERO ================= */
 .hero{display:flex;justify-content:center;padding:20px 16px 32px;position:relative}
 .hero-inner{width:clamp(260px,70vw,800px);aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center}
@@ -117,6 +165,12 @@ header{
 
 /* ================= ROTATING LOGO ================= */
 #rotating-logo{position:fixed;left:14px;bottom:14px;width:110px;cursor:pointer;animation:spin 18s linear infinite}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:700px){
+  .nav{display:none;}
+  .hamburger{display:flex;flex-direction:column;justify-content:space-between;}
+}
 </style>
 </head>
 <body>
@@ -128,8 +182,22 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
   <div class="cart" title="Cart">🛒</div>
 </header>
+
+<!-- MOBILE NAV -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#" class="cart">🛒 CART</a>
+</div>
 
 <div id="glitch-layer"></div>
 
@@ -166,24 +234,18 @@ header{
     <a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
     <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
     <a href="http://paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2"></a>
-    
   </div>
 </section>
 
-<!-- Footer with centered layout + vertical divider -->
+<!-- Footer -->
 <section class="footer" aria-label="Footer">
-  <!-- Left block -->
   <div style="line-height:1.6;">
     © ATOMAT LAB — tools that listen<br>
     <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">contact@atomatlab.com</a>
   </div>
-
-  <!-- vertical divider -->
   <div style="width:1px;height:60px;background:#d4d4d4;opacity:0.8;"></div>
-
-  <!-- Right block -->
   <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
-       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
     <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
     <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
   </div>
@@ -194,26 +256,33 @@ header{
 </a>
 
 <script>
+/* MOBILE NAVIGATION TOGGLE */
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+hamburger.addEventListener('click', ()=>{
+  navMobile.classList.toggle('open');
+});
+
 /* ================= REVIEWS TIMELINE AUTOMATED ================= */
 const reviews = [
   {t:"Very good, as described! Quality and sound top notch!",n:"FIELD5"},
-   {t:"Good service, good reaction time and good product!",n:"CRT1"},
+  {t:"Good service, good reaction time and good product!",n:"CRT1"},
   {t:"This is exactly what i was looking for! I’ll made some experiment asap..🫟",n:"FIELD 5"},
   {t:"Excellent microphone and excellent service by Dennis !",n:"CRT2"},
   {t:"It is a brilliant piece of kit. I had a few issues getting it work but that was my fault, I would recommend this seller and any thing they sell to anybody. Top class communication. Five Stars",n:"ERT1"},
   {t:"These are great little piezo pickups, the design and execution is great and the form factor of the 3D printed shell is really nice to work with, it has a good quality cable and connector so I’m really looking forward to working with these. Denis was great on the contact side too, he’s clearly put a lot of love into these creations.",n:"CRT1"},
-    {t:"Works well and quality of sound is accurate",n:"ERT1"},
-    {t:"Great Mic. I really like it and ordered one more.",n:"CRT1"},
-    {t:"Amazing mic, picks up loads of sounds",n:"ERT1"},
-    {t:"The product arrived very quickly and Denis was very helpful and patient in giving me some technical advice since it was my first time using a contact mic! It is a lovely little device to experiment and play with!",n:"CRT1"},
-    {t:"This contact microphone is well-made and works perfectly. The sound quality is clear, and the build feels solid. Shipping was quick, and Denis was friendly and helpful. Would definitely recommend!",n:"CRT1"},
-    {t:"great communication with seller !",n:"CRT1"},
-    {t:"Great microphone. Good quality. Pick's up interesting noises from mobile phones, laptops and other devices.",n:"ERT1"},
-    {t:"Really high quality, much better sensitivity than other electro-magnetic mic imho, they are able to pick a more diverse range of sounds",n:"ERT1"},
-    {t:"Very useful microphones especially for samples if you're into making music. Recommend them also for the fun of discovering day to day inaudible sounds.",n:"CRT1"},
-        {t:"Sehr freundlich, hilfbereit, schneller Versand und schnelle Antworten! Es gab sogar ein Geschenk. Vielen Dank, gerne wieder!!!",n:"CRT1"},
-            {t:"Interesting microphone, serves its purpose.",n:"ERT1"},
-                {t:"really good build and attention to detail!",n:"CRT1"},
+  {t:"Works well and quality of sound is accurate",n:"ERT1"},
+  {t:"Great Mic. I really like it and ordered one more.",n:"CRT1"},
+  {t:"Amazing mic, picks up loads of sounds",n:"ERT1"},
+  {t:"The product arrived very quickly and Denis was very helpful and patient in giving me some technical advice since it was my first time using a contact mic! It is a lovely little device to experiment and play with!",n:"CRT1"},
+  {t:"This contact microphone is well-made and works perfectly. The sound quality is clear, and the build feels solid. Shipping was quick, and Denis was friendly and helpful. Would definitely recommend!",n:"CRT1"},
+  {t:"great communication with seller !",n:"CRT1"},
+  {t:"Great microphone. Good quality. Pick's up interesting noises from mobile phones, laptops and other devices.",n:"ERT1"},
+  {t:"Really high quality, much better sensitivity than other electro-magnetic mic imho, they are able to pick a more diverse range of sounds",n:"ERT1"},
+  {t:"Very useful microphones especially for samples if you're into making music. Recommend them also for the fun of discovering day to day inaudible sounds.",n:"CRT1"},
+  {t:"Sehr freundlich, hilfbereit, schneller Versand und schnelle Antworten! Es gab sogar ein Geschenk. Vielen Dank, gerne wieder!!!",n:"CRT1"},
+  {t:"Interesting microphone, serves its purpose.",n:"ERT1"},
+  {t:"really good build and attention to detail!",n:"CRT1"},
 ];
 
 let index = 0;
@@ -257,7 +326,7 @@ dot.onmousedown = e => {
     manualTimeout = setTimeout(() => {
       auto = true;
       startTimer();
-    }, 4000); // resume automation after 4s
+    }, 4000);
   };
 };
 
