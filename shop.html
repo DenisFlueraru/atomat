@@ -66,21 +66,20 @@ header{
 
 /* HAMBURGER */
 .hamburger {
-  display: none;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 28px;
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  font-size: 32px;
   font-weight: 700;
   cursor: pointer;
   user-select: none;
-  z-index: 60;
+  z-index: 100;
   color: var(--grey);
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.8);
   border-radius: 6px;
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
   text-align: center;
   transition: background .3s ease;
 }
@@ -91,28 +90,30 @@ header{
 
 /* MOBILE NAV */
 .nav-mobile {
-  display: none;
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  width: 320px;
+  height: 100vh;
   background: var(--bg);
-  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
-  z-index: 70;
-  padding-top: 60px;
+  box-shadow: -2px 0 12px rgba(0,0,0,0.2);
+  z-index: 90;
+  padding: 80px 24px 24px;
+  display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: center;
+  gap: 32px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
   overflow-y: auto;
+}
+.nav-mobile.open {
+  transform: translateX(0);
 }
 .nav-mobile a {
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
   color: var(--grey);
-  padding: 12px 24px;
-  width: 100%;
-  text-align: center;
+  padding: 12px 0;
   border-bottom: 1px solid var(--muted);
   transition: background .3s, color .3s;
 }
@@ -122,25 +123,25 @@ header{
 }
 
 /* CLOSE BUTTON IN MOBILE NAV */
-.nav-mobile .close-btn {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  font-size: 36px;
+#close-nav {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  font-size: 40px;
   cursor: pointer;
   user-select: none;
   color: var(--grey);
   font-weight: 700;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.8);
   border-radius: 6px;
   width: 44px;
   height: 44px;
   line-height: 44px;
   text-align: center;
   transition: background .3s ease;
-  z-index: 80;
+  z-index: 110;
 }
-.nav-mobile .close-btn:hover {
+#close-nav:hover {
   background: var(--rust);
   color: #fff;
 }
@@ -255,16 +256,16 @@ header{
     <a href="contact.html">CONTACT</a>
   </nav>
   <div class="cart" title="Cart">🛒<span class="dot" id="cart-dot"></span></div>
-  <div class="hamburger" id="hamburger">+</div>
+  <div class="hamburger" id="hamburger"><span id="hamburger-symbol">+</span></div>
 </header>
 
-<div class="nav-mobile" id="nav-mobile" aria-hidden="true">
-  <div class="close-btn" id="nav-close-btn" aria-label="Close menu">×</div>
+<div class="nav-mobile" id="navMobile" aria-hidden="true">
+  <div id="close-nav" aria-label="Close menu">×</div>
   <a href="index.html">HOME</a>
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#" class="cart" title="Cart">CART 🛒</a>
+  <a href="#"><span>CART 🛒</span></a>
 </div>
 
 <main>
@@ -407,34 +408,38 @@ document.getElementById('cat-mic').classList.add('active');
 
 // Mobile nav toggle
 const hamburger = document.getElementById('hamburger');
-const navMobile = document.getElementById('nav-mobile');
-const navCloseBtn = document.getElementById('nav-close-btn');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
 
 function openMobileNav() {
-  navMobile.style.display = 'flex';
+  navMobile.classList.add('open');
   navMobile.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden'; // prevent background scroll
 }
 
 function closeMobileNav() {
-  navMobile.style.display = 'none';
+  navMobile.classList.remove('open');
   navMobile.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = ''; // restore scroll
 }
 
 hamburger.addEventListener('click', (e) => {
   e.stopPropagation();
-  openMobileNav();
+  if(navMobile.classList.contains('open')){
+    closeMobileNav();
+  } else {
+    openMobileNav();
+  }
 });
 
-navCloseBtn.addEventListener('click', (e) => {
+closeNav.addEventListener('click', (e) => {
   e.stopPropagation();
   closeMobileNav();
 });
 
 // Clicking outside mobile nav closes it
 document.addEventListener('click', (e) => {
-  if(navMobile.style.display === 'flex' && !navMobile.contains(e.target) && e.target !== hamburger){
+  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && e.target !== hamburger){
     closeMobileNav();
   }
 });
