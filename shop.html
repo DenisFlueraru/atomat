@@ -31,6 +31,7 @@ header{
   display:flex;
   justify-content:center;
   padding:40px;
+  position: relative;
 }
 .nav{display:flex;gap:36px}
 .nav a{
@@ -62,6 +63,87 @@ header{
 /* CART */
 .cart{position:absolute; right:20px; top:20px; font-size:24px; cursor:pointer}
 .cart .dot{position:absolute; right:-6px; top:-6px; width:12px; height:12px; background:var(--green); border-radius:50%; display:none}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  z-index: 60;
+  color: var(--grey);
+  background: rgba(255,255,255,0.7);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  transition: background .3s ease;
+}
+.hamburger:hover {
+  background: var(--green);
+  color: var(--blue);
+}
+
+/* MOBILE NAV */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+  z-index: 70;
+  padding-top: 60px;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  overflow-y: auto;
+}
+.nav-mobile a {
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--grey);
+  padding: 12px 24px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--muted);
+  transition: background .3s, color .3s;
+}
+.nav-mobile a:hover {
+  background: var(--green);
+  color: var(--blue);
+}
+
+/* CLOSE BUTTON IN MOBILE NAV */
+.nav-mobile .close-btn {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 36px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--grey);
+  font-weight: 700;
+  background: rgba(255,255,255,0.7);
+  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  transition: background .3s ease;
+  z-index: 80;
+}
+.nav-mobile .close-btn:hover {
+  background: var(--rust);
+  color: #fff;
+}
 
 /* ================= SHOP GRID ================= */
 .shop-section{
@@ -158,6 +240,8 @@ header{
   .shop-section{flex-direction:column;}
   .category-sidebar{width:100%;flex-direction:row;justify-content:space-around;margin-bottom:24px;position:relative;top:0;}
   .shop-grid{grid-template-columns:1fr;}
+  .nav{display:none;}
+  .hamburger{display:block;}
 }
 </style>
 </head>
@@ -171,7 +255,17 @@ header{
     <a href="contact.html">CONTACT</a>
   </nav>
   <div class="cart" title="Cart">🛒<span class="dot" id="cart-dot"></span></div>
+  <div class="hamburger" id="hamburger">+</div>
 </header>
+
+<div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+  <div class="close-btn" id="nav-close-btn" aria-label="Close menu">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html" class="shop-link">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#" class="cart" title="Cart">CART 🛒</a>
+</div>
 
 <main>
   <section class="shop-section">
@@ -261,10 +355,9 @@ header{
 
   <!-- Payments -->
   <div class="payments">
-    <a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2"></a>
-    <a href="https://www.paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
+    <a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
     <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
-  </div>
+    <a href="http://paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2"></a>
 </main>
 
 <!-- Footer -->
@@ -311,6 +404,45 @@ function goToProduct(url, e){
 
 // Highlight active category (example: microphones active)
 document.getElementById('cat-mic').classList.add('active');
+
+// Mobile nav toggle
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('nav-mobile');
+const navCloseBtn = document.getElementById('nav-close-btn');
+
+function openMobileNav() {
+  navMobile.style.display = 'flex';
+  navMobile.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden'; // prevent background scroll
+}
+
+function closeMobileNav() {
+  navMobile.style.display = 'none';
+  navMobile.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = ''; // restore scroll
+}
+
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation();
+  openMobileNav();
+});
+
+navCloseBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  closeMobileNav();
+});
+
+// Clicking outside mobile nav closes it
+document.addEventListener('click', (e) => {
+  if(navMobile.style.display === 'flex' && !navMobile.contains(e.target) && e.target !== hamburger){
+    closeMobileNav();
+  }
+});
+
+// Prevent clicks inside navMobile from closing it
+navMobile.addEventListener('click', (e) => {
+  e.stopPropagation();
+});
 </script>
 
 </body>
