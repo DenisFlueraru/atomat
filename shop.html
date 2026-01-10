@@ -61,89 +61,70 @@ header{
 .nav a:hover::after{width:100%;}
 
 /* CART */
-.cart{position:absolute; right:20px; top:20px; font-size:24px; cursor:pointer}
+.cart.desktop-cart{position:absolute; right:20px; top:20px; font-size:24px; cursor:pointer}
 .cart .dot{position:absolute; right:-6px; top:-6px; width:12px; height:12px; background:var(--green); border-radius:50%; display:none}
 
-/* HAMBURGER */
-.hamburger {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  font-size: 32px;
-  font-weight: 700;
-  cursor: pointer;
-  user-select: none;
-  z-index: 100;
-  color: var(--grey);
-  background: rgba(255,255,255,0.8);
-  border-radius: 6px;
-  width: 44px;
-  height: 44px;
-  line-height: 44px;
-  text-align: center;
-  transition: background .3s ease;
-}
-.hamburger:hover {
-  background: var(--green);
-  color: var(--blue);
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
-/* MOBILE NAV */
-.nav-mobile {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 320px;
-  height: 100vh;
-  background: var(--bg);
-  box-shadow: -2px 0 12px rgba(0,0,0,0.2);
-  z-index: 90;
-  padding: 80px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  overflow-y: auto;
-}
-.nav-mobile.open {
-  transform: translateX(0);
-}
-.nav-mobile a {
-  font-weight: 700;
-  font-size: 20px;
-  color: var(--grey);
-  padding: 12px 0;
-  border-bottom: 1px solid var(--muted);
-  transition: background .3s, color .3s;
-}
-.nav-mobile a:hover {
-  background: var(--green);
-  color: var(--blue);
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
 }
 
-/* CLOSE BUTTON IN MOBILE NAV */
-#close-nav {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  font-size: 40px;
-  cursor: pointer;
-  user-select: none;
-  color: var(--grey);
-  font-weight: 700;
-  background: rgba(255,255,255,0.8);
-  border-radius: 6px;
-  width: 44px;
-  height: 44px;
-  line-height: 44px;
-  text-align: center;
-  transition: background .3s ease;
-  z-index: 110;
+.nav-mobile.open{
+  transform:translateY(0);
 }
-#close-nav:hover {
-  background: var(--rust);
-  color: #fff;
+
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+
+.cart.mobile-cart{
+  display:inline-block;
+  font-size:20px;
 }
 
 /* ================= SHOP GRID ================= */
@@ -242,7 +223,8 @@ header{
   .category-sidebar{width:100%;flex-direction:row;justify-content:space-around;margin-bottom:24px;position:relative;top:0;}
   .shop-grid{grid-template-columns:1fr;}
   .nav{display:none;}
-  .hamburger{display:block;}
+  .hamburger{display:flex;}
+  .cart.desktop-cart{display:none;}
 }
 </style>
 </head>
@@ -255,17 +237,19 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="cart" title="Cart">🛒<span class="dot" id="cart-dot"></span></div>
-  <div class="hamburger" id="hamburger"><span id="hamburger-symbol">+</span></div>
+  <div class="cart desktop-cart" title="Cart">🛒<span class="dot" id="cart-dot"></span></div>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
 </header>
 
-<div class="nav-mobile" id="navMobile" aria-hidden="true">
-  <div id="close-nav" aria-label="Close menu">×</div>
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
   <a href="index.html">HOME</a>
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#"><span>CART 🛒</span></a>
+  <a href="#"><span class="cart mobile-cart">CART 🛒</span></a>
 </div>
 
 <main>
@@ -406,47 +390,29 @@ function goToProduct(url, e){
 // Highlight active category (example: microphones active)
 document.getElementById('cat-mic').classList.add('active');
 
-// Mobile nav toggle
+/* ================= MOBILE NAVIGATION TOGGLE ================= */
 const hamburger = document.getElementById('hamburger');
 const navMobile = document.getElementById('navMobile');
 const closeNav = document.getElementById('close-nav');
 
-function openMobileNav() {
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
   navMobile.classList.add('open');
-  navMobile.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden'; // prevent background scroll
-}
+  hamburger.style.display = 'none';
+});
 
-function closeMobileNav() {
+closeNav.addEventListener('click', e => {
   navMobile.classList.remove('open');
-  navMobile.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = ''; // restore scroll
-}
+  hamburger.style.display = 'flex';
+});
 
-hamburger.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if(navMobile.classList.contains('open')){
-    closeMobileNav();
-  } else {
-    openMobileNav();
+document.addEventListener('click', e => {
+  if(navMobile.classList.contains('open') &&
+     !navMobile.contains(e.target) &&
+     !hamburger.contains(e.target)){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
   }
-});
-
-closeNav.addEventListener('click', (e) => {
-  e.stopPropagation();
-  closeMobileNav();
-});
-
-// Clicking outside mobile nav closes it
-document.addEventListener('click', (e) => {
-  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && e.target !== hamburger){
-    closeMobileNav();
-  }
-});
-
-// Prevent clicks inside navMobile from closing it
-navMobile.addEventListener('click', (e) => {
-  e.stopPropagation();
 });
 </script>
 
