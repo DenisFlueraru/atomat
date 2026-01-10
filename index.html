@@ -94,6 +94,9 @@ header{
 .nav-mobile.open{
   transform:translateY(0);
 }
+#close-nav {
+  position:absolute;top:12px;left:12px;font-size:28px;font-weight:700;cursor:pointer;z-index:210;
+}
 .nav-mobile a{
   text-decoration:none;
   color:var(--grey);
@@ -189,6 +192,7 @@ header{
 
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
+  <div id="close-nav" style="position:absolute;top:12px;left:12px;font-size:28px;font-weight:700;cursor:pointer;z-index:210;">×</div>
   <a href="index.html">HOME</a>
   <a href="shop.html">SHOP</a>
   <a href="about.html">ABOUT</a>
@@ -269,6 +273,12 @@ document.addEventListener('click', e => {
     navMobile.classList.remove('open');
     hamburgerSymbol.textContent = '+'; // reset symbol
   }
+});
+
+const closeNav = document.getElementById('close-nav');
+closeNav.addEventListener('click', e => {
+    navMobile.classList.remove('open');
+    hamburgerSymbol.textContent = '+';
 });
 
 /* ================= REVIEWS TIMELINE AUTOMATED ================= */
