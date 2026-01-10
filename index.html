@@ -31,7 +31,7 @@ header{
   border-bottom:1px solid #fff;
   display:flex;
   justify-content:center;
-  padding:40px;
+  padding:10px;
 }
 .nav{display:flex;gap:36px;}
 .nav a{
@@ -90,6 +90,7 @@ header{
   transition:transform .3s ease;
   z-index:200;
   display:flex;
+  align-items: center;
 }
 .nav-mobile.open{
   transform:translateY(0);
@@ -110,13 +111,22 @@ header{
   display:inline-block;
   font-size:20px;
 }
+#mobile-close {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 210;
+}
 
 /* ================= HERO ================= */
-.hero{display:flex;justify-content:center;padding:20px 16px 32px;position:relative}
-.hero-inner{width:clamp(260px,70vw,800px);aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center}
+.hero{display:flex;justify-content:center;padding:10px;position:relative}
+.hero-inner{width:clamp(800px,90vw,1600px);aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center;margin: 0 auto;}
 .circle-svg{position:absolute;inset:0;animation:spin 40s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.center-image{width:clamp(140px,40vw,420px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 40px 30px rgba(0,0,0,.08)}
+.center-image{width:clamp(200px,50vw,600px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 40px 30px rgba(0,0,0,.08)}
 .center-image img{width:100%;height:100%;object-fit:cover;}
 
 /* ================= GLITCH ================= */
@@ -181,14 +191,12 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="hamburger" id="hamburger">
-  <span id="hamburger-symbol">+</span>
-</div>
   <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
 
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
+  <div id="mobile-close" style="position:absolute;top:20px;left:20px;font-size:28px;font-weight:700;cursor:pointer;z-index:210;">×</div>
   <a href="index.html">HOME</a>
   <a href="shop.html">SHOP</a>
   <a href="about.html">ABOUT</a>
@@ -201,8 +209,8 @@ header{
 <section class="hero">
   <div class="hero-inner">
     <svg class="circle-svg" viewBox="0 0 100 100">
-      <defs><path id="circlePath" d="M50,20 a30,30 0 1,1 0,60 a30,30 0 1,1 0,-60"/></defs>
-      <text font-size="4">
+      <defs><path id="circlePath" d="M50,25 a25,25 0 1,1 0,50 a25,25 0 1,1 0,-50"/></defs>
+      <text font-size="3">
         <textPath href="#circlePath">+ tools that listen + tools that listen + tools that listen +</textPath>
       </text>
     </svg>
@@ -251,23 +259,28 @@ header{
 
 <script>
 /* ================= MOBILE NAVIGATION TOGGLE ================= */
-const hamburger = document.getElementById('hamburger');
-const hamburgerSymbol = document.getElementById('hamburger-symbol');
 const navMobile = document.getElementById('navMobile');
+const mobileClose = document.getElementById('mobile-close');
 
-// Toggle menu open/close
-hamburger.addEventListener('click', e => {
-  e.stopPropagation(); // prevent triggering document click
-  navMobile.classList.toggle('open');
-  // Change symbol
-  hamburgerSymbol.textContent = navMobile.classList.contains('open') ? '×' : '+';
+// open menu when navMobile is hidden (simulate hamburger click)
+function openMenu() {
+  navMobile.classList.add('open');
+}
+
+// close menu
+function closeMenu() {
+  navMobile.classList.remove('open');
+}
+
+mobileClose.addEventListener('click', e => {
+  e.stopPropagation();
+  closeMenu();
 });
 
-// Close menu if click outside
+// close menu if click outside
 document.addEventListener('click', e => {
-  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && !hamburger.contains(e.target)){
-    navMobile.classList.remove('open');
-    hamburgerSymbol.textContent = '+'; // reset symbol
+  if(navMobile.classList.contains('open') && !navMobile.contains(e.target)){
+    closeMenu();
   }
 });
 
