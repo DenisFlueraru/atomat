@@ -61,22 +61,19 @@ header{
 .cart{position:absolute;right:20px;top:20px;font-size:24px}
 
 /* MOBILE NAVIGATION */
-.hamburger {
-  position: absolute;
-  top: 20px;
-  right: 60px;
-  cursor: pointer;
-  font-size: 28px;
-  font-weight: 700;
-  user-select: none;
-  display: none;
-  width: 32px;
-  height: 32px;
-  align-items: center;
-  justify-content: center;
-  background: var(--grey);
-  color: #fff;
-  border-radius: 6px;
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
 }
 #hamburger-symbol {
   display: block;
