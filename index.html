@@ -179,6 +179,12 @@ header{
   .hamburger{display:flex; align-items:center; justify-content:center;}
   .cart.desktop-cart{display:none;}
 }
+/* Hide mobile nav on desktop */
+@media(min-width:701px){
+  .nav-mobile{
+    display:none !important;
+  }
+}
 </style>
 </head>
 <body>
