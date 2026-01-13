@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATOMAT LAB — Success</title>
+<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --blue:#0000ff;
+  --green:#6eff14;
+  --rust:#cd6c27;
+  --muted:#bdbdbd;
+}
+
+/* RESET */
+*{box-sizing:border-box;}
+html,body{
+  margin:0;
+  font-family:'Neue Kaine',sans-serif;
+  background:var(--bg);
+  color:var(--grey);
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+}
+.nav{display:flex;gap:36px;}
+.nav a{
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:.25s;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:0;
+  width:0; height:2px;
+  background:var(--blue);
+  transition:.3s;
+}
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
+
+.cart.desktop-cart{
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* ================= MOBILE NAV ================= */
+.hamburger{
+  display:none;
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:.3s;
+  z-index:200;
+}
+.nav-mobile.open{transform:translateY(0)}
+#close-nav{
+  position:absolute;
+  top:12px; left:12px;
+  font-size:28px;
+  cursor:pointer;
+}
+.nav-mobile a{
+  font-size:20px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+
+/* ================= SUCCESS MESSAGE ================= */
+.success-container{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:0 20px;
+}
+.success-container h1{
+  font-size:36px;
+  font-weight:700;
+  margin-bottom:20px;
+  color:var(--blue);
+}
+.success-container p{
+  font-size:18px;
+  margin-bottom:40px;
+  color:var(--grey);
+}
+.success-container a{
+  display:inline-block;
+  padding:14px 28px;
+  background:var(--green);
+  color:var(--grey);
+  font-weight:700;
+  border-radius:10px;
+  transition:background .3s, transform .2s;
+}
+.success-container a:hover{
+  background:var(--blue);
+  color:#fff;
+  transform:scale(1.05);
+}
+
+/* ================= FOOTER ================= */
+.footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
+  color:var(--grey);
+}
+
+/* ROTATING LOGO */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  animation:spin 18s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:900px){
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart.desktop-cart{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+  <a href="cart.html" class="cart desktop-cart">🛒</a>
+  <div class="hamburger" id="hamburger">+</div>
+</header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="cart.html">CART 🛒</a>
+</div>
+
+<main class="success-container">
+  <h1>Thank you!</h1>
+  <p>Your order has been successfully placed.</p>
+  <a href="index.html">Back to Home</a>
+</main>
+
+<section class="footer">
+  <div>
+    © ATOMAT LAB — tools that listen<br>
+    <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a>
+  </div>
+  <div style="width:1px;height:60px;background:#d4d4d4;"></div>
+  <div>
+    <a href="termsofservice.html">Terms of Service</a><br>
+    <a href="privacypolicy.html">Privacy Policy</a><br>
+    <a href="refundpolicy.html">Refunds Policy</a>
+  </div>
+</section>
+
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
+</a>
+
+<script>
+/* ================= CLEAR CART ================= */
+localStorage.removeItem('cart');
+document.getElementById('cart-dot')?.style.display = 'none';
+
+/* ================= MOBILE NAVIGATION ================= */
+const hamburger=document.getElementById('hamburger');
+const navMobile=document.getElementById('navMobile');
+const closeNav=document.getElementById('close-nav');
+
+hamburger.onclick=()=>{navMobile.classList.add('open');hamburger.style.display='none';}
+closeNav.onclick=()=>{navMobile.classList.remove('open');hamburger.style.display='flex';}
+</script>
+
+</body>
+</html>

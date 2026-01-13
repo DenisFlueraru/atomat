@@ -259,8 +259,7 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-  <a href="cart.html" class="cart desktop-cart">🛒<span class="dot" id="cart-dot"></span></a>
-  <div class="hamburger" id="hamburger">+</div>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a>  <div class="hamburger" id="hamburger">+</div>
 </header>
 
 <div class="nav-mobile" id="navMobile">
@@ -342,6 +341,8 @@ function render(){
   document.getElementById('cart-dot').style.display=cart.length?'inline-block':'none';
 }
 
+
+
 function qty(i,d){
   cart[i].qty+=d;
   if(cart[i].qty<=0) cart.splice(i,1);
@@ -352,11 +353,55 @@ function removeItem(i){
   save(); render();
 }
 
-function checkout(){
-  alert('Stripe Checkout will be wired here (Vercel API)');
+async function checkout(){
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart })
+    });
+    const data = await response.json();
+    if(data.url){
+      window.location.href = data.url; // redirect to Stripe checkout
+    } else {
+      alert('Checkout error, please try again.');
+    }
+  } catch(err) {
+    console.error(err);
+    alert('Checkout failed, please try again.');
+  }
 }
 
 render();
+
+// CART DATA API ///////////////////////////
+
+document.getElementById('checkout-btn').addEventListener('click', async () => {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+  }
+
+  const response = await fetch('/api/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: cart })
+  });
+
+  const data = await response.json();
+  if(data.url){
+    window.location = data.url; // redirect to Stripe checkout
+  } else {
+    alert('Checkout error, please try again.');
+  }
+});
 
 /* ================= MOBILE NAV ================= */
 const hamburger=document.getElementById('hamburger');
