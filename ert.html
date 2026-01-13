@@ -278,6 +278,23 @@ header{
   font-weight:700;
 }
 
+/* ================= ADD TO CART ================= */
+
+.add-cart{
+  background: var(--grey);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.add-cart:hover{
+  background: var(--blue);
+  transform: scale(1.05);
+}
+
+
 /* ================= FOOTER (CLONED) ================= */
 .footer{
   display:flex;
@@ -381,11 +398,14 @@ header{
       </div>
     </section>
 
-    <div class="meta">
-      <span class="price">42 EUR</span>
-      <a href="#" class="add-btn">ADD TO CART</a>
-    </div>
-  </div>
+<div class="meta">
+  <span class="price">42 EUR</span>
+  <div class="add-cart" onclick="addToCart({
+    id:'ERT',
+    name:'ERT',
+    price:4200
+  })">Add to cart</div>
+</div>
 
   <img class="hero-img" src="https://lh3.googleusercontent.com/d/13hXGDk9BZJ9dMPNo-i5VsRvNZ6AOqXEw">
 </section>
@@ -500,6 +520,41 @@ document.addEventListener('click', e => {
     hamburger.style.display = 'flex';
   }
 });
+</script>
+
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
 </script>
 
 </body>
