@@ -353,28 +353,26 @@ function removeItem(i){
   save(); render();
 }
 
-async function checkout(){
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  if(cart.length === 0){
+async function checkout() {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (!cart.length) {
     alert("Your cart is empty!");
     return;
   }
 
   try {
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: cart })
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: cart }),
     });
-    const data = await response.json();
-    if(data.url){
-      window.location.href = data.url; // redirect to Stripe checkout
-    } else {
-      alert('Checkout error, please try again.');
-    }
-  } catch(err) {
+
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else alert("Checkout error, please try again.");
+  } catch (err) {
     console.error(err);
-    alert('Checkout failed, please try again.');
+    alert("Checkout failed, please try again.");
   }
 }
 
