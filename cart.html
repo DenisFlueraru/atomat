@@ -323,7 +323,7 @@ function render(){
   let total=0;
 
   cart.forEach((item,i)=>{
-    total+=item.amount*item.qty;
+    total+=item.price*item.qty;
     list.innerHTML+=`
       <div class="cart-item">
         <div class="cart-item-name">${item.name}</div>
@@ -332,7 +332,7 @@ function render(){
           ${item.qty}
           <button class="qty-btn" onclick="qty(${i},1)">+</button>
         </div>
-        <div class="cart-price">€${(item.amount*item.qty/100).toFixed(2)}</div>
+        <div class="cart-price">€${(item.price*item.qty/100).toFixed(2)}</div>
         <div class="remove" onclick="removeItem(${i})">×</div>
       </div>`;
   });
