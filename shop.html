@@ -264,7 +264,7 @@ header{
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#"><span class="cart mobile-cart">CART 🛒</span></a>
+  <a href="#"><span class="cart mobile-cart">CART 🛒<span class="dot"></span></span></a>
 </div>
 
 <main>
@@ -472,9 +472,17 @@ function addToCart(item){
 
 function updateCartDot(){
   const cart = getCart();
-  const dot = document.getElementById('cart-dot');
-  if(dot){
-    dot.style.display = cart.length ? 'inline-block' : 'none';
+  
+  // Desktop dot
+  const desktopDot = document.querySelector('.cart.desktop-cart .dot');
+  if(desktopDot){
+    desktopDot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+
+  // Mobile dot
+  const mobileDot = document.querySelector('.cart.mobile-cart .dot');
+  if(mobileDot){
+    mobileDot.style.display = cart.length ? 'inline-block' : 'none';
   }
 }
 
