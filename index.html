@@ -198,7 +198,7 @@ header{
   <div class="hamburger" id="hamburger">
   <span id="hamburger-symbol">+</span>
 </div>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></header>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒 <span id="cart-count" style="display:none; font-size:14px; background:#6eff14; color:#000; border-radius:999px; padding:2px 6px; margin-left:4px; font-weight:700;"></span></a></header>
 
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
@@ -382,40 +382,7 @@ function make(){
 spawn();
 </script>
 
-<script>
-/* ================= CART STORAGE ================= */
-function getCart(){
-  return JSON.parse(localStorage.getItem('cart') || '[]');
-}
-
-function saveCart(cart){
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function addToCart(item){
-  const cart = getCart();
-  const existing = cart.find(p => p.id === item.id);
-
-  if(existing){
-    existing.qty += 1;
-  } else {
-    cart.push({...item, qty:1});
-  }
-
-  saveCart(cart);
-  updateCartDot();
-}
-
-function updateCartDot(){
-  const cart = getCart();
-  const dot = document.getElementById('cart-dot');
-  if(dot){
-    dot.style.display = cart.length ? 'inline-block' : 'none';
-  }
-}
-
-updateCartDot();
-</script>
+<script src="cart.js"></script>
 
 </body>
 </html>

@@ -321,39 +321,6 @@ document.addEventListener('click', e => {
   }
 });
 </script>
-<script>
-/* ================= CART STORAGE ================= */
-function getCart(){
-  return JSON.parse(localStorage.getItem('cart') || '[]');
-}
-
-function saveCart(cart){
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function addToCart(item){
-  const cart = getCart();
-  const existing = cart.find(p => p.id === item.id);
-
-  if(existing){
-    existing.qty += 1;
-  } else {
-    cart.push({...item, qty:1});
-  }
-
-  saveCart(cart);
-  updateCartDot();
-}
-
-function updateCartDot(){
-  const cart = getCart();
-  const dot = document.getElementById('cart-dot');
-  if(dot){
-    dot.style.display = cart.length ? 'inline-block' : 'none';
-  }
-}
-
-updateCartDot();
-</script>
+<script src="cart.js"></script>
 
 </html>
