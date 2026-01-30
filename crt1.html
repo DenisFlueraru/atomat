@@ -9,15 +9,15 @@
 
 <style>
 :root{
-  --rust:#cd6c27;
-  --acid:#b6d228;
   --grey:#2f2f2f;
   --bg:#fefefe;
-  --muted:#bdbdbd;
   --blue:#0000ff;
+  --green:#6eff14;
+  --muted:#bdbdbd;
 }
 
-*{box-sizing:border-box;}
+/* RESET */
+*{box-sizing:border-box}
 html,body{
   margin:0;
   font-family:'Neue Kaine',sans-serif;
@@ -25,79 +25,185 @@ html,body{
   color:var(--grey);
 }
 
-/* HEADER */
+/* ================= HEADER (CLONED) ================= */
 header{
-  position:sticky; top:0; z-index:40;
-  background:linear-gradient(to bottom, rgba(255,255,255,.96), rgba(255,255,255,.7));
-  padding:20px 18px;
-  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(5px);
+  border-bottom:1px solid #fff;
   display:flex;
   justify-content:center;
+  padding:40px;
 }
-.nav{display:flex; gap:28px;}
-.nav a{color:var(--grey); text-decoration:none; font-weight:600;}
-.nav a.shop{
-  background:var(--rust);
-  color:#fff;
-  padding:6px 12px;
-  border-radius:8px;
-}
-.cart{
-  position:absolute; right:22px; top:18px;
-}
-.cart .count{
-  background:var(--acid);
-  font-size:12px;
+.nav{display:flex;gap:36px}
+.nav a{
+  text-decoration:none;
+  color:var(--grey);
   font-weight:700;
-  padding:2px 7px;
-  border-radius:99px;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:.25s ease;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--blue);
+  transition:width .3s;
+}
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
+.cart{
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
 }
 
-/* PAGE */
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{
+  transform:translateY(0);
+}
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+.cart.mobile-cart{
+  display:inline-block;
+  font-size:20px;
+}
+
+/* ================= PAGE ================= */
 .product-page{
   max-width:1120px;
-  margin:70px auto;
+  margin:80px auto 120px;
   padding:0 18px;
 }
 
-/* HERO */
-.hero{
+/* ================= PRODUCT INTRO ================= */
+.product-intro{
   display:grid;
   grid-template-columns:1.1fr .9fr;
   gap:60px;
-  align-items:center;
-  margin-bottom:90px;
+  align-items:start;
+  margin-bottom:80px;
 }
-.hero h1{font-size:42px;}
-.hero .claim{
+.product-intro h1{
+  font-size:42px;
+  margin:0 0 18px;
+}
+.claim{
   font-size:20px;
-  line-height:1.5;
-  max-width:560px;
+  line-height:1.55;
+  margin-bottom:36px;
 }
+.hero-img{
+  max-width:320px;
+  border-radius:18px;
+  box-shadow:0 18px 44px rgba(0,0,0,.12);
+}
+
+/* ================= ACCORDION ================= */
+.accordion{
+  margin-bottom:36px;
+}
+.accordion-item{
+  border:2px solid var(--grey);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.accordion-item button{
+  width:100%;
+  padding:14px 18px;
+  background:#fff;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  text-align:left;
+}
+.accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
+  padding:0 18px;
+}
+.accordion-content p{margin:14px 0;}
+
+/* ================= PRICE ================= */
 .meta{
-  margin-top:28px;
   display:flex;
+  align-items:center;
   gap:28px;
+  margin-top:24px;
 }
 .price{
   font-size:26px;
   font-weight:700;
 }
 .add-btn{
-  background:var(--rust);
+  background:var(--grey);
   color:#fff;
-  padding:14px 28px;
+  padding:14px 30px;
   border-radius:10px;
   font-weight:700;
   text-decoration:none;
 }
-.hero img{
-  max-width:320px;
-  border-radius:16px;
-  box-shadow:0 16px 40px rgba(0,0,0,.1);
-}
 
-/* VALUE GRID */
+/* ================= VALUES ================= */
 .value-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -110,72 +216,28 @@ header{
 }
 .value h3{
   margin:0 0 6px;
-  font-size:17px;
+  font-size:16px;
   font-weight:800;
-  letter-spacing:.4px;
 }
 .value p{
   margin:0;
   line-height:1.55;
 }
 
-/* DESIGN BLOCK */
-.design-block{
-  max-width:720px;
-  margin:0 auto 90px;
-  padding-left:26px;
-  border-left:4px solid var(--acid);
-  line-height:1.6;
-}
-
-/* ACCORDION */
-.accordion{
-  max-width:760px;
-  margin:0 auto 90px;
-}
-.accordion-item{
-  border:2px solid var(--grey);
-  border-radius:16px;
-  overflow:hidden;
-  margin-bottom:12px;
-}
-.accordion-item button{
-  width:100%;
-  padding:16px 20px;
-  background:#fff;
-  border:none;
-  font-weight:700;
-  cursor:pointer;
-  text-align:left;
-}
-.accordion-content{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .3s ease;
-  padding:0 20px;
-}
-.accordion-content p{
-  margin:14px 0;
-  line-height:1.55;
-}
-
-/* GALLERY */
+/* ================= GALLERY ================= */
 .gallery-wrap{
-  max-width:860px;
-  margin:0 auto 120px;
+  max-width:900px;
+  margin:0 auto 100px;
 }
 .gallery-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  padding:14px;
-  border:2px solid var(--blue);
-  border-radius:20px;
+  gap:16px;
 }
 .gallery-item{
-  overflow:hidden;
+  cursor:pointer;
   border-radius:14px;
-  transition:transform .25s ease;
+  overflow:hidden;
 }
 .gallery-item img{
   width:100%;
@@ -184,31 +246,89 @@ header{
   display:block;
 }
 
-/* FOOTER */
+/* ================= MODAL ================= */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:200;
+}
+.modal img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:18px;
+}
+.modal .close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:32px;
+  cursor:pointer;
+  font-weight:700;
+}
+/* ================= ADD TO CART ================= */
+
+.add-cart{
+  background: var(--grey);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.add-cart:hover{
+  background: var(--blue);
+  transform: scale(1.05);
+}
+
+
+/* ================= PAYMENT LOGOS ================= */
+.payment-logos{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin:0 auto 60px;
+}
+.payment-logos img{
+  height:26px;
+  opacity:.8;
+}
+
+/* ================= FOOTER (CLONED) ================= */
 .footer{
   display:flex;
   justify-content:center;
   align-items:center;
   gap:36px;
   padding:40px 12px 80px;
+  color:var(--grey);
   border-top:1px solid #eee;
   flex-wrap:wrap;
   text-align:center;
 }
 
-/* ROTATING LOGO */
-.spin-wrapper{
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
   position:fixed;
-  left:14px; bottom:14px;
-  width:110px; height:110px;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  cursor:pointer;
   animation:spin 18s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .hero,.value-grid{grid-template-columns:1fr;}
+  .product-intro,.value-grid{grid-template-columns:1fr;}
   .gallery-grid{grid-template-columns:1fr 1fr;}
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart{display:none;}
 }
 </style>
 </head>
@@ -217,154 +337,215 @@ header{
 
 <header>
   <nav class="nav">
-    <a href="/">HOME</a>
-    <a href="/shop" class="shop">SHOP</a>
-    <a href="/about">ABOUT</a>
-    <a href="/contact">CONTACT</a>
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="cart">🛒 <span class="count" id="cart-count">0</span></div>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a>  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
 </header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span>CART 🛒</span></a>
+</div>
 
 <main class="product-page">
 
-<section class="hero">
+<section class="product-intro">
   <div>
     <h1>CRT1</h1>
     <p class="claim">
       CRT1 is an artisan contact microphone designed for curious minds.
-      It captures hidden vibration and movement inside materials — including water —
-      revealing sounds that normally remain unheard.
-      A solid entry point into the world of contact microphones and experimental listening.
+      It captures vibration hidden inside solid objects and liquids,
+      revealing sound where microphones normally fail.
     </p>
-    <div class="meta">
-      <span class="price">42 EUR</span>
-      <a href="#" class="add-btn" onclick="addToCart()">ADD TO CART</a>
-    </div>
-  </div>
-  <img src="https://lh3.googleusercontent.com/d/1vVP_ZMFRI7nHlLeWpX5rtQVGN6UH9OV7">
+
+    <section class="accordion">
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
+        <div class="accordion-content">
+          <p>
+            Contact microphone · Mono TS 6.3 mm output<br>
+            Submersible & waterproof · 3D-printed enclosure
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
+        <div class="accordion-content">
+          <p>
+            CRT1 contact microphone<br>
+            1.5 m instrument cable
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(2)">USE CASES</button>
+        <div class="accordion-content">
+          <p>
+            Object resonance · Underwater sound · Experimental music · Sound design
+          </p>
+        </div>
+      </div>
+    </section>
+
+ <div class="meta">
+  <span class="price">42 EUR</span>
+  <div class="add-cart" onclick="addToCart({
+    id:'crt1',
+    name:'CRT1',
+    price:4200
+  })">Add to cart</div>
+</div>
+
+  <img class="hero-img" src="https://lh3.googleusercontent.com/d/1vVP_ZMFRI7nHlLeWpX5rtQVGN6UH9OV7">
 </section>
 
 <section class="value-grid">
-  <div class="value">
-    <h3>CAPTURE THE UNSEEN</h3>
-    <p>Reveals vibration and movement inside solid objects and liquids.</p>
-  </div>
-  <div class="value">
-    <h3>DESIGNED FOR EXPERIMENTATION</h3>
-    <p>Ideal for sound exploration, sampling, and creative discovery.</p>
-  </div>
-  <div class="value">
-    <h3>PLUG & LISTEN</h3>
-    <p>Connect directly to recording devices or instrument inputs.</p>
-  </div>
-</section>
-
-<section class="design-block">
-  CRT1 is intentionally simple, robust, and expressive.
-  Built for hands-on exploration, it encourages direct interaction with surfaces,
-  structures, and environments — above technical complexity.
-</section>
-
-<section class="accordion">
-
-  <div class="accordion-item">
-    <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
-    <div class="accordion-content">
-      <p>
-        Contact microphone · Mono TS 6.3 mm output<br>
-        Submersible & waterproof<br>
-        3D-printed PLA enclosure
-      </p>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
-    <div class="accordion-content">
-      <p>
-        CRT1 contact microphone<br>
-        1.5 m instrument cable (6.3 mm TS)
-      </p>
-    </div>
-  </div>
-
-  <div class="accordion-item">
-    <button onclick="toggleAccordion(2)">USE CASES</button>
-    <div class="accordion-content">
-      <p>
-        Field recording · Object resonance · Underwater sound exploration ·
-        Experimental music · Sound design
-      </p>
-    </div>
-  </div>
-
+  <div class="value"><h3>CAPTURE THE UNSEEN</h3><p>Internal vibration, not air pressure.</p></div>
+  <div class="value"><h3>BUILT TO EXPLORE</h3><p>Hands-on, robust, and intuitive.</p></div>
+  <div class="value"><h3>PLUG & LISTEN</h3><p>No preamp required.</p></div>
 </section>
 
 <section class="gallery-wrap">
-  <div class="gallery-grid" id="gallery">
+  <div class="gallery-grid">
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1RpWXUpEaco4-IhAjVSTZp64nUGaLDKFX"></div>
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/17FoF5mn4nfhh8AdgXDzz9aKy9wGzuZ09"></div>
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/15UHkmSlRga9G5I3ClCiMzvN8_Od5XnwA"></div>
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1tviUfc0vuN5YhXglGlh9PDL-0MIK0v9j"></div>
-    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/118k--rqEWDF2Ha4-VzfhF93CsgVwQsGI"></div>
   </div>
 </section>
+
+<div class="payment-logos">
+<a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
+    <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
+    <a href="http://paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2"></a>
+</div>
 
 </main>
 
 <section class="footer">
-  <div>
+  <div style="line-height:1.6;">
     © ATOMAT LAB — tools that listen<br>
     <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
       contact@atomatlab.com
     </a>
   </div>
-  <div style="width:1px;height:60px;background:#d4d4d4;"></div>
-  <div>
-    <a href="/terms-of-service">Terms</a><br>
-    <a href="/privacy-policy">Privacy</a><br>
-    <a href="/refund-policy">Refunds</a>
+  <div style="width:1px;height:60px;background:#d4d4d4;opacity:.8;"></div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
+       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
+    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
   </div>
 </section>
 
-<a href="https://atomatlab.com" class="spin-wrapper">
-  <img src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" style="width:100%">
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
 </a>
 
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modal-img">
+</div>
+
 <script>
-function addToCart(){
-  const c=document.getElementById('cart-count');
-  c.textContent=Number(c.textContent)+1;
-}
-
 function toggleAccordion(n){
-  const panels=document.querySelectorAll('.accordion-content');
-  panels[n].style.maxHeight =
-    panels[n].style.maxHeight ? null : panels[n].scrollHeight+"px";
+  const p=document.querySelectorAll('.accordion-content');
+  p[n].style.maxHeight=p[n].style.maxHeight?null:p[n].scrollHeight+"px";
 }
 
-/* MAGNIFYING GRID */
-const items=document.querySelectorAll('.gallery-item');
-const gallery=document.getElementById('gallery');
+const modal=document.getElementById('modal');
+const modalImg=document.getElementById('modal-img');
 
-gallery.addEventListener('mousemove',e=>{
-  const rect=gallery.getBoundingClientRect();
-  const mx=e.clientX-rect.left;
-  const my=e.clientY-rect.top;
-
-  items.forEach(item=>{
-    const r=item.getBoundingClientRect();
-    const cx=r.left-rect.left+r.width/2;
-    const cy=r.top-rect.top+r.height/2;
-    const d=Math.hypot(mx-cx,my-cy);
-    const scale=Math.max(.85,1.25-d/300);
-    item.style.transform=`scale(${scale})`;
-  });
+document.querySelectorAll('.gallery-item img').forEach(img=>{
+  img.onclick=()=>{
+    modal.style.display='flex';
+    modalImg.src=img.src;
+  }
 });
 
-gallery.addEventListener('mouseleave',()=>{
-  items.forEach(i=>i.style.transform='scale(1)');
+function closeModal(){
+  modal.style.display='none';
+}
+
+modal.addEventListener('click',e=>{
+  if(e.target===modal) closeModal();
 });
+
+</script>
+
+/* ================= MOBILE NAVIGATION TOGGLE ================= */
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display = 'none';
+});
+
+closeNav.addEventListener('click', e => {
+  navMobile.classList.remove('open');
+  hamburger.style.display = 'flex';
+});
+
+document.addEventListener('click', e => {
+  if(
+    navMobile.classList.contains('open') &&
+    !navMobile.contains(e.target) &&
+    !hamburger.contains(e.target)
+  ){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
+  }
+});
+</script>
+</script>
+
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
 </script>
 
 </body>

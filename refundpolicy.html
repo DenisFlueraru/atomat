@@ -4,188 +4,373 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Refund Policy — ATOMAT LAB</title>
+
 <link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --rust:#cd6c27;
-  --acid:#b6d228;
   --grey:#2f2f2f;
   --bg:#fefefe;
+  --blue:#0000ff;
+  --green:#6eff14;
   --muted:#bdbdbd;
-  --white:#ffffff;
 }
 
-/* Reset */
-*{box-sizing:border-box;}
-html,body{margin:0; background:var(--bg); font-family:'Neue Kaine',sans-serif; color:var(--grey); line-height:1.6;}
+/* RESET */
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:'Neue Kaine',sans-serif;
+  background:var(--bg);
+  color:var(--grey);
+  line-height:1.6;
+}
 
-/* Header */
+/* ================= HEADER ================= */
 header{
-  position:sticky; top:0; z-index:50;
-  background:linear-gradient(to bottom, rgba(255,255,255,0.97), rgba(255,255,255,0.7));
-  padding:18px 22px; border-bottom:1px solid #eee;
-  display:flex; justify-content:center; align-items:center;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(5px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
 }
-.nav{display:flex; gap:28px; align-items:center;}
+.nav{display:flex;gap:36px}
 .nav a{
-  text-decoration:none; color:var(--grey); font-weight:600;
-  letter-spacing:0.6px; padding:6px 8px; position:relative;
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:.25s ease;
+  position:relative;
 }
 .nav a::after{
-  content:''; position:absolute; left:6px; right:6px; bottom:0; height:3px; background:var(--acid);
-  transform:scaleX(0); transform-origin:left; transition:transform .22s cubic-bezier(.2,.9,.3,1);
-  border-radius:4px;
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--blue);
+  transition:width .3s;
 }
-.nav a:hover::after{ transform:scaleX(1); }
-.nav a.shop{ background:var(--rust); color:#fff; border-radius:8px; padding:6px 12px; box-shadow:0 6px 18px rgba(182,210,40,0.18); }
-
-/* cart */
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
 .cart{
-  position:absolute; right:22px; top:16px;
-  display:flex; align-items:center; gap:8px; font-size:20px;
-}
-.cart .count{
-  min-width:22px; height:22px; background:var(--acid); color:#000;
-  font-weight:700; font-size:12px; text-align:center; line-height:22px; border-radius:99px;
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
 }
 
-/* Main content */
-.main-content{
-  max-width:900px; margin:80px auto 60px; padding:0 18px;
+/* MOBILE NAVIGATION */
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
 }
-.main-content h1{ font-size:36px; margin-bottom:24px; }
-.main-content h2{ font-size:24px; margin-top:32px; margin-bottom:12px; color:var(--rust); }
-.main-content p{ margin-bottom:16px; font-size:16px; }
-.main-content ul{ margin-left:20px; margin-bottom:16px; }
+.hamburger:hover {
+  background-color: var(--green);
+  color: var(--blue);
+}
+.nav-mobile {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 240px;
+  height: 100%;
+  background: var(--bg);
+  box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  padding: 60px 20px 20px;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.7px;
+  color: var(--grey);
+  transition: right 0.3s ease;
+  z-index: 59;
+}
+.nav-mobile.open {
+  right: 0;
+}
+#close-nav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 32px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--grey);
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+#close-nav:hover {
+  color: var(--blue);
+}
+.nav-mobile a {
+  text-decoration: none;
+  color: var(--grey);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.nav-mobile a:hover {
+  background-color: var(--green);
+  color: var(--blue);
+}
+.cart.mobile-cart {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  display: none;
+}
 
-/* Footer */
+/* ================= PAGE ================= */
+.policy-page{
+  max-width:900px;
+  margin:80px auto 120px;
+  padding:0 18px;
+}
+.policy-page h1{
+  font-size:42px;
+  margin-bottom:16px;
+}
+.policy-page h2{
+  font-size:22px;
+  margin-top:36px;
+  margin-bottom:10px;
+}
+.policy-page p,
+.policy-page li{
+  font-size:16px;
+  margin-bottom:14px;
+}
+.policy-page ul{
+  padding-left:18px;
+}
+
+/* ================= FOOTER ================= */
 .footer{
-  margin-top:80px; padding:40px 12px 80px;
-  display:flex; justify-content:center; align-items:center; gap:36px; flex-wrap:wrap;
-  text-align:center; border-top:1px solid #eee;
-}
-.footer-divider{
-  width:1px; height:60px; background:#d4d4d4; opacity:0.8;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  color:var(--grey);
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
 }
 
-/* Rotating logo */
-.spin-wrapper{
-  position:fixed; left:14px; bottom:14px; width:120px; height:120px;
-  display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:80;
-  animation:spin360 16s linear infinite;
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  cursor:pointer;
+  animation:spin 18s linear infinite;
 }
-.flip-image{width:100%; height:100%; object-fit:contain; transition:transform .4s;}
-@keyframes spin360 {from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* Responsive */
-@media(max-width:600px){ .main-content h1{font-size:28px;} .spin-wrapper{width:92px; height:92px;} }
+/* RESPONSIVE */
+@media(max-width:700px){
+  .policy-page h1{font-size:32px;}
+  .nav, .cart.desktop-cart {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+@media(min-width:701px){
+  .hamburger {
+    display: none;
+  }
+}
 </style>
 </head>
+
 <body>
 
 <header>
   <nav class="nav">
-    <a href="/">HOME</a>
-    <a href="/shop" class="shop">SHOP</a>
-    <a href="/about">ABOUT</a>
-    <a href="/contact">CONTACT</a>
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="cart">
-    <span>👜</span>
-    <span class="count" id="cart-count">0</span>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
   </div>
+  <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
 
-<main class="main-content">
-  <h1>REFUND POLICY</h1>
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></div>
 
-  <p>We have a <b>14-day return policy</b>, which means you have 14 days after receiving your item to request a return.</p>
+<main class="policy-page">
+  <h1>Refund Policy</h1>
+  <p><b>Last updated:</b> 29/06/2025</p>
 
-  <h2>Eligibility for Return</h2>
+  <p>
+    We offer a <b>14-day return policy</b>. This means you have 14 days after receiving your
+    item to request a return.
+  </p>
+
+  <h2>Eligibility for returns</h2>
   <ul>
-    <li>Your item must be in the same condition you received it: <b>unworn or unused</b>, with tags, and in the original packaging.</li>
-    <li>You must provide <b>proof of purchase</b> (e.g., order confirmation email or receipt).</li>
+    <li>Items must be unused, unworn, with tags, and in original packaging</li>
+    <li>Proof of purchase is required</li>
   </ul>
-  <p>To start a return, please contact us at <b>contact@atomatlab.com</b>. Returns must be sent to the following address only after receiving confirmation from us:</p>
-  <p><b>ATOMAT LAB</b><br>[Insert your return address here]</p>
-  <p>If your return is approved, we’ll send a <b>return shipping label</b> and instructions. Items sent back without requesting a return will not be accepted.</p>
-  <p>You can always contact us at <b>contact@atomatlab.com</b> with any return questions.</p>
 
-  <h2>Damages and Issues</h2>
-  <p>Please inspect your order upon delivery and contact us immediately if:</p>
-  <ul>
-    <li>Your item is <b>defective</b> or <b>damaged</b></li>
-    <li>You received the <b>wrong item</b></li>
-  </ul>
-  <p>We will assess the issue and work to resolve it as quickly as possible.</p>
+  <p>
+    To initiate a return, contact us at <b>contact@atomatlab.com</b>.
+    Returns sent without approval will not be accepted.
+  </p>
 
-  <h2>Exceptions / Non-returnable Items</h2>
-  <p>Certain items are <b>non-returnable</b>, including:</p>
+  <h2>Damages and issues</h2>
+  <p>
+    Please inspect your order upon delivery. If your item is defective,
+    damaged, or incorrect, contact us immediately so we can resolve the issue.
+  </p>
+
+  <h2>Non-returnable items</h2>
   <ul>
-    <li>Perishable goods (e.g., food, plants)</li>
-    <li>Custom products (e.g., special orders or personalized items)</li>
-    <li>Personal care items (e.g., beauty products)</li>
-    <li>Hazardous materials, flammable liquids, or gases</li>
+    <li>Custom or personalized items</li>
+    <li>Personal care products</li>
     <li>Sale items and gift cards</li>
+    <li>Hazardous or flammable materials</li>
   </ul>
-  <p>If you have questions about eligibility, please contact us before initiating a return.</p>
 
   <h2>Exchanges</h2>
-  <p>The quickest way to get what you want is to return the item you have. Once the return is accepted, you can make a new purchase for the replacement item.</p>
+  <p>
+    The fastest way to receive a replacement is to return your item and place a new order.
+  </p>
 
-  <h2>European Union 14-Day Cooling Off Period</h2>
-  <p>If your order is shipped to the <b>European Union</b>, you have the right to cancel or return your order within 14 days of delivery for any reason without justification. The item must still be in the same condition—<b>unworn, unused, with tags, and in original packaging</b>—and include proof of purchase.</p>
+  <h2>EU 14-day cooling-off period</h2>
+  <p>
+    Customers in the European Union may cancel or return their order within
+    14 days of delivery without justification, provided the item remains unused
+    and in original condition.
+  </p>
 
   <h2>Refunds</h2>
-  <p>Once we receive and inspect your return, we will notify you whether your <b>refund</b> has been approved. If approved, your refund will be issued to your original payment method within <b>10 business days</b>. Processing by your bank or credit card provider may take additional time.</p>
-  <p>If more than <b>15 business days</b> have passed since your refund was approved and you haven’t received it, please contact us at <b>contact@atomatlab.com</b>.</p>
+  <p>
+    Once your return is inspected and approved, refunds are processed to your
+    original payment method within 10 business days.
+  </p>
+  <p>
+    If you have not received your refund after 15 business days, please contact us.
+  </p>
 
+  <p>
+    ATOMAT LAB SRL<br>
+    Bucharest, Romania
+  </p>
 </main>
 
-<!-- Footer -->
 <section class="footer">
-  <div>
+  <div style="line-height:1.6;">
     © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">contact@atomatlab.com</a>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
+      contact@atomatlab.com
+    </a>
   </div>
-  <div class="footer-divider"></div>
-  <div style="display:flex; flex-direction:column; gap:6px;">
-    <a href="/terms-of-service" style="color:var(--grey); text-decoration:none; font-weight:600;">Terms of Service</a>
-    <a href="/privacy-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">Privacy Policy</a>
-    <a href="/refund-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">Refund Policy</a>
+  <div style="width:1px;height:60px;background:#d4d4d4;opacity:.8;"></div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
+    <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
+    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
   </div>
 </section>
 
-<!-- Rotating logo -->
-<a href="/" class="spin-wrapper">
-  <img id="rotating-logo" class="flip-image" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
 </a>
 
 <script>
-/* rotate + flip logo */
-(function(){
-  const logo = document.getElementById('rotating-logo');
-  const imgs = [
-    'https://lh3.googleusercontent.com/d/1KlB2RLVsabxJ-HLGBKaCUKha6qPRdliK',
-    'https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd'
-  ];
-  imgs.forEach(u=>{ const i=new Image(); i.src=u; });
-  let i=0;
-  setInterval(()=>{
-    logo.style.transform='scaleX(0)';
-    setTimeout(()=>{
-      i=(i+1)%imgs.length;
-      logo.src=imgs[i];
-      logo.style.transform='scaleX(1)';
-    },260);
-  },3000);
-})();
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('navMobile');
+  const closeNav = document.getElementById('close-nav');
+  const hamburgerSymbol = document.getElementById('hamburger-symbol');
 
-/* Cart count */
-function addToCart(){
-  const el=document.getElementById('cart-count');
-  el.textContent = Number(el.textContent)+1;
+  hamburger.addEventListener('click', () => {
+    navMobile.classList.add('open');
+    hamburgerSymbol.style.display = 'none';
+  });
+
+  closeNav.addEventListener('click', () => {
+    navMobile.classList.remove('open');
+    hamburgerSymbol.style.display = 'inline';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navMobile.contains(e.target) && !hamburger.contains(e.target)) {
+      navMobile.classList.remove('open');
+      hamburgerSymbol.style.display = 'inline';
+    }
+  });
+</script>
+
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
 }
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
 </script>
 
 </body>

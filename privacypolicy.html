@@ -4,184 +4,356 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Privacy Policy — ATOMAT LAB</title>
+
 <link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --rust:#cd6c27;
-  --acid:#b6d228;
   --grey:#2f2f2f;
   --bg:#fefefe;
+  --blue:#0000ff;
+  --green:#6eff14;
   --muted:#bdbdbd;
-  --white:#ffffff;
 }
 
-/* Reset */
-*{box-sizing:border-box;}
-html,body{margin:0; background:var(--bg); font-family:'Neue Kaine',sans-serif; color:var(--grey); line-height:1.6;}
+/* RESET */
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:'Neue Kaine',sans-serif;
+  background:var(--bg);
+  color:var(--grey);
+  line-height:1.6;
+}
 
-/* Header */
+/* ================= HEADER (CLONED) ================= */
 header{
-  position:sticky; top:0; z-index:50;
-  background:linear-gradient(to bottom, rgba(255,255,255,0.97), rgba(255,255,255,0.7));
-  padding:18px 22px; border-bottom:1px solid #eee;
-  display:flex; justify-content:center; align-items:center;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(5px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
 }
-.nav{display:flex; gap:28px; align-items:center;}
+.nav{display:flex;gap:36px}
 .nav a{
-  text-decoration:none; color:var(--grey); font-weight:600;
-  letter-spacing:0.6px; padding:6px 8px; position:relative;
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:.25s ease;
+  position:relative;
 }
 .nav a::after{
-  content:''; position:absolute; left:6px; right:6px; bottom:0; height:3px; background:var(--acid);
-  transform:scaleX(0); transform-origin:left; transition:transform .22s cubic-bezier(.2,.9,.3,1);
-  border-radius:4px;
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--blue);
+  transition:width .3s;
 }
-.nav a:hover::after{ transform:scaleX(1); }
-.nav a.shop{ background:var(--rust); color:#fff; border-radius:8px; padding:6px 12px; box-shadow:0 6px 18px rgba(182,210,40,0.18); }
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
 
-/* cart */
 .cart{
-  position:absolute; right:22px; top:16px;
-  display:flex; align-items:center; gap:8px; font-size:20px;
-}
-.cart .count{
-  min-width:22px; height:22px; background:var(--acid); color:#000;
-  font-weight:700; font-size:12px; text-align:center; line-height:22px; border-radius:99px;
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
 }
 
-/* Main content */
-.main-content{
-  max-width:900px; margin:80px auto 60px; padding:0 18px;
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
 }
-.main-content h1{ font-size:36px; margin-bottom:24px; }
-.main-content h2{ font-size:24px; margin-top:32px; margin-bottom:12px; color:var(--rust); }
-.main-content p{ margin-bottom:16px; font-size:16px; }
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{ transform:translateY(0); }
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+.cart.desktop-cart{
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
+}
+@media(max-width:700px){
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart.desktop-cart{display:none;}
+}
 
-/* Footer */
+/* ================= PAGE ================= */
+.policy-page{
+  max-width:900px;
+  margin:80px auto 120px;
+  padding:0 18px;
+}
+.policy-page h1{
+  font-size:42px;
+  margin-bottom:32px;
+}
+.policy-page h2{
+  font-size:22px;
+  margin-top:36px;
+  margin-bottom:10px;
+}
+.policy-page p,
+.policy-page li{
+  font-size:16px;
+  margin-bottom:14px;
+}
+.policy-page ul{
+  padding-left:18px;
+}
+
+/* ================= FOOTER (CLONED) ================= */
 .footer{
-  margin-top:80px; padding:40px 12px 80px;
-  display:flex; justify-content:center; align-items:center; gap:36px; flex-wrap:wrap;
-  text-align:center; border-top:1px solid #eee;
-}
-.footer-divider{
-  width:1px; height:60px; background:#d4d4d4; opacity:0.8;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  color:var(--grey);
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
 }
 
-/* Rotating logo */
-.spin-wrapper{
-  position:fixed; left:14px; bottom:14px; width:120px; height:120px;
-  display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:80;
-  animation:spin360 16s linear infinite;
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  cursor:pointer;
+  animation:spin 18s linear infinite;
 }
-.flip-image{width:100%; height:100%; object-fit:contain; transition:transform .4s;}
-@keyframes spin360 {from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* Responsive */
-@media(max-width:600px){ .main-content h1{font-size:28px;} .spin-wrapper{width:92px; height:92px;} }
+/* RESPONSIVE */
+@media(max-width:700px){
+  .policy-page h1{font-size:32px;}
+}
 </style>
 </head>
+
 <body>
 
 <header>
   <nav class="nav">
-    <a href="/">HOME</a>
-    <a href="/shop" class="shop">SHOP</a>
-    <a href="/about">ABOUT</a>
-    <a href="/contact">CONTACT</a>
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
   </nav>
-  <div class="cart">
-    <span>👜</span>
-    <span class="count" id="cart-count">0</span>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
   </div>
+  <div class="cart desktop-cart" title="Cart">🛒</div>
 </header>
 
-<main class="main-content">
-  <h1>PRIVACY POLICY</h1>
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></div>
 
-  <h2>PERSONAL INFORMATION WE COLLECT</h2>
-  <p>When you visit the Site, we automatically collect certain information about your <b>device</b>, including your web browser, <b>IP address</b>, time zone, and some cookies installed on your device. As you browse, we collect information about the pages or products you view, the websites or search terms that referred you, and your interactions with the Site. We call this <b>Device Information</b>.</p>
-  <p>We collect Device Information using the following technologies:</p>
+<main class="policy-page">
+  <h1>Privacy Policy</h1>
+
+  <h2>Personal information we collect</h2>
+  <p>
+    When you visit the Site, we automatically collect certain information about your device,
+    including your web browser, IP address, time zone, and some cookies installed on your device.
+    As you browse, we collect information about the pages or products you view and how you interact
+    with the Site.
+  </p>
+
   <ul>
-    <li><b>Cookies</b> – data files placed on your device or computer, often including an anonymous unique identifier. More info: <a href="http://www.allaboutcookies.org" target="_blank">allaboutcookies.org</a>.</li>
-    <li><b>Log files</b> – track actions on the Site and collect data including IP address, browser type, ISP, referring/exit pages, and timestamps.</li>
-    <li><b>Web beacons, tags, and pixels</b> – electronic files used to record how you browse the Site.</li>
+    <li><b>Cookies</b> — data files placed on your device or computer.</li>
+    <li><b>Log files</b> — track actions occurring on the Site.</li>
+    <li><b>Web beacons, tags, and pixels</b> — used to record browsing behavior.</li>
   </ul>
-  <p>When you make a purchase, we collect <b>Order Information</b> including your name, billing and shipping address, payment info, email, and phone number. “<b>Personal Information</b>” refers to both Device and Order Information.</p>
 
-  <h2>HOW DO WE USE YOUR PERSONAL INFORMATION?</h2>
-  <p>We use <b>Order Information</b> to fulfill orders (payment, shipping, invoices), communicate with you, screen for risk/fraud, and provide information or advertising about our products when aligned with your preferences.</p>
-  <p><b>Device Information</b> is used to screen for potential risk and fraud, improve and optimize our Site, and analyze browsing behavior and marketing effectiveness.</p>
+  <p>
+    When you make a purchase, we collect Order Information including your name, billing address,
+    shipping address, payment information, email address, and phone number.
+  </p>
 
-  <h2>SHARING YOUR PERSONAL INFORMATION</h2>
-  <p>We share Personal Information with third parties to help us use it as described above:</p>
-  <ul>
-    <li>We use <b>Shopify</b> to power our store. Learn more: <a href="https://www.shopify.com/legal/privacy" target="_blank">Shopify Privacy Policy</a>.</li>
-    <li>We use <b>Google Analytics</b> to understand customer behavior. Info: <a href="https://www.google.com/intl/en/policies/privacy/" target="_blank">Google Privacy Policy</a>. To opt out: <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google Analytics Opt-out</a>.</li>
-  </ul>
-  <p>We may also share Personal Information to comply with laws, legal requests, or protect our rights. To opt out of certain services: <a href="http://optout.aboutads.info/" target="_blank">Digital Advertising Alliance</a>.</p>
+  <h2>How do we use your personal information?</h2>
+  <p>
+    We use Order Information to fulfill orders, process payments, arrange shipping,
+    and communicate with you.
+  </p>
+  <p>
+    Device Information helps us screen for risk and fraud, improve our Site,
+    and analyze how customers browse and interact.
+  </p>
 
-  <h2>DO NOT TRACK</h2>
-  <p>We do not alter data collection when detecting a <b>Do Not Track</b> signal from your browser.</p>
+  <h2>Sharing your personal information</h2>
+  <p>
+    We share your Personal Information with third parties to help us use it as described above,
+    including payment providers and analytics services.
+  </p>
 
-  <h2>YOUR RIGHTS (EUROPEAN RESIDENTS)</h2>
-  <p>If you are a European resident, you have the right to access the personal information we hold and request correction, updates, or deletion. This information may be transferred outside Europe, including Canada and the US.</p>
+  <h2>Do not track</h2>
+  <p>
+    We do not alter our Site’s data collection practices when we see a Do Not Track signal
+    from your browser.
+  </p>
 
-  <h2>DATA RETENTION</h2>
-  <p>We retain your <b>Order Information</b> for our records unless and until you request deletion.</p>
+  <h2>Your rights</h2>
+  <p>
+    If you are a European resident, you have the right to access, correct, update,
+    or delete personal information we hold about you.
+  </p>
 
-  <h2>CHANGES</h2>
-  <p>We may update this Privacy Policy to reflect changes in our practices or for legal reasons.</p>
+  <h2>Data retention</h2>
+  <p>
+    We retain Order Information for our records unless and until you ask us to delete it.
+  </p>
 
-  <h2>CONTACT US</h2>
-  <p>For questions about our privacy practices, contact us via email at <b>contact@atomatlab.com</b>.</p>
-  <p>ATOMAT LAB</p>
+  <h2>Changes</h2>
+  <p>
+    We may update this privacy policy from time to time to reflect changes to our practices
+    or for legal reasons.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    For more information about our privacy practices, contact us at
+    <b>contact@atomatlab.com</b>.
+  </p>
 </main>
 
-<!-- Footer -->
 <section class="footer">
-  <div>
+  <div style="line-height:1.6;">
     © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">contact@atomatlab.com</a>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
+      contact@atomatlab.com
+    </a>
   </div>
-  <div class="footer-divider"></div>
-  <div style="display:flex; flex-direction:column; gap:6px;">
-    <a href="/terms-of-service" style="color:var(--grey); text-decoration:none; font-weight:600;">Terms of Service</a>
-    <a href="/privacy-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">Privacy Policy</a>
-    <a href="/refund-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">Refund Policy</a>
-  </div>
+  <div style="width:1px;height:60px;background:#d4d4d4;opacity:.8;"></div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
+       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
+    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
 </section>
 
-<!-- Rotating logo -->
-<a href="/" class="spin-wrapper">
-  <img id="rotating-logo" class="flip-image" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
 </a>
 
+</body>
 <script>
-/* rotate + flip logo */
-(function(){
-  const logo = document.getElementById('rotating-logo');
-  const imgs = [
-    'https://lh3.googleusercontent.com/d/1KlB2RLVsabxJ-HLGBKaCUKha6qPRdliK',
-    'https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd'
-  ];
-  imgs.forEach(u=>{ const i=new Image(); i.src=u; });
-  let i=0;
-  setInterval(()=>{
-    logo.style.transform='scaleX(0)';
-    setTimeout(()=>{
-      i=(i+1)%imgs.length;
-      logo.src=imgs[i];
-      logo.style.transform='scaleX(1)';
-    },260);
-  },3000);
-})();
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
 
-/* Cart count */
-function addToCart(){
-  const el=document.getElementById('cart-count');
-  el.textContent = Number(el.textContent)+1;
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display = 'none';
+});
+
+closeNav.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  hamburger.style.display = 'flex';
+});
+
+document.addEventListener('click', e => {
+  if(navMobile.classList.contains('open') && !navMobile.contains(e.target)){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
+  }
+});
+</script>
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
 }
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
 </script>
 
-</body>
 </html>

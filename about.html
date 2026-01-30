@@ -1,194 +1,187 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ATOMAT LAB — About</title>
 
-<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@400,500,700&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --rust:#cd6c27;
-    --acid:#b6d228;
-    --grey:#2f2f2f;
-    --bg:#fefefe;
-  }
+:root{
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --blue:#0000ff;
+  --green:#6eff14;
+  --offwhite:#f3f3f1;
+}
 
-  html,body{
-    height:100%; margin:0;
-    font-family:'Neue Kaine',sans-serif;
-    background:var(--bg); color:var(--grey);
-  }
+/* RESET */
+*{box-sizing:border-box}
+html,body{margin:0;font-family:'Neue Kaine',sans-serif;background:var(--bg);color:var(--grey);}
 
-  /* Header */
-  header{
-    position:sticky; top:0; z-index:40;
-    background:linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0.5));
-    display:flex; align-items:center; justify-content:center;
-    padding:18px 18px;
-    border-bottom:1px solid #eee;
-  }
+/* ================= HEADER ================= */
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(5px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+  position: relative;
+}
+.nav{display:flex;gap:36px}
+.nav a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition: all .25s ease;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--blue);
+  transition:width .3s;
+}
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
 
-  .nav{
-    display:flex; gap:28px; align-items:center;
-  }
+/* CART */
+.cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer}
 
-  .nav a{
-    text-decoration:none;
-    color:var(--grey);
-    font-weight:600;
-    letter-spacing:0.6px;
-    position:relative;
-    padding:4px 10px;
-    border-radius:6px;
-  }
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{transform:translateY(0);}
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
 
-  /* Green underline */
-  .nav a:not(.active):hover::after{
-    content:"";
-    position:absolute;
-    left:0; bottom:0;
-    width:100%; height:2px;
-    background:var(--acid);
-    border-radius:1px;
-    transform:scaleX(0);
-    transform-origin:left;
-    animation:underline 0.3s forwards;
-  }
-  @keyframes underline { to { transform:scaleX(1); } }
+/* ================= HERO ================= */
+.hero{
+  display:flex;
+  justify-content:center;
+  padding:40px 20px 80px;
+  text-align:center;
+}
+.hero-title{
+  font-size:32px;
+  font-weight:700;
+  max-width:800px;
+  margin-bottom:20px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.hero-sub{
+  font-size:18px;
+  max-width:700px;
+  color:#555;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease .3s, transform .8s ease .3s;
+}
 
-  /* Active (ABOUT) highlight */
-  .nav a.active{
-    background: var(--rust);
-    color:white;
-    box-shadow:0 0 10px var(--acid);
-  }
+/* ================= ABOUT SECTIONS ================= */
+.about-section{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:40px;
+  padding:80px 20px;
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.about-section.active{
+  opacity:1;
+  transform:translateY(0);
+}
+.about-text{
+  flex:1 1 300px;
+  max-width:520px;
+}
+.about-text p{
+  margin-bottom:16px;
+  line-height:1.55;
+  font-size:16px;
+}
+.about-image{
+  flex:1 1 300px;
+  max-width:400px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  transition:transform .3s ease;
+}
+.about-image img{
+  width:100%;
+  height:auto;
+  object-fit:cover;
+}
+.about-image:hover{
+  transform:scale(1.02) rotate(0.2deg);
+}
 
-  .cart{
-    position:absolute; right:22px; top:18px;
-    font-size:22px;
-  }
-
-  /* Hero */
-  .hero{
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    padding:30px 18px 20px;
-    text-align:center;
-  }
-  .hero-sub{
-    font-size:17px; color:#444;
-    max-width:720px; margin:auto;
-  }
-
-  /* About sections */
-  .about-section{
-    display:flex; flex-wrap:wrap;
-    align-items:center; justify-content:center;
-    gap:36px; padding:48px 18px;
-  }
-
-  .about-text{ max-width:520px; flex:1 1 300px; }
-  .about-text p{ margin-bottom:16px; line-height:1.55; }
-
-  .about-image{
-    flex:1 1 300px;
-    border-radius:12px;
-    overflow:hidden;
-    max-width:400px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-  }
-  .about-image img{ width:100%; display:block; object-fit:cover; }
-
-  /* Footer */
-  footer{
-    text-align:center;
-    padding:28px 12px;
-    color:var(--grey);
-    border-top:1px solid #eee;
-    margin-top:40px;
-  }
-
-  .legal-links{
-    margin-top:18px;
-    font-size:14px;
-    display:flex; flex-direction:column;
-    gap:6px;
-  }
-
-  /* Rotating Logo */
-  .spin-wrapper {
-    position: fixed;
-    left:14px; bottom:14px;
-    width:110px; height:110px;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
-    z-index:50;
-  }
-  .flip-image{
-    width:100%; height:100%;
-    object-fit:contain;
-    transition: transform .6s ease;
-  }
-  @keyframes spin360 { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
-  .spin-wrapper.spin360{ animation:spin360 18s linear infinite; }
-
-  @media (max-width:900px){
-    .about-section{ flex-direction:column; gap:24px; }
-    .about-image{ max-width:80%; }
-  }
-</style>
-</head>
-
-<body>
-
-<header>
-  <nav class="nav">
-    <a href="/">HOME</a>
-    <a href="/shop">SHOP</a>
-    <a href="/about" class="active">ABOUT</a>
-    <a href="/contact">CONTACT</a>
-  </nav>
-
-  <div class="cart">🛒</div>
-</header>
-
-<main>
-
-<section class="hero">
-  <div class="hero-sub">
-    ATOMAT LAB started in 2021 while exploring ways to capture the physical textures of surfaces — leading to the TRT and the discovery of a world shaped by vibration and electromagnetism.
-  </div>
-</section>
-
-<!-- TRT -->
-<section class="about-section">
-  <div class="about-text">
-    <p>The TRT (Texture Recording Tool) emerged from dissertation research, designed to reveal subtle physical textures through sound. This became the foundation for designing handmade tools for sound designers and experimental artists.</p>
-  </div>
-
-  <div class="about-image">
-    <img src="https://lh3.googleusercontent.com/d/19nRxk-ssUPjzFEVBlKpCqgUwSRsR0V_J" alt="TRT device">
-  </div>
-</section>
-
-<!-- FIELD5 -->
-<section class="about-section">
-  <div class="about-image">
-    <img src="https://lh3.googleusercontent.com/d/1-WcoXcHdqR1JuH2Sp8L8ICjGPr6HliKy" alt="Field5 device">
-  </div>
-
-  <div class="about-text">
-    <p>The FIELD5 is a phantom-powered submersible contact microphone with a custom PCB and a growing system of mounting accessories — built by a sound designer for the sound community.</p>
-    <p>ATOMAT LAB also offers workshops where participants learn to build microphones, gather field textures, and create collaborative audio pieces. Learn more at <a href="https://denisflueraru.com" target="_blank">denisflueraru.com</a>.</p>
-  </div>
-</section>
-
-</main>
-
-<!-- Footer with centered layout + vertical divider -->
-<section class="footer" aria-label="Footer" style="
+/* ================= FOOTER ================= */
+.footer{
   display:flex;
   justify-content:center;
   align-items:center;
@@ -198,68 +191,192 @@
   border-top:1px solid #eee;
   flex-wrap:wrap;
   text-align:center;
-">
+}
 
-  <!-- Left block -->
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  cursor:pointer;
+  animation:spin 18s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+  .mobile-nav-toggle {
+    display: none;
+  }
+  .cart {
+    display: none;
+  }
+}
+@media(max-width:700px){
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html" class="active">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html" class="active">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span>CART 🛒</span></a>
+</div>
+
+<main>
+
+<section class="hero">
+  <div class="hero-title">ATOMAT LAB — Tools that listen</div>
+  <div class="hero-sub">Founded in 2021, ATOMAT LAB explores the subtle textures of sound, vibration, and electromagnetism. Every tool is handcrafted with functional simplicity and timeless aesthetics.</div>
+</section>
+
+<section class="about-section">
+  <div class="about-text">
+    <p><strong>TRT — Texture Recording Tool:</strong> Developed from experimental research, it captures the physical textures of surfaces and transforms them into sound.</p>
+    <p>It’s the foundation for our handmade audio tools used by sound designers and experimental artists worldwide.</p>
+  </div>
+  <div class="about-image">
+    <img src="https://lh3.googleusercontent.com/d/19nRxk-ssUPjzFEVBlKpCqgUwSRsR0V_J" alt="TRT device">
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-image">
+    <img src="https://lh3.googleusercontent.com/d/1-WcoXcHdqR1JuH2Sp8L8ICjGPr6HliKy" alt="FIELD5 device">
+  </div>
+  <div class="about-text">
+    <p><strong>FIELD5 — Phantom-powered contact microphone:</strong> Modular and versatile, designed for immersive field recordings and experimental setups.</p>
+    <p>We also run workshops to build microphones, explore field textures, and create collaborative audio pieces. Learn more at <a href="https://denisflueraru.com" target="_blank">denisflueraru.com</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<section class="footer" aria-label="Footer">
   <div style="line-height:1.6;">
     © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">
-      contact@atomatlab.com
-    </a>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">contact@atomatlab.com</a>
   </div>
-
-  <!-- vertical divider -->
-  <div style="
-    width:1px;
-    height:60px;
-    background:#d4d4d4;
-    opacity:0.8;
-  "></div>
-
-  <!-- Right block -->
-  <div style="
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    font-size:15px;
-  ">
-    <a href="/terms-of-service" style="color:var(--grey); text-decoration:none; font-weight:600;">
-      Terms of Service
-    </a>
-    <a href="/privacy-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">
-      Privacy Policy
-    </a>
-    <a href="/refund-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">
-      Refund Policy
-    </a>
+  <div style="width:1px;height:60px;background:#d4d4d4;opacity:0.8;"></div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
+      <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
+    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
   </div>
-
 </section>
-<!-- Rotating Logo -->
-<a href="https://atomatlab.com" target="_blank" class="spin-wrapper spin360">
-  <img id="rotating-logo" class="flip-image"
-       src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
-       alt="AtomatLab logo">
+
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
 </a>
 
 <script>
-(function(){
-  const rotatingLogo = document.getElementById('rotating-logo');
+// Simple scroll-triggered unveiling
+const heroTitle = document.querySelector('.hero-title');
+const heroSub = document.querySelector('.hero-sub');
+const sections = document.querySelectorAll('.about-section');
 
-  const imgs = [
-    "https://lh3.googleusercontent.com/d/1KlB2RLVsabxJ-HLGBKaCUKha6qPRdliK",
-    "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"
-  ];
+const options = {threshold: 0.2};
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+}, options);
 
-  imgs.forEach(src => { const i = new Image(); i.src = src; });
+sections.forEach(sec => observer.observe(sec));
 
-  let index = 0;
-  setInterval(() => {
-    index = (index + 1) % imgs.length;
-    rotatingLogo.classList.toggle("flipped");
-    setTimeout(() => rotatingLogo.src = imgs[index], 260);
-  }, 3000);
-})();
+// fade in hero on load
+window.addEventListener('load', ()=>{
+  heroTitle.style.opacity = 1;
+  heroTitle.style.transform = 'translateY(0)';
+  heroSub.style.opacity = 1;
+  heroSub.style.transform = 'translateY(0)';
+});
+
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display = 'none';
+});
+
+closeNav.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  hamburger.style.display = 'flex';
+});
+
+document.addEventListener('click', e => {
+  if(navMobile.classList.contains('open') &&
+     !navMobile.contains(e.target) &&
+     !hamburger.contains(e.target)){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
+  }
+});
+</script>
+
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
 </script>
 
 </body>

@@ -4,146 +4,197 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Contact - ATOMAT LAB</title>
+
 <link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --rust:#cd6c27;
-  --acid:#b6d228;
   --grey:#2f2f2f;
   --bg:#fefefe;
-  --muted:#bdbdbd;
-  --white:#ffffff;
+  --blue:#0000ff;
+  --green:#6eff14;
+  --offwhite:#f3f3f1;
 }
 
-/* Reset & base */
+/* RESET */
 *{box-sizing:border-box}
-html,body{height:100%; margin:0; font-family:'Neue Kaine',sans-serif; background:var(--bg); color:var(--grey)}
+html,body{margin:0;font-family:'Neue Kaine',sans-serif;background:var(--bg);color:var(--grey);}
 
-/* Header */
+/* ================= HEADER ================= */
 header{
-  position:sticky; top:0; z-index:60;
-  background:linear-gradient(to bottom, rgba(255,255,255,0.96), rgba(255,255,255,0.7));
-  display:flex; align-items:center; justify-content:center;
-  padding:18px 22px; border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(5px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
 }
-.nav { display:flex; gap:28px; align-items:center; }
+.nav{display:flex;gap:36px}
 .nav a{
-  text-decoration:none; color:var(--grey); font-weight:600; letter-spacing:0.6px; position:relative; padding:6px 8px;
-  transition: color .18s ease;
-}
-/* green underline on hover */
-.nav a::after{
-  content:''; position:absolute; left:6px; right:6px; bottom:0; height:3px; background:var(--acid);
-  transform-origin:left center; transform:scaleX(0); transition:transform .22s cubic-bezier(.2,.9,.3,1);
-  border-radius:4px;
-}
-.nav a:hover{ color:var(--rust); }
-.nav a:hover::after{ transform:scaleX(1); }
-
-/* highlight CONTACT with brown rounded rectangle + green shadow */
-.nav a.contact{
-  background:var(--rust); color: #fff; border-radius:8px; padding:8px 12px;
-  box-shadow: 0 6px 18px rgba(182,210,40,0.18), 0 2px 6px rgba(0,0,0,0.08);
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition: all .25s ease;
   position:relative;
 }
-/* subtle green halo behind the brown pill */
-.nav a.contact::before{
-  content:''; position:absolute; left:-6px; right:-6px; top:-6px; bottom:-6px; z-index:-1;
-  background:transparent; border-radius:10px; box-shadow: 0 8px 30px rgba(182,210,40,0.18);
-  pointer-events:none;
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--blue);
+  transition:width .3s;
+}
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
+
+/* CART */
+.cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer}
+
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{ transform:translateY(0); }
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
 }
 
-/* cart icon (top-right) */
-.cart {
-  position:absolute; right:18px; top:14px; display:flex; align-items:center; gap:8px; font-size:20px; z-index:70;
+/* ================= HERO ================= */
+.hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:80px 20px 40px;
 }
-.cart .icon{ font-size:20px; }
-.cart .count {
-  min-width:22px; height:22px; line-height:22px; border-radius:99px; background:var(--acid); color:#000; font-weight:700;
-  text-align:center; font-size:12px; box-shadow:0 4px 14px rgba(182,210,40,0.22);
+.hero-title{
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:16px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.hero-sub{
+  font-size:18px;
+  max-width:600px;
+  color:#555;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease .3s, transform .8s ease .3s;
 }
 
-/* Contact folder style */
-.contact-folder {
-  max-width:780px;
-  margin:120px auto 40px;
-  padding:28px 34px;
-  border:4px solid var(--rust);
-  border-radius:10px;
-  background:var(--white);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.06), 0 0 40px rgba(182,210,40,0.06);
+/* ================= CONTACT CARD ================= */
+.contact-section{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  max-width:400px;
+  margin:60px auto 120px;
+  gap:24px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease, transform .8s ease;
 }
-.contact-folder h2{
-  font-size:22px; margin:0 0 14px 0; font-weight:800; color:var(--grey);
-  border-bottom:2px dashed var(--rust); padding-bottom:8px;
+.contact-section.active{opacity:1; transform:translateY(0);}
+.contact-card{
+  width:100%;
+  padding:32px 24px;
+  border-radius:12px;
+  background:#fefefe;
+  border:2px solid var(--grey);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+  position:relative;
+  overflow:hidden;
 }
-.contact-item{ margin:12px 0; font-size:17px; color:var(--grey); }
-.contact-item a{ color:var(--rust); text-decoration:none; font-weight:700; }
+.contact-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:12px;
+  background:linear-gradient(45deg, var(--blue), var(--green));
+  opacity:0.3;
+  filter:blur(10px);
+  animation:pulse 2s infinite alternate;
+  z-index:0;
+}
+.contact-card > *{position:relative; z-index:1;}
+.contact-item{
+  font-size:18px;
+  line-height:1.5;
+}
+.contact-item a{
+  color:var(--blue);
+  text-decoration:none;
+  font-weight:600;
+}
 .contact-item a:hover{ text-decoration:underline; }
 
-/* Footer policies */
-.footer {
-  max-width:1000px; margin:40px auto 80px; padding:18px 22px; color:var(--grey); text-align:center;
+/* ================= PULSE ANIMATION ================= */
+@keyframes pulse{
+  0%{opacity:0.2; transform:scale(1);}
+  50%{opacity:0.35; transform:scale(1.02);}
+  100%{opacity:0.2; transform:scale(1);}
 }
-.footer .copy { margin-bottom:12px; }
-.footer .policies { display:inline-block; text-align:left; margin-top:8px; }
-.footer .policies a{ display:block; color:var(--grey); text-decoration:none; margin:6px 0; font-weight:600; }
-.footer .policies a:hover{ color:var(--rust); }
 
-/* Rotating/flipping logo bottom-left */
-.spin-wrapper {
-  position: fixed; left:14px; bottom:14px; width:120px; height:120px; z-index:80; display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  /* continuous 360deg spin */
-  animation: spin360 16s linear infinite;
-}
-.flip-image { width:100%; height:100%; object-fit:contain; transition: transform .4s ease; }
-
-/* gentle spin */
-@keyframes spin360 { from{ transform: rotate(0deg);} to{ transform: rotate(360deg);} }
-
-/* Responsive */
-@media (max-width:900px){
-  .contact-folder{ margin:110px 18px 36px; padding:20px; }
-  .spin-wrapper{ width:92px; height:92px; left:10px; bottom:10px; }
-}
-@media(max-width:480px){
-  .nav { gap:12px; }
-  header{ padding:12px 10px; }
-  .cart{ right:8px; top:10px; }
-  .contact-folder{ margin:90px 14px; padding:16px; }
-}
-</style>
-</head>
-<body>
-
-<header>
-  <nav class="nav" aria-label="Main navigation">
-    <a href="https://atomatlab.com">HOME</a>
-    <a href="https://atomatlab.com/shop">SHOP</a>
-    <a href="https://atomatlab.com/about">ABOUT</a>
-    <a href="#" class="contact">CONTACT</a>
-  </nav>
-
-  <div class="cart" role="button" aria-label="View cart" title="Cart">
-    <span class="icon">👜</span>
-    <span class="count" id="cart-count">0</span>
-  </div>
-</header>
-
-<!-- Contact "FBI folder" -->
-<section class="contact-folder" aria-label="Contact information">
-  <h2>Contact & Links</h2>
-
-  <div class="contact-item">YouTube: <a href="https://www.youtube.com/@atomatlab" target="_blank" rel="noopener">@atomatlab</a></div>
-  <div class="contact-item">Instagram: <a href="https://www.instagram.com/atomatlab/" target="_blank" rel="noopener">@atomatlab</a></div>
-  <div class="contact-item">TikTok: <a href="https://www.tiktok.com/@atomatlab" target="_blank" rel="noopener">@atomatlab</a></div>
-  <div class="contact-item">Email: <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></div>
-  <div class="contact-item">Personal page: <a href="https://www.denisflueraru.com" target="_blank" rel="noopener">denisflueraru.com</a></div>
-</section>
-
-<!-- Footer with centered layout + vertical divider -->
-<section class="footer" aria-label="Footer" style="
+/* ================= FOOTER ================= */
+.footer{
   display:flex;
   justify-content:center;
   align-items:center;
@@ -153,86 +204,167 @@ header{
   border-top:1px solid #eee;
   flex-wrap:wrap;
   text-align:center;
-">
+}
 
-  <!-- Left block -->
-  <div style="line-height:1.6;">
-    © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">
-      contact@atomatlab.com
-    </a>
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  cursor:pointer;
+  animation:spin 18s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:700px){
+  .nav{display:none;}
+  .hamburger{display:flex; align-items:center; justify-content:center;}
+  .cart{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html" class="active">CONTACT</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
   </div>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></header>
 
-  <!-- vertical divider -->
-  <div style="
-    width:1px;
-    height:60px;
-    background:#d4d4d4;
-    opacity:0.8;
-  "></div>
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span>CART 🛒</span></a>
+</div>
 
-  <!-- Right block -->
-  <div style="
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    font-size:15px;
-  ">
-    <a href="/terms-of-service" style="color:var(--grey); text-decoration:none; font-weight:600;">
-      Terms of Service
-    </a>
-    <a href="/privacy-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">
-      Privacy Policy
-    </a>
-    <a href="/refund-policy" style="color:var(--grey); text-decoration:none; font-weight:600;">
-      Refund Policy
-    </a>
-  </div>
-
+<main>
+<section class="hero">
+  <div class="hero-title">Contact ATOMAT LAB</div>
+  <div class="hero-sub">We love hearing from our collaborators, users, and experimental audio enthusiasts. Reach out via email or social media below.</div>
 </section>
 
-<!-- Rotating/flipping logo bottom-left -->
-<a href="https://atomatlab.com" target="_blank" rel="noopener" class="spin-wrapper" title="AtomatLab">
-  <img id="rotating-logo" class="flip-image" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
+<section class="contact-section">
+  <div class="contact-card">
+    <div class="contact-item">Email: <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></div>
+    <div class="contact-item">YouTube: <a href="https://www.youtube.com/@atomatlab" target="_blank">@atomatlab</a></div>
+    <div class="contact-item">Instagram: <a href="https://www.instagram.com/atomatlab/" target="_blank">@atomatlab</a></div>
+    <div class="contact-item">TikTok: <a href="https://www.tiktok.com/@atomatlab" target="_blank">@atomatlab</a></div>
+    <div class="contact-item">Personal Page: <a href="https://www.denisflueraru.com" target="_blank">denisflueraru.com</a></div>
+  </div>
+</section>
+</main>
+
+<!-- Footer -->
+<section class="footer">
+  <div style="line-height:1.6;">
+    © ATOMAT LAB — tools that listen<br>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">contact@atomatlab.com</a>
+  </div>
+  <div style="width:1px;height:60px;background:#d4d4d4;opacity:0.8;"></div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
+       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
+    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
+  </div>
+</section>
+
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
 </a>
 
 <script>
-/* Rotating / swapping logo images (flip effect while continuous spin runs) */
-(function(){
-  const rotatingLogo = document.getElementById('rotating-logo');
-  // two images (lh3 format)
-  const imgs = [
-    'https://lh3.googleusercontent.com/d/1KlB2RLVsabxJ-HLGBKaCUKha6qPRdliK', // first image
-    'https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd'  // second image
-  ];
-  // preload
-  imgs.forEach(u=>{ const i=new Image(); i.src=u; });
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
 
-  let i = 0;
-  setInterval(()=>{
-    // small flip transform then swap src
-    rotatingLogo.style.transform = 'scaleX(0)';
-    setTimeout(()=>{
-      i = (i+1) % imgs.length;
-      rotatingLogo.src = imgs[i];
-      rotatingLogo.style.transform = 'scaleX(1)';
-    }, 260);
-  }, 3000);
-})();
-
-/* Cart demo: update count function (exposed globally if you want to change programmatically) */
-function setCartCount(n){
-  const el = document.getElementById('cart-count');
-  el.textContent = String(Number(n) || 0);
-  // show / hide acid dot look: keep visible when > 0 (already styled)
-}
-window.setCartCount = setCartCount;
-
-/* Accessibility: keyboard focus style for nav links (optional) */
-document.querySelectorAll('.nav a').forEach(a=>{
-  a.addEventListener('focus', ()=> a.classList.add('focus'));
-  a.addEventListener('blur', ()=> a.classList.remove('focus'));
+hamburger.addEventListener('click', e=>{
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display='none';
 });
+
+closeNav.addEventListener('click', ()=>{
+  navMobile.classList.remove('open');
+  hamburger.style.display='flex';
+});
+
+document.addEventListener('click', e=>{
+  if(navMobile.classList.contains('open') &&
+     !navMobile.contains(e.target) &&
+     !hamburger.contains(e.target)){
+    navMobile.classList.remove('open');
+    hamburger.style.display='flex';
+  }
+});
+
+// fade in hero and contact section
+const heroTitle = document.querySelector('.hero-title');
+const heroSub = document.querySelector('.hero-sub');
+const contactSection = document.querySelector('.contact-section');
+
+window.addEventListener('load', ()=>{
+  heroTitle.style.opacity = 1;
+  heroTitle.style.transform = 'translateY(0)';
+  heroSub.style.opacity = 1;
+  heroSub.style.transform = 'translateY(0)';
+});
+
+// Intersection observer for contact card
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+},{threshold:0.2});
+observer.observe(contactSection);
+</script>
+
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
 </script>
 
 </body>
