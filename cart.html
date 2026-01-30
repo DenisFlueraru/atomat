@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ATOMAT LAB — Cart</title>
+
+<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --blue:#0000ff;
+  --green:#6eff14;
+  --rust:#cd6c27;
+  --muted:#bdbdbd;
+}
+
+/* RESET */
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  font-family:'Neue Kaine',sans-serif;
+  background:var(--bg);
+  color:var(--grey);
+}
+a{text-decoration:none;color:inherit}
+
+/* ================= HEADER (CLONED) ================= */
+header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+  position:relative;
+}
+.nav{display:flex;gap:36px}
+.nav a{
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:.25s;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:0;
+  width:0; height:2px;
+  background:var(--blue);
+  transition:.3s;
+}
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
+
+.cart.desktop-cart{
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
+  cursor:pointer;
+}
+.cart .dot{
+  position:absolute;
+  right:-6px;
+  top:-6px;
+  width:12px;
+  height:12px;
+  background:var(--green);
+  border-radius:50%;
+  display:none;
+}
+
+/* ================= MOBILE NAV ================= */
+.hamburger{
+  display:none;
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+}
+
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:.3s;
+  z-index:200;
+}
+.nav-mobile.open{transform:translateY(0)}
+#close-nav{
+  position:absolute;
+  top:12px; left:12px;
+  font-size:28px;
+  cursor:pointer;
+}
+.nav-mobile a{
+  font-size:20px;
+  font-weight:700;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+
+/* ================= CART PAGE ================= */
+.cart-page{
+  max-width:900px;
+  margin:80px auto 120px;
+  padding:0 20px;
+}
+.cart-title{
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:.6px;
+  margin-bottom:40px;
+}
+.cart-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.cart-item{
+  display:grid;
+  grid-template-columns:1fr 120px 80px 40px;
+  align-items:center;
+  gap:12px;
+  padding:18px;
+  border:1px solid #e5e5e5;
+  border-radius:10px;
+  background:#fff;
+}
+.cart-item-name{font-weight:700}
+.cart-qty{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.qty-btn{
+  width:28px;
+  height:28px;
+  border:1px solid var(--muted);
+  background:#fff;
+  cursor:pointer;
+  font-weight:700;
+}
+.cart-price{font-weight:700}
+.remove{
+  cursor:pointer;
+  font-size:20px;
+  opacity:.6;
+}
+.remove:hover{opacity:1}
+
+/* SUMMARY */
+.cart-summary{
+  margin-top:40px;
+  padding-top:24px;
+  border-top:1px solid #ddd;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.total{
+  font-size:20px;
+  font-weight:700;
+}
+.checkout{
+  background:var(--blue);
+  color:#fff;
+  padding:14px 28px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+.checkout:hover{background:#000}
+
+
+
+
+/* ================= PAYMENTS ================= */
+.payments{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin:60px 0 20px;
+}
+.payments img{
+  height:24px;
+  opacity:.9;
+  transition:transform .2s ease, opacity .2s ease;
+}
+.payments a:hover img{
+  transform:scale(1.15);
+  opacity:1;
+}
+/* ================= FOOTER (CLONED) ================= */
+.footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
+}
+
+/* ROTATING LOGO */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  animation:spin 18s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav{display:none}
+  .hamburger{display:flex}
+  .cart.desktop-cart{display:none}
+  .cart-item{
+    grid-template-columns:1fr auto;
+    grid-template-rows:auto auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a>  <div class="hamburger" id="hamburger">+</div>
+</header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="cart.html">CART 🛒</a>
+</div>
+
+<main class="cart-page">
+  <div class="cart-title">Cart</div>
+  <div class="cart-list" id="cartList"></div>
+
+  <div class="cart-summary">
+    <div class="total">Total: €<span id="total">0</span></div>
+    <div class="checkout" onclick="checkout()">Checkout</div>
+  </div>
+  <!-- Payments -->
+  <div class="payments">
+    <a href="https://www.visa.com" target="_blank" aria-label="Visa">
+      <img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW" alt="Visa">
+    </a>
+    <a href="https://www.stripe.com" target="_blank" aria-label="Stripe">
+      <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
+    </a>
+    <a href="https://www.paypal.com" target="_blank" aria-label="PayPal">
+      <img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2" alt="PayPal">
+    </a>
+  </div>
+</main>
+
+<section class="footer">
+  <div>
+    © ATOMAT LAB — tools that listen<br>
+    <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a>
+  </div>
+  <div style="width:1px;height:60px;background:#d4d4d4;"></div>
+  <div>
+    <a href="termsofservice.html">Terms of Service</a><br>
+    <a href="privacypolicy.html">Privacy Policy</a><br>
+    <a href="refundpolicy.html">Refunds Policy</a>
+  </div>
+</section>
+
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
+</a>
+
+<script>
+/* ================= CART LOGIC ================= */
+let cart = JSON.parse(localStorage.getItem('cart')||'[]');
+
+function save(){ localStorage.setItem('cart',JSON.stringify(cart)); }
+
+function render(){
+  const list=document.getElementById('cartList');
+  const totalEl=document.getElementById('total');
+  list.innerHTML='';
+  let total=0;
+
+  cart.forEach((item,i)=>{
+    total+=item.price*item.qty;
+    list.innerHTML+=`
+      <div class="cart-item">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-qty">
+          <button class="qty-btn" onclick="qty(${i},-1)">−</button>
+          ${item.qty}
+          <button class="qty-btn" onclick="qty(${i},1)">+</button>
+        </div>
+        <div class="cart-price">€${(item.price*item.qty/100).toFixed(2)}</div>
+        <div class="remove" onclick="removeItem(${i})">×</div>
+      </div>`;
+  });
+
+  totalEl.textContent=(total/100).toFixed(2);
+  document.getElementById('cart-dot').style.display=cart.length?'inline-block':'none';
+}
+
+
+
+function qty(i,d){
+  cart[i].qty+=d;
+  if(cart[i].qty<=0) cart.splice(i,1);
+  save(); render();
+}
+function removeItem(i){
+  cart.splice(i,1);
+  save(); render();
+}
+
+async function checkout() {
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (!cart.length) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  try {
+    const res = await fetch("https://atomat.vercel.app/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: cart }),
+    });
+
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else alert("Checkout error, please try again.");
+  } catch (err) {
+    console.error(err);
+    alert("Checkout failed, please try again.");
+  }
+}
+
+render();
+
+// CART DATA API ///////////////////////////
+
+document.getElementById('checkout-btn').addEventListener('click', async () => {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+  }
+
+  const response = await fetch('/api/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: cart })
+  });
+
+  const data = await response.json();
+  if(data.url){
+    window.location = data.url; // redirect to Stripe checkout
+  } else {
+    alert('Checkout error, please try again.');
+  }
+});
+
+/* ================= MOBILE NAV ================= */
+const hamburger=document.getElementById('hamburger');
+const navMobile=document.getElementById('navMobile');
+const closeNav=document.getElementById('close-nav');
+
+hamburger.onclick=()=>{navMobile.classList.add('open');hamburger.style.display='none'}
+closeNav.onclick=()=>{navMobile.classList.remove('open');hamburger.style.display='flex'}
+</script>
+
+<script>
+/* ================= CART STORAGE ================= */
+function getCart(){
+  return JSON.parse(localStorage.getItem('cart') || '[]');
+}
+
+function saveCart(cart){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(p => p.id === item.id);
+
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty:1});
+  }
+
+  saveCart(cart);
+  updateCartDot();
+}
+
+function updateCartDot(){
+  const cart = getCart();
+  const dot = document.getElementById('cart-dot');
+  if(dot){
+    dot.style.display = cart.length ? 'inline-block' : 'none';
+  }
+}
+
+updateCartDot();
+</script>
+
+</body>
+</html>
