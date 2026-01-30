@@ -19,7 +19,7 @@
 }
 
 /* RESET */
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 html,body{
   margin:0;
   font-family:'Neue Kaine',sans-serif;
@@ -28,7 +28,7 @@ html,body{
 }
 a{text-decoration:none;color:inherit}
 
-/* ================= HEADER (CLONED) ================= */
+/* ================= HEADER ================= */
 header{
   position:sticky; top:0; z-index:50;
   background:rgba(255,255,255,.2);
@@ -39,7 +39,7 @@ header{
   padding:40px;
   position:relative;
 }
-.nav{display:flex;gap:36px}
+.nav{display:flex;gap:36px;}
 .nav a{
   font-weight:700;
   font-size:18px;
@@ -93,7 +93,6 @@ header{
   font-size:28px;
   font-weight:700;
 }
-
 .nav-mobile{
   position:fixed;
   top:0; left:0; right:0;
@@ -196,10 +195,7 @@ header{
 }
 .checkout:hover{background:#000}
 
-
-
-
-/* ================= PAYMENTS ================= */
+/* PAYMENTS ICONS */
 .payments{
   display:flex;
   justify-content:center;
@@ -215,7 +211,8 @@ header{
   transform:scale(1.15);
   opacity:1;
 }
-/* ================= FOOTER (CLONED) ================= */
+
+/* FOOTER */
 .footer{
   display:flex;
   justify-content:center;
@@ -239,9 +236,9 @@ header{
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .nav{display:none}
-  .hamburger{display:flex}
-  .cart.desktop-cart{display:none}
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart.desktop-cart{display:none;}
   .cart-item{
     grid-template-columns:1fr auto;
     grid-template-rows:auto auto;
@@ -259,7 +256,8 @@ header{
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a>  <div class="hamburger" id="hamburger">+</div>
+  <a href="cart.html" class="cart desktop-cart" title="Cart">🛒<span id="cart-dot"></span></a>
+  <div class="hamburger" id="hamburger">+</div>
 </header>
 
 <div class="nav-mobile" id="navMobile">
@@ -277,19 +275,13 @@ header{
 
   <div class="cart-summary">
     <div class="total">Total: €<span id="total">0</span></div>
-    <div class="checkout" onclick="checkout()">Checkout</div>
+    <div class="checkout" id="checkoutBtn">Checkout</div>
   </div>
-  <!-- Payments -->
+
   <div class="payments">
-    <a href="https://www.visa.com" target="_blank" aria-label="Visa">
-      <img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW" alt="Visa">
-    </a>
-    <a href="https://www.stripe.com" target="_blank" aria-label="Stripe">
-      <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
-    </a>
-    <a href="https://www.paypal.com" target="_blank" aria-label="PayPal">
-      <img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2" alt="PayPal">
-    </a>
+    <a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW" alt="Visa"></a>
+    <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe"></a>
+    <a href="https://www.paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2" alt="PayPal"></a>
   </div>
 </main>
 
@@ -306,22 +298,18 @@ header{
   </div>
 </section>
 
-<a href="index.html">
-  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
-</a>
+<a href="index.html"><img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"></a>
 
 <script>
-/* ================= CART LOGIC ================= */
+/* CART LOGIC */
 let cart = JSON.parse(localStorage.getItem('cart')||'[]');
 
 function save(){ localStorage.setItem('cart',JSON.stringify(cart)); }
-
 function render(){
   const list=document.getElementById('cartList');
   const totalEl=document.getElementById('total');
   list.innerHTML='';
   let total=0;
-
   cart.forEach((item,i)=>{
     total+=item.price*item.qty;
     list.innerHTML+=`
@@ -336,12 +324,9 @@ function render(){
         <div class="remove" onclick="removeItem(${i})">×</div>
       </div>`;
   });
-
   totalEl.textContent=(total/100).toFixed(2);
   document.getElementById('cart-dot').style.display=cart.length?'inline-block':'none';
 }
-
-
 
 function qty(i,d){
   cart[i].qty+=d;
@@ -353,97 +338,33 @@ function removeItem(i){
   save(); render();
 }
 
-async function checkout() {
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  if (!cart.length) {
-    alert("Your cart is empty!");
-    return;
-  }
+/* CHECKOUT SESSION */
+document.getElementById('checkoutBtn').addEventListener('click', async ()=>{
+  if(!cart.length){ alert('Your cart is empty!'); return; }
 
-  try {
-    const res = await fetch("https://atomat.vercel.app/api/create-checkout-session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: cart }),
+  try{
+    const res = await fetch('/api/create-checkout-session', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ items: cart })
     });
-
     const data = await res.json();
-    if (data.url) window.location.href = data.url;
-    else alert("Checkout error, please try again.");
-  } catch (err) {
-    console.error(err);
-    alert("Checkout failed, please try again.");
-  }
-}
-
-render();
-
-// CART DATA API ///////////////////////////
-
-document.getElementById('checkout-btn').addEventListener('click', async () => {
-  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  if(cart.length === 0){
-    alert("Your cart is empty!");
-    return;
-  }
-
-  const response = await fetch('/api/create-checkout-session', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items: cart })
-  });
-
-  const data = await response.json();
-  if(data.url){
-    window.location = data.url; // redirect to Stripe checkout
-  } else {
-    alert('Checkout error, please try again.');
+    if(data.url) window.location.href = data.url;
+    else alert('Checkout error, please try again.');
+  }catch(e){
+    console.error(e);
+    alert('Checkout failed, please try again.');
   }
 });
 
-/* ================= MOBILE NAV ================= */
+render();
+
+/* MOBILE NAV */
 const hamburger=document.getElementById('hamburger');
 const navMobile=document.getElementById('navMobile');
 const closeNav=document.getElementById('close-nav');
-
 hamburger.onclick=()=>{navMobile.classList.add('open');hamburger.style.display='none'}
 closeNav.onclick=()=>{navMobile.classList.remove('open');hamburger.style.display='flex'}
 </script>
-
-<script>
-/* ================= CART STORAGE ================= */
-function getCart(){
-  return JSON.parse(localStorage.getItem('cart') || '[]');
-}
-
-function saveCart(cart){
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function addToCart(item){
-  const cart = getCart();
-  const existing = cart.find(p => p.id === item.id);
-
-  if(existing){
-    existing.qty += 1;
-  } else {
-    cart.push({...item, qty:1});
-  }
-
-  saveCart(cart);
-  updateCartDot();
-}
-
-function updateCartDot(){
-  const cart = getCart();
-  const dot = document.getElementById('cart-dot');
-  if(dot){
-    dot.style.display = cart.length ? 'inline-block' : 'none';
-  }
-}
-
-updateCartDot();
-</script>
-
 </body>
 </html>
