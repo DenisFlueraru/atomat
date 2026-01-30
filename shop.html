@@ -394,14 +394,7 @@ header{
 </a>
 
 <script>
-// Add to cart
-let cart=[];
-function addToCart(name, amount, e){
-  e.stopPropagation();
-  cart.push({name,amount});
-  document.getElementById('cart-dot').style.display='inline-block';
-  alert(name+" added to cart (Stripe integration needed)");
-}
+
 
 // Toggle product details
 function toggleDetails(el){
