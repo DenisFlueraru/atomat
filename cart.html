@@ -271,9 +271,12 @@ header{
 
 <main class="cart-page">
   <div class="cart-title">Cart</div>
-  <label for="countrySelect">Select your country:</label>
+ <label for="countrySelect">Select your country:</label>
 <select id="countrySelect">
   <option value="RO">Romania</option>
+  <option value="DE">Germany</option>
+  <option value="HU">Hungary</option>
+  <!-- Add all other countries here -->
 </select>
   <div class="cart-list" id="cartList"></div>
 
@@ -387,5 +390,32 @@ hamburger.onclick=()=>{navMobile.classList.add('open');hamburger.style.display='
 closeNav.onclick=()=>{navMobile.classList.remove('open');hamburger.style.display='flex'}
 </script>
 <script src="cart.js"></script>
+<script>
+// Checkout button sends selected country to Stripe API
+document.getElementById('checkoutBtn').addEventListener('click', async () => {
+  const cart = getCart();
+  if(!cart.length){
+    alert('Your cart is empty!');
+    return;
+  }
+
+  // Read the selected country from the dropdown
+  const country = document.getElementById('countrySelect').value;
+
+  try {
+    const res = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cart, country })
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else alert('Checkout failed, please try again.');
+  } catch(e){
+    console.error(e);
+    alert('Checkout failed, please try again.');
+  }
+});
+</script>
 </body>
 </html>
