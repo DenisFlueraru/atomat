@@ -301,64 +301,78 @@ header{
 <a href="index.html"><img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"></a>
 
 <script>
-/* CART LOGIC */
-let cart = JSON.parse(localStorage.getItem('cart')||'[]');
+/* CART PAGE — USE SHARED cart.js STORAGE */
 
-function save(){ localStorage.setItem('cart',JSON.stringify(cart)); }
-function render(){
-  const list=document.getElementById('cartList');
-  const totalEl=document.getElementById('total');
-  list.innerHTML='';
-  let total=0;
-  cart.forEach((item,i)=>{
-    total+=item.price*item.qty;
-    list.innerHTML+=`
+function renderCartPage(){
+  const cart = getCart();
+  const list = document.getElementById('cartList');
+  const totalEl = document.getElementById('total');
+
+  list.innerHTML = '';
+  let total = 0;
+
+  if(!cart.length){
+    list.innerHTML = '<p>Your cart is empty.</p>';
+    totalEl.textContent = '0.00';
+    return;
+  }
+
+  cart.forEach((item, i) => {
+    total += item.price * item.qty;
+    list.innerHTML += `
       <div class="cart-item">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-qty">
-          <button class="qty-btn" onclick="qty(${i},-1)">−</button>
+          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
           ${item.qty}
-          <button class="qty-btn" onclick="qty(${i},1)">+</button>
+          <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
         </div>
-        <div class="cart-price">€${(item.price*item.qty/100).toFixed(2)}</div>
-        <div class="remove" onclick="removeItem(${i})">×</div>
+        <div class="cart-price">€${(item.price * item.qty / 100).toFixed(2)}</div>
+        <div class="remove" onclick="removeFromCart(${i})">×</div>
       </div>`;
   });
-  totalEl.textContent=(total/100).toFixed(2);
-  document.getElementById('cart-dot').style.display=cart.length?'inline-block':'none';
+
+  totalEl.textContent = (total / 100).toFixed(2);
 }
 
-function qty(i,d){
-  cart[i].qty+=d;
-  if(cart[i].qty<=0) cart.splice(i,1);
-  save(); render();
-}
-function removeItem(i){
-  cart.splice(i,1);
-  save(); render();
+function changeQty(index, delta){
+  const cart = getCart();
+  cart[index].qty += delta;
+  if(cart[index].qty <= 0) cart.splice(index,1);
+  saveCart(cart);
+  renderCartPage();
 }
 
-/* CHECKOUT SESSION */
-document.getElementById('checkoutBtn').addEventListener('click', async ()=>{
-  if(!cart.length){ alert('Your cart is empty!'); return; }
+function removeFromCart(index){
+  const cart = getCart();
+  cart.splice(index,1);
+  saveCart(cart);
+  renderCartPage();
+}
+
+document.getElementById('checkoutBtn').addEventListener('click', async () => {
+  const cart = getCart();
+  if(!cart.length){
+    alert('Your cart is empty!');
+    return;
+  }
 
   try{
-    const res = await fetch('https://atomat.vercel.app/api/create-checkout-session', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+    const res = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: cart })
     });
     const data = await res.json();
     if(data.url) window.location.href = data.url;
-    else alert('Checkout error, please try again.');
+    else alert('Checkout failed, please try again.');
   }catch(e){
     console.error(e);
     alert('Checkout failed, please try again.');
   }
 });
 
-render();
-
+document.addEventListener('DOMContentLoaded', renderCartPage);
 /* MOBILE NAV */
 const hamburger=document.getElementById('hamburger');
 const navMobile=document.getElementById('navMobile');
