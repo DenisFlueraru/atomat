@@ -61,7 +61,35 @@ header{
 .nav a:hover::after{width:100%;}
 
 /* CART (desktop hidden) */
-.cart.desktop-cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer;}
+.cart.desktop-cart{
+  position:absolute;
+  right:10%;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:24px;
+  text-decoration:none;
+  color:var(--grey);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.cart-dot{
+  position:absolute;
+  top:-2px;
+  right:-2px;
+  width:8px;
+  height:8px;
+  background:var(--green);
+  border-radius:50%;
+  display:none;
+}
+
+.cart-count{
+  font-size:14px;
+  font-weight:700;
+  display:none;
+}
 
 /* ================= MOBILE NAVIGATION ================= */
 .hamburger{
@@ -198,7 +226,11 @@ header{
   <div class="hamburger" id="hamburger">
   <span id="hamburger-symbol">+</span>
 </div>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒 <span id="cart-count" style="display:none; font-size:14px; background:#6eff14; color:#000; border-radius:999px; padding:2px 6px; margin-left:4px; font-weight:700;"></span></a></header>
+<a href="cart.html" class="cart desktop-cart" title="Cart">
+  🛒
+  <span class="cart-dot" id="cart-dot"></span>
+  <span class="cart-count" id="cart-count">(0)</span>
+</a></header>
 
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
