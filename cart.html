@@ -359,14 +359,11 @@ function removeFromCart(index){
 
 document.getElementById('checkoutBtn').addEventListener('click', async () => {
   const cart = getCart();
-  if(!cart.length){
-    alert('Your cart is empty!');
-    return;
-  }
+  if(!cart.length) { alert('Your cart is empty!'); return; }
 
   const country = document.getElementById('countrySelect').value;
 
-  try{
+  try {
     const res = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -375,7 +372,7 @@ document.getElementById('checkoutBtn').addEventListener('click', async () => {
     const data = await res.json();
     if(data.url) window.location.href = data.url;
     else alert('Checkout failed, please try again.');
-  }catch(e){
+  } catch(e) {
     console.error(e);
     alert('Checkout failed, please try again.');
   }
