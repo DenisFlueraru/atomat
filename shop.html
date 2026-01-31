@@ -284,8 +284,8 @@ header{
   </nav>
 <a href="cart.html" class="cart desktop-cart" title="Cart">
   🛒
-  <span class="dot"></span>
-  <span class="cart-count">(0)</span>
+  <span id="cart-dot" class="dot"></span>
+  <span id="cart-count" class="cart-count">(0)</span>
 </a>
   <div class="hamburger" id="hamburger">
     <span id="hamburger-symbol">+</span>
@@ -475,38 +475,6 @@ document.addEventListener('click', e => {
 });
 </script>
 
-<script>
-// Cart logic
-function updateCartUI() {
-  const cart = document.querySelector('.cart.desktop-cart');
-  const dot = cart.querySelector('.dot');
-  const countSpan = cart.querySelector('.cart-count');
-  const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-  const totalCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
-  
-  if(totalCount > 0){
-    dot.style.display = 'block';
-    countSpan.style.display = 'inline-block';
-    countSpan.textContent = `(${totalCount})`;
-  } else {
-    dot.style.display = 'none';
-    countSpan.style.display = 'none';
-  }
-}
-
-// Add to cart example function (attach to your product buttons)
-function addToCart(item){
-  const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-  const existing = cartItems.find(i => i.id === item.id);
-  if(existing) existing.qty += 1;
-  else cartItems.push({...item, qty:1});
-  localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  updateCartUI();
-}
-
-// Initialize UI on load
-document.addEventListener('DOMContentLoaded', updateCartUI);
-</script>
 <script src="cart.js"></script>
 </body>
 </html>
