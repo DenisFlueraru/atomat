@@ -7,57 +7,25 @@ export default async function handler(req, res) {
     return res.status(405).end('Method Not Allowed');
   }
 
-  const { items } = req.body;
+  const { items, country } = req.body;
 
   if (!items || !items.length) {
     return res.status(400).json({ error: 'Cart is empty' });
   }
 
   try {
-    const line_items = items.map(item => ({
-      price_data: {
-        currency: 'eur',
-        product_data: {
-          name: item.name,
-        },
-        unit_amount: item.price, // cents
-      },
-      quantity: item.qty,
-    }));
-
     const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
       mode: 'payment',
-
-      line_items,
-
-      // 👇 THIS creates the full delivery form
-      shipping_address_collection: {
-        allowed_countries: [
-          'RO','DE','FR','IT','ES','NL','BE','AT','PL','SE','DK','FI','GB','US'
-        ],
-      },
-
-      // 👇 THIS enables shipping fees
-      shipping_options: [
-        { shipping_rate: 'shr_1Svh1yKCa5SQsj7OVzFU34JC' },
-        { shipping_rate: 'shr_1Svh2LKCa5SQsj7OllpYbxBD' },
-        { shipping_rate: 'shr_1Svh2fKCa5SQsj7OOoEmdBnj' },
-        // add all shipping rate IDs here
-      ],
-
-      // 👇 Collect phone number
-      phone_number_collection: {
-        enabled: true,
-      },
-
+      line_items: items, // items include shipping as a separate product
+      metadata: { shipping_country: country }, // store country for fulfillment
       success_url: `${req.headers.origin}/success.html`,
       cancel_url: `${req.headers.origin}/cart.html`,
     });
 
-    res.json({ url: session.url });
-
+    return res.status(200).json({ url: session.url });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Stripe checkout failed' });
+    console.error('Stripe checkout error:', err);
+    return res.status(500).json({ error: 'Server error' });
   }
 }
