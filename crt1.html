@@ -36,6 +36,7 @@ header{
   display:flex;
   justify-content:center;
   padding:40px;
+  align-items:center;
 }
 .nav{display:flex;gap:36px}
 .nav a{
@@ -63,11 +64,40 @@ header{
   background:var(--green);
 }
 .nav a:hover::after{width:100%;}
-.cart{
-  position:absolute;
-  right:20px;
-  top:20px;
-  font-size:24px;
+
+
+/* CART */
+.cart.desktop-cart {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Remove underline from cart link and its children */
+.cart.desktop-cart,
+.cart.desktop-cart * {
+  text-decoration: none !important;
+}
+
+/* Green dot showing number of items inside */
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.cart-count {
+  font-weight: 500;
+  color: var(--grey);
 }
 
 /* ================= MOBILE NAVIGATION ================= */
@@ -122,8 +152,19 @@ header{
   color:var(--blue);
 }
 .cart.mobile-cart{
-  display:inline-block;
+  display:inline-flex;
   font-size:20px;
+  position: relative;
+  gap:6px;
+  align-items:center;
+  font-weight:700;
+}
+.cart.mobile-cart .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--green);
+  border-radius: 50%;
+  display: inline-block;
 }
 
 /* ================= PAGE ================= */
@@ -136,9 +177,9 @@ header{
 /* ================= PRODUCT INTRO ================= */
 .product-intro{
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+  grid-template-columns:1.1fr .9fr; /* left: text, right: image */
   gap:60px;
-  align-items:start;
+  align-items:start; /* ensures image aligns with top of text section */
   margin-bottom:80px;
 }
 .product-intro h1{
@@ -151,7 +192,7 @@ header{
   margin-bottom:36px;
 }
 .hero-img{
-  max-width:320px;
+  max-width:340px;
   border-radius:18px;
   box-shadow:0 18px 44px rgba(0,0,0,.12);
 }
@@ -194,13 +235,19 @@ header{
   font-size:26px;
   font-weight:700;
 }
-.add-btn{
+.add-btn, .add-cart{
   background:var(--grey);
   color:#fff;
   padding:14px 30px;
   border-radius:10px;
   font-weight:700;
   text-decoration:none;
+  cursor:pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.add-btn:hover, .add-cart:hover{
+  background:var(--blue);
+  transform: scale(1.05);
 }
 
 /* ================= VALUES ================= */
@@ -271,20 +318,6 @@ header{
 }
 /* ================= ADD TO CART ================= */
 
-.add-cart{
-  background: var(--grey);
-  color: #fff;
-  padding: 14px 30px;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .2s ease, background .2s ease;
-}
-.add-cart:hover{
-  background: var(--blue);
-  transform: scale(1.05);
-}
-
 
 /* ================= PAYMENT LOGOS ================= */
 .payment-logos{
@@ -338,11 +371,18 @@ header{
 <header>
   <nav class="nav">
     <a href="index.html">HOME</a>
-    <a href="shop.html">SHOP</a>
+    <a href="shop.html" class="shop-link">SHOP</a>
     <a href="about.html">ABOUT</a>
     <a href="contact.html">CONTACT</a>
   </nav>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a>  <div class="hamburger" id="hamburger">
+
+  <a href="cart.html" class="cart desktop-cart" title="Cart">
+    🛒
+    <span class="dot" id="cart-dot"></span>
+    <span class="cart-count" id="cart-count">(0)</span>
+  </a>
+
+  <div class="hamburger" id="hamburger">
     <span id="hamburger-symbol">+</span>
   </div>
 </header>
@@ -350,10 +390,16 @@ header{
 <div class="nav-mobile" id="navMobile">
   <div id="close-nav">×</div>
   <a href="index.html">HOME</a>
-  <a href="shop.html">SHOP</a>
+  <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#"><span>CART 🛒</span></a>
+  <a href="cart.html">
+    <span class="cart mobile-cart">
+      CART 🛒
+      <span class="dot" id="cart-dot-mobile"></span>
+      <span class="cart-count" id="cart-count-mobile">(0)</span>
+    </span>
+  </a>
 </div>
 
 <main class="product-page">
@@ -404,9 +450,11 @@ header{
     id:'crt1',
     name:'CRT1',
     price:4200
-  })">Add to cart</div>
+  }); updateCartDot();">Add to cart</div>
 </div>
+  </div>
 
+  <!-- Hero image in the second column -->
   <img class="hero-img" src="https://lh3.googleusercontent.com/d/1vVP_ZMFRI7nHlLeWpX5rtQVGN6UH9OV7">
 </section>
 
@@ -482,8 +530,6 @@ modal.addEventListener('click',e=>{
   if(e.target===modal) closeModal();
 });
 
-</script>
-
 /* ================= MOBILE NAVIGATION TOGGLE ================= */
 const hamburger = document.getElementById('hamburger');
 const navMobile = document.getElementById('navMobile');
@@ -511,9 +557,31 @@ document.addEventListener('click', e => {
   }
 });
 </script>
-</script>
 
 <script src="cart.js"></script>
+<script>
+function updateCartDot() {
+  const cart = getCart(); // function from cart.js
+  const cartDot = document.getElementById('cart-dot');
+  const cartCount = document.getElementById('cart-count');
+  const cartDotMobile = document.getElementById('cart-dot-mobile');
+  const cartCountMobile = document.getElementById('cart-count-mobile');
+
+  if(cart && cart.length > 0){
+    cartDot.style.display = 'inline-block';
+    cartCount.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+    cartDotMobile.style.display = 'inline-block';
+    cartCountMobile.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+  } else {
+    cartDot.style.display = 'none';
+    cartCount.textContent = `(0)`;
+    cartDotMobile.style.display = 'none';
+    cartCountMobile.textContent = `(0)`;
+  }
+}
+
+updateCartDot();
+</script>
 
 </body>
 </html>

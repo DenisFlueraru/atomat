@@ -15,7 +15,11 @@
   --green:#6eff14;
   --muted:#bdbdbd;
 }
-
+/* Force cart count color for both desktop and mobile, and make them bold */
+.cart-count, #cart-count, #cart-count-mobile {
+  color: #000 !important;
+  font-weight: 500 !important;
+}
 /* RESET */
 *{box-sizing:border-box}
 html,body{
@@ -63,13 +67,40 @@ header{
   background:var(--green);
 }
 .nav a:hover::after{width:100%;}
-.cart{
-  position:absolute;
-  right:20px;
-  top:20px;
-  font-size:24px;
+
+/* CART */
+.cart.desktop-cart {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
+/* Remove underline from cart link and its children */
+.cart.desktop-cart,
+.cart.desktop-cart * {
+  text-decoration: none !important;
+}
+
+/* Green dot showing number of items inside */
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.cart-count {
+  font-weight: 700;
+  color: var(--grey);
+}
 /* ================= MOBILE NAVIGATION ================= */
 .hamburger{
   display:none;              /* desktop default */
@@ -132,9 +163,9 @@ header{
 /* ================= PRODUCT INTRO ================= */
 .product-intro{
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+  grid-template-columns:1.1fr .9fr; /* left: text, right: image */
   gap:60px;
-  align-items:start;
+  align-items:start; /* ensures image aligns with top of text section */
   margin-bottom:80px;
 }
 .product-intro h1{
@@ -147,11 +178,10 @@ header{
   margin-bottom:36px;
 }
 .hero-img{
-  max-width:320px;
+  max-width:340px;
   border-radius:18px;
   box-shadow:0 18px 44px rgba(0,0,0,.12);
 }
-
 /* ================= ACCORDION ================= */
 .accordion{
   margin-bottom:36px;
@@ -342,7 +372,12 @@ header{
   <div class="hamburger" id="hamburger">
   <span>+</span>
 </div>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></header>
+<a href="cart.html" class="cart desktop-cart" title="Cart">
+  🛒
+  <span id="cart-dot" class="dot"></span>
+  <span id="cart-count">(0)</span>
+</a>
+</header>
 
 <div class="nav-mobile" id="navMobile">
   <div id="close-nav">×</div>
@@ -350,7 +385,13 @@ header{
   <a href="shop.html">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#"><span>CART 🛒</span></a>
+  <a href="cart.html">
+    <span class="cart mobile-cart">
+      CART 🛒
+      <span id="cart-dot-mobile" class="dot"></span>
+      <span id="cart-count-mobile">(0)</span>
+    </span>
+  </a>
 </div>
 
 <main class="product-page">
@@ -397,14 +438,15 @@ header{
       </div>
     </section>
 
-<div class="meta">
-  <span class="price">42 EUR</span>
-  <div class="add-cart" onclick="addToCart({
-    id:'ERT',
-    name:'ERT',
-    price:4200
-  })">Add to cart</div>
-</div>
+    <div class="meta">
+      <span class="price">42 EUR</span>
+      <div class="add-cart" onclick="addToCart({
+        id:'ERT',
+        name:'ERT',
+        price:4200
+      }); updateCartDot();">Add to cart</div>
+    </div>
+  </div>
 
   <img class="hero-img" src="https://lh3.googleusercontent.com/d/13hXGDk9BZJ9dMPNo-i5VsRvNZ6AOqXEw">
 </section>
@@ -521,7 +563,32 @@ document.addEventListener('click', e => {
 });
 </script>
 
+
 <script src="cart.js"></script>
+<script>
+function updateCartDot() {
+  const cart = getCart(); // from cart.js
+  const cartDot = document.getElementById('cart-dot');
+  const cartCount = document.getElementById('cart-count');
+  const cartDotMobile = document.getElementById('cart-dot-mobile');
+  const cartCountMobile = document.getElementById('cart-count-mobile');
+
+  if(cart && cart.length > 0){
+    cartDot.style.display = 'inline-block';
+    cartCount.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+    cartDotMobile.style.display = 'inline-block';
+    cartCountMobile.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+  } else {
+    cartDot.style.display = 'none';
+    cartCount.textContent = `(0)`;
+    cartDotMobile.style.display = 'none';
+    cartCountMobile.textContent = `(0)`;
+  }
+}
+
+// Initialize cart on page load
+updateCartDot();
+</script>
 
 </body>
 </html>

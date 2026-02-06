@@ -16,6 +16,12 @@
   --offwhite:#f3f3f1;
 }
 
+/* Force cart count color for both desktop and mobile, and make them bold */
+.cart-count, #cart-count, #cart-count-mobile {
+  color: #000 !important;
+  font-weight: 500 !important;
+}
+
 /* RESET */
 *{box-sizing:border-box}
 html,body{margin:0;font-family:'Neue Kaine',sans-serif;background:var(--bg);color:var(--grey);}
@@ -61,8 +67,38 @@ header{
 .nav a:hover::after{width:100%;}
 
 /* CART */
-.cart{position:absolute;right:20px;top:20px;font-size:24px;cursor:pointer}
+.cart.desktop-cart {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
 
+/* Remove underline from cart link and its children */
+.cart.desktop-cart,
+.cart.desktop-cart * {
+  text-decoration: none !important;
+}
+
+/* Green dot showing number of items inside */
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.cart-count {
+  font-weight: 700;
+  color: var(--grey);
+}
 /* ================= MOBILE NAVIGATION ================= */
 .hamburger{
   display:none;              /* desktop default */
@@ -236,7 +272,12 @@ header{
   <div class="hamburger" id="hamburger">
     <span id="hamburger-symbol">+</span>
   </div>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></header>
+<a href="cart.html" class="cart desktop-cart" title="Cart">
+  🛒
+  <span id="cart-dot" class="dot"></span>
+  <span id="cart-count">(0)</span>
+</a>
+</header>
 
 <div class="nav-mobile" id="navMobile">
   <div id="close-nav">×</div>
@@ -244,7 +285,13 @@ header{
   <a href="shop.html">SHOP</a>
   <a href="about.html" class="active">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#"><span>CART 🛒</span></a>
+  <a href="cart.html">
+    <span class="cart mobile-cart">
+      CART 🛒
+      <span id="cart-dot-mobile" class="dot"></span>
+      <span id="cart-count-mobile">(0)</span>
+    </span>
+  </a>
 </div>
 
 <main>
@@ -345,6 +392,29 @@ document.addEventListener('click', e => {
 </script>
 
 <script src="cart.js"></script>
+<script>
+function updateCartDot() {
+  const cart = getCart(); // from cart.js
+  const cartDot = document.getElementById('cart-dot');
+  const cartCount = document.getElementById('cart-count');
+  const cartDotMobile = document.getElementById('cart-dot-mobile');
+  const cartCountMobile = document.getElementById('cart-count-mobile');
+
+  if(cart && cart.length > 0){
+    cartDot.style.display = 'inline-block';
+    cartCount.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+    cartDotMobile.style.display = 'inline-block';
+    cartCountMobile.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+  } else {
+    cartDot.style.display = 'none';
+    cartCount.textContent = `(0)`;
+    cartDotMobile.style.display = 'none';
+    cartCountMobile.textContent = `(0)`;
+  }
+}
+
+updateCartDot();
+</script>
 
 </body>
 </html>
