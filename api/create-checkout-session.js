@@ -4,7 +4,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Dummy shipping rate to display "Shipping: Already calculated at checkout"
 // Create one shipping rate in Stripe Dashboard called "Shipping (calculated)" and copy its ID here
-const SHIPPING_RATE_ID = 'shr_1Sxjj1KCa5SQsj7OpqmXn5la';
+const SHIPPING_RATE_ID = 'shr_1SxjpvKCa5SQsj7OX4C5N8xv';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
