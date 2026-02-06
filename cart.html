@@ -354,10 +354,11 @@ function renderCartPage(){
   updateTotal();
 }
 
+// Update total whenever cart or country changes
 function updateTotal(){
   const countrySelect = document.getElementById('shippingCountry');
-  const fee = countrySelect?.selectedOptions[0]?.dataset.fee || 0;
-  const total = (window.cartSubtotal + Number(fee)) / 100;
+  const fee = parseInt(countrySelect?.selectedOptions[0]?.dataset.fee || 0);
+  const total = (window.cartSubtotal + fee) / 100;
   document.getElementById('total').textContent = total.toFixed(2);
 }
 
@@ -392,17 +393,42 @@ document.getElementById('checkoutBtn').addEventListener('click', async () => {
     return;
   }
 
+  // Build items for Stripe, including shipping
+  const shippingFee = parseInt(countrySelect.selectedOptions[0].dataset.fee);
+  const itemsForStripe = cart.map(item => ({
+    price_data: {
+      currency: 'eur',
+      product_data: { name: item.name },
+      unit_amount: item.price
+    },
+    quantity: item.qty
+  }));
+
+  // Add shipping as a separate item
+  itemsForStripe.push({
+    price_data: {
+      currency: 'eur',
+      product_data: { name: `Shipping (${countrySelect.value})` },
+      unit_amount: shippingFee
+    },
+    quantity: 1
+  });
+
   try {
     const res = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: cart, country: countrySelect.value })
+      body: JSON.stringify({
+        items: itemsForStripe,
+        country: countrySelect.value
+      })
     });
 
     const data = await res.json();
     if(data.url) window.location.href = data.url;
     else alert('Checkout failed');
   } catch(e){
+    console.error(e);
     alert('Checkout failed');
   }
 });
