@@ -271,17 +271,28 @@ header{
 
 <main class="cart-page">
   <div class="cart-title">Cart</div>
- <label for="countrySelect">Select your country:</label>
-<select id="countrySelect">
-  <option value="RO">Romania</option>
-  <option value="DE">Germany</option>
-  <option value="HU">Hungary</option>
-  <!-- Add all other countries here -->
-</select>
   <div class="cart-list" id="cartList"></div>
 
   <div class="cart-summary">
-    <div class="total">Total: €<span id="total">0</span></div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <label for="shippingCountry" style="font-weight:700;">Shipping country</label>
+      <select id="shippingCountry" style="padding:10px;border-radius:8px;border:1px solid #ccc;">
+        <option value="">Select country</option>
+        <option value="RO" data-fee="500">Romania (€5)</option>
+        <option value="DE" data-fee="1200">Germany (€12)</option>
+        <option value="HU" data-fee="1200">Hungary (€12)</option>
+        <option value="US" data-fee="4500">USA (€45)</option>
+      </select>
+
+      <div id="shippingError" style="color:red;font-weight:700;display:none;">
+        Please select shipping country
+      </div>
+
+      <div class="total">
+        Total: €<span id="total">0</span>
+      </div>
+    </div>
+
     <div class="checkout" id="checkoutBtn">Checkout</div>
   </div>
 
@@ -316,7 +327,7 @@ function renderCartPage(){
   const totalEl = document.getElementById('total');
 
   list.innerHTML = '';
-  let total = 0;
+  let subtotal = 0;
 
   if(!cart.length){
     list.innerHTML = '<p>Your cart is empty.</p>';
@@ -325,7 +336,7 @@ function renderCartPage(){
   }
 
   cart.forEach((item, i) => {
-    total += item.price * item.qty;
+    subtotal += item.price * item.qty;
     list.innerHTML += `
       <div class="cart-item">
         <div class="cart-item-name">${item.name}</div>
@@ -339,7 +350,15 @@ function renderCartPage(){
       </div>`;
   });
 
-  totalEl.textContent = (total / 100).toFixed(2);
+  window.cartSubtotal = subtotal;
+  updateTotal();
+}
+
+function updateTotal(){
+  const countrySelect = document.getElementById('shippingCountry');
+  const fee = countrySelect?.selectedOptions[0]?.dataset.fee || 0;
+  const total = (window.cartSubtotal + Number(fee)) / 100;
+  document.getElementById('total').textContent = total.toFixed(2);
 }
 
 function changeQty(index, delta){
@@ -357,24 +376,34 @@ function removeFromCart(index){
   renderCartPage();
 }
 
+document.getElementById('shippingCountry').addEventListener('change', () => {
+  document.getElementById('shippingError').style.display = 'none';
+  updateTotal();
+});
+
 document.getElementById('checkoutBtn').addEventListener('click', async () => {
   const cart = getCart();
-  if(!cart.length) { alert('Your cart is empty!'); return; }
+  const countrySelect = document.getElementById('shippingCountry');
 
-  const country = document.getElementById('countrySelect').value;
+  if(!cart.length) return;
+
+  if(!countrySelect.value){
+    document.getElementById('shippingError').style.display = 'block';
+    return;
+  }
 
   try {
     const res = await fetch('/api/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: cart, country })
+      body: JSON.stringify({ items: cart, country: countrySelect.value })
     });
+
     const data = await res.json();
     if(data.url) window.location.href = data.url;
-    else alert('Checkout failed, please try again.');
-  } catch(e) {
-    console.error(e);
-    alert('Checkout failed, please try again.');
+    else alert('Checkout failed');
+  } catch(e){
+    alert('Checkout failed');
   }
 });
 
@@ -388,31 +417,6 @@ closeNav.onclick=()=>{navMobile.classList.remove('open');hamburger.style.display
 </script>
 <script src="cart.js"></script>
 <script>
-// Checkout button sends selected country to Stripe API
-document.getElementById('checkoutBtn').addEventListener('click', async () => {
-  const cart = getCart();
-  if(!cart.length){
-    alert('Your cart is empty!');
-    return;
-  }
-
-  // Read the selected country from the dropdown
-  const country = document.getElementById('countrySelect').value;
-
-  try {
-    const res = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: cart, country })
-    });
-    const data = await res.json();
-    if (data.url) window.location.href = data.url;
-    else alert('Checkout failed, please try again.');
-  } catch(e){
-    console.error(e);
-    alert('Checkout failed, please try again.');
-  }
-});
 </script>
 </body>
 </html>
