@@ -22,6 +22,7 @@ export default async function handler(req, res) {
       payment_method_types: ['card'],
       mode: 'payment',
       line_items: items, // includes shipping as a separate product already
+      billing_address_collection: 'required',
       shipping_address_collection: {
         allowed_countries: [country], // only allow the selected country
       },
