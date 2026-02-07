@@ -88,6 +88,28 @@ header{
   color: var(--grey);
 }
 
+/* MOBILE FIXED CART (outside dropdown) */
+.mobile-cart-fixed {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+
+/* Show mobile cart, hide desktop cart */
+@media (max-width: 900px) {
+  .mobile-cart-fixed {
+    display: flex;
+  }
+  .cart.desktop-cart {
+    display: none;
+  }
+}
+
 /* ================= MOBILE NAVIGATION ================= */
 .hamburger{
   display:none;              /* desktop default */
@@ -294,6 +316,11 @@ header{
   <span id="cart-dot" class="dot"></span>
   <span id="cart-count" class="cart-count">(0)</span>
 </a>
+<a href="cart.html" class="cart mobile-cart-fixed" title="Cart">
+  🛒
+  <span id="cart-dot-mobile" class="dot"></span>
+  <span id="cart-count-mobile" class="cart-count">(0)</span>
+</a>
   <div class="hamburger" id="hamburger">
     <span id="hamburger-symbol">+</span>
   </div>
@@ -305,13 +332,6 @@ header{
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="cart.html">
-    <span class="cart mobile-cart">
-      CART 🛒
-      <span id="cart-dot-mobile" class="dot"></span>
-      <span id="cart-count-mobile" class="cart-count">(0)</span>
-    </span>
-  </a>
 </div>
 
 <main>
