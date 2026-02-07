@@ -116,7 +116,6 @@ header{
   z-index:200;
   display:flex;
 }
-
 .nav-mobile.open{
   transform:translateY(0);
 }
@@ -306,10 +305,12 @@ header{
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="cart.html" class="cart mobile-cart">
-    🛒 CART
-    <span id="cart-dot-mobile" class="dot"></span>
-    <span id="cart-count-mobile" class="cart-count">(0)</span>
+  <a href="cart.html">
+    <span class="cart mobile-cart">
+      CART 🛒
+      <span id="cart-dot-mobile" class="dot"></span>
+      <span id="cart-count-mobile" class="cart-count">(0)</span>
+    </span>
   </a>
 </div>
 
@@ -470,15 +471,17 @@ hamburger.addEventListener('click', e => {
   hamburger.style.display = 'none';
 });
 
-closeNav.addEventListener('click', e => {
+closeNav.addEventListener('click', () => {
   navMobile.classList.remove('open');
   hamburger.style.display = 'flex';
 });
 
 document.addEventListener('click', e => {
-  if(navMobile.classList.contains('open') &&
-     !navMobile.contains(e.target) &&
-     !hamburger.contains(e.target)){
+  if(
+    navMobile.classList.contains('open') &&
+    !navMobile.contains(e.target) &&
+    !hamburger.contains(e.target)
+  ){
     navMobile.classList.remove('open');
     hamburger.style.display = 'flex';
   }
