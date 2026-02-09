@@ -144,25 +144,6 @@ header{
   color:var(--blue);
 }
 
-.cart.mobile-cart-fixed {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 24px;
-  text-decoration: none;
-}
-
-.cart.mobile-cart-fixed .dot {
-  margin: 0;
-}
-
-.cart.mobile-cart-fixed .cart-count {
-  margin-left: 2px;
-}
-
 /* ================= ADD TO CART ================= */
 
 .add-cart{
@@ -295,11 +276,6 @@ header{
   <span id="cart-dot" class="dot"></span>
   <span id="cart-count" class="cart-count">(0)</span>
 </a>
-<a href="cart.html" class="cart mobile-cart-fixed" title="Cart">
-  🛒
-  <span id="cart-dot-mobile" class="dot"></span>
-  <span id="cart-count-mobile" class="cart-count">(0)</span>
-</a>
   <div class="hamburger" id="hamburger">
     <span id="hamburger-symbol">+</span>
   </div>
@@ -311,6 +287,13 @@ header{
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
+<a href="cart.html">
+  <span class="cart mobile-cart">
+    CART 🛒
+    <span id="cart-dot-mobile" class="dot"></span>
+    <span id="cart-count-mobile" class="cart-count">(0)</span>
+  </span>
+</a>
 </div>
 
 <main>
