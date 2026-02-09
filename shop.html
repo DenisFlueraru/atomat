@@ -94,6 +94,20 @@ header{
   color: var(--grey);
 }
 
+/* MOBILE CART */
+.cart.mobile-cart {
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart.mobile-cart,
+.cart.mobile-cart * {
+  text-decoration: none !important;
+}
+
 /* ================= MOBILE NAVIGATION ================= */
 .hamburger{
   display:none;              /* desktop default */
@@ -287,12 +301,10 @@ header{
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-<a href="cart.html">
-  <span class="cart mobile-cart">
-    CART 🛒
-    <span id="cart-dot-mobile" class="dot"></span>
-    <span id="cart-count-mobile" class="cart-count">(0)</span>
-  </span>
+<a href="cart.html" class="cart mobile-cart">
+  CART 🛒
+  <span id="cart-dot-mobile" class="dot"></span>
+  <span id="cart-count-mobile" class="cart-count">(0)</span>
 </a>
 </div>
 
@@ -469,33 +481,39 @@ document.addEventListener('click', e => {
   }
 });
 
-// Cart dot update function
-function updateCartDot() {
-  const cart = getCart(); // from cart.js
-  const cartDot = document.getElementById('cart-dot');
-  const cartCount = document.getElementById('cart-count');
-  const cartDotMobile = document.getElementById('cart-dot-mobile');
-  const cartCountMobile = document.getElementById('cart-count-mobile');
-
-  const totalQty = cart ? cart.reduce((sum, item) => sum + item.qty, 0) : 0;
-
-  if(totalQty > 0){
-    cartDot.style.display = 'inline-block';
-    cartCount.textContent = `(${totalQty})`;
-    cartDotMobile.style.display = 'inline-block';
-    cartCountMobile.textContent = `(${totalQty})`;
-  } else {
-    cartDot.style.display = 'none';
-    cartCount.textContent = `(0)`;
-    cartDotMobile.style.display = 'none';
-    cartCountMobile.textContent = `(0)`;
-  }
-}
-
-// Call this after any cart update
-updateCartDot();
 </script>
 
 <script src="cart.js"></script>
+
+<script>
+// Cart dot update function
+function updateCartDot() {
+  const cart = getCart();
+
+  const cartDot = document.getElementById('cart-dot');
+  const cartCount = document.getElementById('cart-count');
+
+  const cartDotMobile = document.getElementById('cart-dot-mobile');
+  const cartCountMobile = document.getElementById('cart-count-mobile');
+
+  const total = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  if (total > 0) {
+    if (cartDot) cartDot.style.display = 'inline-block';
+    if (cartCount) cartCount.textContent = `(${total})`;
+
+    if (cartDotMobile) cartDotMobile.style.display = 'inline-block';
+    if (cartCountMobile) cartCountMobile.textContent = `(${total})`;
+  } else {
+    if (cartDot) cartDot.style.display = 'none';
+    if (cartCount) cartCount.textContent = `(0)`;
+
+    if (cartDotMobile) cartDotMobile.style.display = 'none';
+    if (cartCountMobile) cartCountMobile.textContent = `(0)`;
+  }
+}
+
+updateCartDot();
+</script>
 </body>
 </html>
