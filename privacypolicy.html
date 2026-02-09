@@ -65,11 +65,38 @@ header{
 }
 .nav a:hover::after{width:100%;}
 
-.cart{
-  position:absolute;
-  right:20px;
-  top:20px;
-  font-size:24px;
+/* CART */
+.cart.desktop-cart {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Remove underline from cart link and its children */
+.cart.desktop-cart,
+.cart.desktop-cart * {
+  text-decoration: none !important;
+}
+
+/* Green dot showing number of items inside */
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.cart-count {
+  font-weight: 500;
+  color: var(--grey);
 }
 
 /* ================= MOBILE NAVIGATION ================= */
@@ -121,16 +148,24 @@ header{
   background:var(--green);
   color:var(--blue);
 }
-.cart.desktop-cart{
-  position:absolute;
-  right:20px;
-  top:20px;
-  font-size:24px;
+
+.cart.mobile-cart-fixed {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 24px;
+  text-decoration: none;
 }
-@media(max-width:700px){
-  .nav{display:none;}
-  .hamburger{display:flex;}
-  .cart.desktop-cart{display:none;}
+
+.cart.mobile-cart-fixed .dot {
+  margin: 0;
+}
+
+.cart.mobile-cart-fixed .cart-count {
+  margin-left: 2px;
 }
 
 /* ================= PAGE ================= */
