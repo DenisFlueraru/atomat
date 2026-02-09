@@ -94,6 +94,18 @@ header{
   color: var(--grey);
 }
 
+/* Added mobile cart styles */
+.cart.mobile-cart {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  align-items: center;
+  gap: 4px;
+}
+
 /* MOBILE CART */
 .cart.mobile-cart {
   text-decoration: none;
@@ -273,6 +285,9 @@ header{
   .nav{display:none;}
   .hamburger{display:flex;}
   .cart.desktop-cart{display:none;}
+  .cart.mobile-cart {
+    display: flex;
+  }
 }
 </style>
 </head>
@@ -290,6 +305,11 @@ header{
   <span id="cart-dot" class="dot"></span>
   <span id="cart-count" class="cart-count">(0)</span>
 </a>
+<a href="cart.html" class="cart mobile-cart" title="Cart">
+  🛒
+  <span id="cart-dot-mobile" class="dot"></span>
+  <span id="cart-count-mobile" class="cart-count">(0)</span>
+</a>
   <div class="hamburger" id="hamburger">
     <span id="hamburger-symbol">+</span>
   </div>
@@ -301,11 +321,6 @@ header{
   <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-<a href="cart.html" class="cart mobile-cart">
-  CART 🛒
-  <span id="cart-dot-mobile" class="dot"></span>
-  <span id="cart-count-mobile" class="cart-count">(0)</span>
-</a>
 </div>
 
 <main>
