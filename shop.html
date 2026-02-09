@@ -72,6 +72,12 @@ header{
   align-items: center;
 }
 
+/* Remove underline from cart link and its children */
+.cart.desktop-cart,
+.cart.desktop-cart * {
+  text-decoration: none !important;
+}
+
 /* Green dot showing number of items inside */
 .cart .dot {
   display: inline-block;
@@ -86,28 +92,6 @@ header{
 .cart-count {
   font-weight: 500;
   color: var(--grey);
-}
-
-/* MOBILE FIXED CART (outside dropdown) */
-.mobile-cart-fixed {
-  display: none;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 24px;
-  align-items: center;
-  gap: 4px;
-  text-decoration: none;
-}
-
-/* Show mobile cart, hide desktop cart */
-@media (max-width: 900px) {
-  .mobile-cart-fixed {
-    display: flex;
-  }
-  .cart.desktop-cart {
-    display: none;
-  }
 }
 
 /* ================= MOBILE NAVIGATION ================= */
@@ -125,7 +109,6 @@ header{
   align-items:center;
   gap:8px;
 }
-
 .nav-mobile{
   position:fixed;
   top:0; left:0; right:0;
@@ -138,10 +121,7 @@ header{
   z-index:200;
   display:flex;
 }
-.nav-mobile.open{
-  transform:translateY(0);
-}
-
+.nav-mobile.open{ transform:translateY(0); }
 #close-nav{
   position:absolute;
   top:12px;
@@ -151,7 +131,6 @@ header{
   cursor:pointer;
   z-index:220;
 }
-
 .nav-mobile a{
   text-decoration:none;
   color:var(--grey);
@@ -160,28 +139,9 @@ header{
   padding:8px 12px;
   border-radius:6px;
 }
-
 .nav-mobile a:hover{
   background:var(--green);
   color:var(--blue);
-}
-
-.cart.mobile-cart {
-  display: inline-flex;
-  font-size: 20px;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.cart.mobile-cart .dot {
-  width: 10px;
-  height: 10px;
-  background: var(--green);
-  border-radius: 50%;
-  display: inline-block;
 }
 
 /* ================= ADD TO CART ================= */
