@@ -60,35 +60,68 @@ header{
 }
 .nav a:hover::after{width:100%;}
 
-/* CART (desktop hidden) */
-.cart.desktop-cart{
-  position:absolute;
-  right:10%;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:24px;
-  text-decoration:none;
-  color:var(--grey);
-  display:flex;
-  align-items:center;
-  gap:10px;
+/* CART */
+.cart.desktop-cart {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.cart-dot{
-  position:absolute;
-  top:-2px;
-  right:-2px;
-  width:8px;
-  height:8px;
-  background:var(--green);
-  border-radius:50%;
-  display:none;
+/* Green dot showing number of items inside */
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
 }
 
-.cart-count{
-  font-size:14px;
-  font-weight:700;
-  display:none;
+.cart-count {
+  font-weight: 500;
+  color: var(--grey);
+}
+/* REMOVE underline from cart link everywhere */
+.cart,
+.cart * {
+  text-decoration: none !important;
+}
+.mobile-cart-fixed {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 220;
+}
+
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.cart-count {
+  font-weight: 500;
+  color: #000;
+}
+
+@media (max-width: 700px) {
+  .cart.desktop-cart {
+    display: none;
+  }
+  .mobile-cart-fixed {
+    display: inline-flex;
+  }
 }
 
 /* ================= MOBILE NAVIGATION ================= */
@@ -226,11 +259,17 @@ header{
   <div class="hamburger" id="hamburger">
   <span id="hamburger-symbol">+</span>
 </div>
-<a href="cart.html" class="cart desktop-cart" title="Cart">
-  🛒
-  <span class="cart-dot" id="cart-dot"></span>
-  <span class="cart-count" id="cart-count">(0)</span>
-</a></header>
+<a href="cart.html" class="cart desktop-cart" aria-label="Cart">
+  <span class="cart-icon">🛒</span>
+  <span id="cart-dot" class="dot"></span>
+  <span id="cart-count" class="cart-count">(0)</span>
+</a>
+<a href="cart.html" class="cart mobile-cart-fixed" aria-label="Cart">
+  <span class="cart-icon">🛒</span>
+  <span id="cart-dot-mobile" class="dot"></span>
+  <span id="cart-count-mobile" class="cart-count">(0)</span>
+</a>
+</header>
 
 <!-- MOBILE NAV -->
 <div class="nav-mobile" id="navMobile">
@@ -239,7 +278,6 @@ header{
   <a href="shop.html">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-  <a href="#"><span>CART 🛒</span></a>
 </div>
 
 <div id="glitch-layer"></div>
@@ -415,6 +453,32 @@ spawn();
 </script>
 
 <script src="cart.js"></script>
+<script>
+function updateCartDot() {
+  const cart = getCart() || [];
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
 
+  const pairs = [
+    { dot: 'cart-dot', count: 'cart-count' },
+    { dot: 'cart-dot-mobile', count: 'cart-count-mobile' }
+  ];
+
+  pairs.forEach(p => {
+    const dot = document.getElementById(p.dot);
+    const count = document.getElementById(p.count);
+    if (!dot || !count) return;
+
+    if (totalQty > 0) {
+      dot.style.display = 'inline-block';
+      count.textContent = `(${totalQty})`;
+    } else {
+      dot.style.display = 'none';
+      count.textContent = `(0)`;
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', updateCartDot);
+</script>
 </body>
 </html>
