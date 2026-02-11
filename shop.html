@@ -354,11 +354,11 @@ header{
           </div>
           <div class="product-footer">
             <div class="price">135 EUR</div>
-            <div class="add-cart" onclick="addToCart({
-  id:'field5',
-  name:'FIELD5',
-  price:13500
-})">Add to cart</div>
+            <div class="add-cart" onclick="event.stopPropagation(); addToCart({
+    id:'field5',
+    name:'FIELD5',
+    price:13500
+  }); updateCartDot();">Add to cart</div>
           </div>
         </div>
       </div>
@@ -376,11 +376,11 @@ header{
           </div>
           <div class="product-footer">
             <div class="price">50 EUR</div>
-<div class="add-cart" onclick="addToCart({
-  id:'crt2',
-  name:'CRT2',
-  price:5000
-})">Add to cart</div>          </div>
+            <div class="add-cart" onclick="event.stopPropagation(); addToCart({
+    id:'crt2',
+    name:'CRT2',
+    price:5000
+  }); updateCartDot();">Add to cart</div>
         </div>
       </div>
 
@@ -397,11 +397,11 @@ header{
           </div>
           <div class="product-footer">
             <div class="price">40 EUR</div>
-<div class="add-cart" onclick="addToCart({
-  id:'ert',
-  name:'ERT',
-  price:4000
-})">Add to cart</div>
+            <div class="add-cart" onclick="event.stopPropagation(); addToCart({
+    id:'ert',
+    name:'ERT',
+    price:4000
+  }); updateCartDot();">Add to cart</div>
           </div>
         </div>
       </div>
@@ -419,11 +419,11 @@ header{
           </div>
           <div class="product-footer">
             <div class="price">40 EUR</div>
-<div class="add-cart" onclick="addToCart({
-  id:'crt1',
-  name:'CRT1',
-  price:4000
-})">Add to cart</div>
+            <div class="add-cart" onclick="event.stopPropagation(); addToCart({
+    id:'crt1',
+    name:'CRT1',
+    price:4000
+  }); updateCartDot();">Add to cart</div>
           </div>
         </div>
       </div>
