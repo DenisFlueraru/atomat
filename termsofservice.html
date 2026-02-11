@@ -5,9 +5,59 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Terms of Service — ATOMAT LAB</title>
 
-<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
+<link href="./fonts/clashgrotesk.css" rel="stylesheet">
 
 <style>
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
+       url('./fonts/ClashGrotesk-Extralight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Light.woff2') format('woff2'),
+       url('./fonts/ClashGrotesk-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Regular.woff2') format('woff2'),
+       url('./fonts/ClashGrotesk-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Medium.woff2') format('woff2'),
+       url('./fonts/ClashGrotesk-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
+       url('./fonts/ClashGrotesk-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Bold.woff2') format('woff2'),
+       url('./fonts/ClashGrotesk-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('./fonts/ClashGrotesk-Variable.woff2') format('woff2-variations'),
+       url('./fonts/ClashGrotesk-Variable.woff') format('woff');
+  font-weight: 200 700;
+  font-style: normal;
+}
+
 :root{
   --grey:#2f2f2f;
   --bg:#fefefe;
@@ -20,7 +70,7 @@
 *{box-sizing:border-box}
 html,body{
   margin:0;
-  font-family:'Neue Kaine',sans-serif;
+  font-family:'ClashGrotesk',sans-serif;
   background:var(--bg);
   color:var(--grey);
   line-height:1.6;
@@ -64,38 +114,25 @@ header{
   background:var(--green);
 }
 .nav a:hover::after{width:100%;}
+
+
 /* CART */
-.cart.desktop-cart {
-  position: absolute;
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  cursor: pointer;
+.cart.desktop-cart, .cart.mobile-cart-header {
   display: flex;
   align-items: center;
+  gap: 6px;
+  font-size: 24px;
+  position: absolute;
+  cursor: pointer;
+  z-index:100;
 }
 
-/* Remove underline from cart link and its children */
-.cart.desktop-cart,
-.cart.desktop-cart * {
-  text-decoration: none !important;
-}
-
-/* Green dot showing number of items inside */
 .cart .dot {
-  display: inline-block;
   width: 12px;
   height: 12px;
   background: var(--green);
   border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.cart-count {
-  font-weight: 500;
-  color: var(--grey);
+  display: inline-block;
 }
 
 /* ================= MOBILE NAVIGATION ================= */
@@ -147,26 +184,6 @@ header{
   background:var(--green);
   color:var(--blue);
 }
-
-.cart.mobile-cart-fixed {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 24px;
-  text-decoration: none;
-}
-
-.cart.mobile-cart-fixed .dot {
-  margin: 0;
-}
-
-.cart.mobile-cart-fixed .cart-count {
-  margin-left: 2px;
-}
-
 /* ================= PAGE ================= */
 .policy-page{
   max-width:900px;
@@ -219,6 +236,11 @@ header{
 @media(max-width:700px){
   .policy-page h1{font-size:32px;}
 }
+
+@media(max-width:900px){
+  .cart.desktop-cart{display:none;}
+  .cart.mobile-cart-header{display:flex;}
+}
 </style>
 </head>
 
@@ -235,19 +257,25 @@ header{
     <span id="hamburger-symbol">+</span>
   </div>
   <a href="cart.html" class="cart desktop-cart" title="Cart">
-  🛒
-  <span class="cart-dot" id="cart-dot"></span>
-  <span class="cart-count" id="cart-count">(0)</span>
-</a>
+    🛒
+    <span class="dot" id="cart-dot"></span>
+    <span class="cart-count" id="cart-count">(0)</span>
+  </a>
+
+  <a href="cart.html" class="cart mobile-cart-header" title="Cart">
+    🛒
+    <span class="dot" id="cart-dot-mobile"></span>
+    <span class="cart-count" id="cart-count-mobile">(0)</span>
+  </a>
 </header>
 
 <div class="nav-mobile" id="navMobile">
   <div id="close-nav">×</div>
   <a href="index.html">HOME</a>
-  <a href="shop.html">SHOP</a>
+  <a href="shop.html" class="shop-link">SHOP</a>
   <a href="about.html">ABOUT</a>
   <a href="contact.html">CONTACT</a>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></div>
+</div>
 
 <main class="policy-page">
   <h1>Terms of Service</h1>
@@ -378,6 +406,32 @@ document.addEventListener('click', e => {
 </script>
 
 <script src="cart.js"></script>
+
+<script>
+function updateCartDot() {
+  const cart = getCart();
+  const total = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  const desktopDot = document.getElementById('cart-dot');
+  const desktopCount = document.getElementById('cart-count');
+  const mobileDot = document.getElementById('cart-dot-mobile');
+  const mobileCount = document.getElementById('cart-count-mobile');
+
+  if (total > 0) {
+    desktopDot.style.display = 'inline-block';
+    desktopCount.textContent = `(${total})`;
+    mobileDot.style.display = 'inline-block';
+    mobileCount.textContent = `(${total})`;
+  } else {
+    desktopDot.style.display = 'none';
+    desktopCount.textContent = `(0)`;
+    mobileDot.style.display = 'none';
+    mobileCount.textContent = `(0)`;
+  }
+}
+
+updateCartDot();
+</script>
 
 </body>
 </html>

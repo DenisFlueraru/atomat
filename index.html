@@ -6,7 +6,53 @@
 
 <title>ATOMAT LAB — Tools that listen</title>
 
-<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@400,500,700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Extralight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Light.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Medium.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+body, html, * {
+  font-family: 'ClashGrotesk', sans-serif !important;
+}
+</style>
 
 <style>
 :root{
@@ -246,11 +292,7 @@ header{
   <span id="cart-dot" class="dot"></span>
   <span id="cart-count" class="cart-count">(0)</span>
 </a>
-<a href="cart.html" class="cart mobile-cart-fixed" aria-label="Cart">
-  <span class="cart-icon">🛒</span>
-  <span id="cart-dot-mobile" class="dot"></span>
-  <span id="cart-count-mobile" class="cart-count">(0)</span>
-</a>
+
 </header>
 
 <!-- MOBILE NAV -->

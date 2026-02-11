@@ -9,6 +9,63 @@
 <link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
 
 <style>
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Extralight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Light.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Medium.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Variable.woff2') format('woff2-variations'),
+       url('fonts/ClashGrotesk-Variable.woff') format('woff-variations');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root{
   --grey:#2f2f2f;
   --bg:#fefefe;
@@ -16,13 +73,14 @@
   --green:#6eff14;
   --rust:#cd6c27;
   --muted:#bdbdbd;
+  --green2:#5ba902;
 }
 
 /* RESET */
 *{box-sizing:border-box;}
 html,body{
   margin:0;
-  font-family:'Neue Kaine',sans-serif;
+  font-family:'ClashGrotesk',sans-serif;
   background:var(--bg);
   color:var(--grey);
 }
@@ -150,7 +208,7 @@ header{
   border-radius:10px;
   background:#fff;
 }
-.cart-item-name{font-weight:700}
+.cart-item-name{font-weight:500}
 .cart-qty{
   display:flex;
   gap:8px;
@@ -182,8 +240,8 @@ header{
   align-items:center;
 }
 .total{
-  font-size:20px;
-  font-weight:700;
+  font-size:25px;
+  font-weight:500;
 }
 .checkout{
   background:var(--blue);
@@ -193,7 +251,7 @@ header{
   font-weight:700;
   cursor:pointer;
 }
-.checkout:hover{background:#000}
+.checkout:hover{background:var(--green2)}
 
 /* PAYMENTS ICONS */
 .payments{
@@ -274,9 +332,9 @@ header{
   <div class="cart-list" id="cartList"></div>
 
   <div class="cart-summary">
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <label for="shippingCountry" style="font-weight:700;">Shipping country</label>
-      <select id="shippingCountry" style="padding:10px;border-radius:8px;border:1px solid #ccc;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <label for="shippingCountry" style="font-weight:500;">Shipping country</label>
+      <select id="shippingCountry" style="padding:10px;border-radius:8px;border:2px solid #000dc0;">
         <option value="">Select country</option>
         <option value="RO" data-fee="500">Romania (€5)</option>
         <option value="DE" data-fee="1200">Germany (€12)</option>
@@ -309,7 +367,7 @@ header{
         <option value="US" data-fee="2500">USA (€30)</option>
       </select>
 
-      <div id="shippingError" style="color:red;font-weight:700;display:none;">
+      <div id="shippingError" style="color:red;font-weight:500;display:none;">
         Please select shipping country
       </div>
 
