@@ -14,6 +14,7 @@
   --blue:#0000ff;
   --green:#6eff14;
   --muted:#bdbdbd;
+  --green2:#5ba902;
 }
 
 /* RESET */
@@ -229,7 +230,7 @@ header{
   font-weight:700;
 }
 .add-btn{
-  background:var(--grey);
+  background:var(--blue);
   color:#fff;
   padding:14px 30px;
   border-radius:10px;
@@ -239,7 +240,7 @@ header{
 /* ================= ADD TO CART ================= */
 
 .add-cart{
-  background: var(--grey);
+  background: var(--blue);
   color: #fff;
   padding: 14px 30px;
   border-radius: 10px;
@@ -248,7 +249,7 @@ header{
   transition: transform .2s ease, background .2s ease;
 }
 .add-cart:hover{
-  background: var(--blue);
+  background: var(--green2);
   transform: scale(1.05);
 }
 
@@ -406,50 +407,61 @@ header{
   <div>
     <h1>FIELD5</h1>
     <p class="claim">
-      FIELD5 is a phantom-powered contact microphone designed to listen inside matter.
-      It reveals vibration, structure, and resonance hidden beneath surfaces.
+      FIELD5 is a 48V phantom-powered contact microphone designed to listen in any circumstance.
+      With the included accesories it can fit most of the structures and objects. 
+      
     </p>
 
     <section class="accordion">
       <div class="accordion-item">
         <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
-        <div class="accordion-content"><p>10Hz–18kHz · Phantom powered · 175g</p></div>
+        <div class="accordion-content"><p>Frequency: 10Hz–17kHz · 48V Phantom powered · 87g</p></div>
       </div>
       <div class="accordion-item">
         <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
-        <div class="accordion-content"><p>Microphone · Cable · Mount</p></div>
+        <div class="accordion-content"><p>Microphone, Magnet, Suction Cup, Probe, Velcro Support, Extra Weight</p></div>
       </div>
       <div class="accordion-item">
         <button onclick="toggleAccordion(2)">SOUND SAMPLES</button>
-        <div class="accordion-content"><p>Links coming soon</p></div>
+        <div class="accordion-content">
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2189812859&color=%23264f22&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+<div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+<a href="https://soundcloud.com/atomat-lab" title="ATOMAT LAB" target="_blank" style="color: #cccccc; text-decoration: none;">ATOMAT LAB</a> · 
+<a href="https://soundcloud.com/atomat-lab/sets/field5-mic-samples" title="FIELD5 MIC SAMPLES" target="_blank" style="color: #cccccc; text-decoration: none;">FIELD5 MIC SAMPLES</a>
+</div>
+</div>
       </div>
     </section>
 
     <div class="meta">
-      <span class="price">142 EUR</span>
+      <span class="price">135 EUR</span>
       <div class="add-cart" onclick="addToCart({
         id:'field5',
         name:'FIELD5',
-        price:14200
+        price:13500
       })">Add to cart</div>
     </div>
   </div>
 
-  <img class="hero-img" src="https://lh3.googleusercontent.com/d/1LXmx0lzytjtG2YSTwDm0WBwWxYLqdn2g">
+  <img class="hero-img" src="https://lh3.googleusercontent.com/d/16pr8JHRSbTnMB52LJyi9UU2VrlEkHYFA">
 </section>
 
 <section class="value-grid">
-  <div class="value"><h3>HEAR STRUCTURE</h3><p>Internal vibration, not air pressure.</p></div>
-  <div class="value"><h3>FIELD & STUDIO</h3><p>Durable, predictable, neutral.</p></div>
-  <div class="value"><h3>PHANTOM POWER</h3><p>No external preamp required.</p></div>
+  <div class="value"><h3>WATERPROOF</h3><p>Epoxy coated PCB</p></div>
+  <div class="value"><h3>FIELD & STUDIO</h3><p>Copper shielding and male XLR Output</p></div>
+  <div class="value"><h3>PHANTOM POWERED</h3><p>No external preamp required.</p></div>
 </section>
 
 <section class="gallery-wrap">
   <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/18vBe-GW_44AdRHppK5UAYDdI9zdPlHWJ"></div>
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1iKr0SnfVXC_ogsoxrs258BGjiUrXdn6f"></div>
-    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1HDN3nBlN-xr7cCbrftqu6bUyMUyShTtH"></div>
+      <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/19X5fXuvbF7vK0V2YlA3hsCyP-DBo7zWn"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1d450ru_2b-61vFuW7-QPxHspxom20Tjg"></div>
+        <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1FMynQtFJWU-URdOLXurFFpQFbtRX829u"></div>
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1ez_032iS-3OA7G4UcP7BedovGjlEpSnJ"></div>
     <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1LXmx0lzytjtG2YSTwDm0WBwWxYLqdn2g"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1HDN3nBlN-xr7cCbrftqu6bUyMUyShTtH"></div>
   </div>
 </section>
 
