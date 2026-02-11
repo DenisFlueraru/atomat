@@ -158,8 +158,8 @@ header{
   text-align:center;
 }
 .hero-title{
-  font-size:32px;
-  font-weight:700;
+  font-size:24px;
+  font-weight:300;
   max-width:800px;
   margin-bottom:20px;
   opacity:0;
@@ -201,7 +201,7 @@ header{
   font-size:16px;
 }
 .about-image{
-  flex:1 1 300px;
+  flex:1 1 200px;
   max-width:400px;
   border-radius:12px;
   overflow:hidden;
@@ -214,7 +214,7 @@ header{
   object-fit:cover;
 }
 .about-image:hover{
-  transform:scale(1.02) rotate(0.2deg);
+  transform:scale(1.15) rotate(0.8deg);
 }
 
 /* ================= FOOTER ================= */
@@ -298,27 +298,85 @@ header{
 <main>
 
 <section class="hero">
-  <div class="hero-title">ATOMAT LAB — Tools that listen</div>
-  <div class="hero-sub">Founded in 2021, ATOMAT LAB explores the subtle textures of sound, vibration, and electromagnetism. Every tool is handcrafted with functional simplicity and timeless aesthetics.</div>
-</section>
-
-<section class="about-section">
-  <div class="about-text">
-    <p><strong>TRT — Texture Recording Tool:</strong> Developed from experimental research, it captures the physical textures of surfaces and transforms them into sound.</p>
-    <p>It’s the foundation for our handmade audio tools used by sound designers and experimental artists worldwide.</p>
-  </div>
-  <div class="about-image">
-    <img src="https://lh3.googleusercontent.com/d/19nRxk-ssUPjzFEVBlKpCqgUwSRsR0V_J" alt="TRT device">
+  <div>
+    <div class="about-image" style="margin:0 auto 40px; max-width:300px;">
+      <img src="https://lh3.googleusercontent.com/d/1pYBjw4ku8J215DdySNgwtqbvosv9wKwO" alt="In the studio building microphones">
+    </div>
+    <p class="hero-title" style="opacity:1;transform:none;">
+      It all started around 2020, when I began learning about microcontrollers, the MIDI protocol and softwares like Max MSP to build interactive sound installations. I was interested in sound not only as something to be heard, but as something that could react, respond, and exist physically in space.
+    </p>
   </div>
 </section>
 
 <section class="about-section">
+  <div class="about-text">
+    <p>
+      While working with interactive systems, I became increasingly curious about what happens before sound reaches a speaker.
+      Signals, voltages, and vibrations felt more interesting than the final audio output.
+    </p>
+    <p>
+      Instead of shaping sound digitally, I started looking for ways to listen directly to physical phenomena, such as movement, friction, resonance, and electrical activity.
+    </p>
+  </div>
   <div class="about-image">
-    <img src="https://lh3.googleusercontent.com/d/1-WcoXcHdqR1JuH2Sp8L8ICjGPr6HliKy" alt="FIELD5 device">
+    <img src="https://lh3.googleusercontent.com/d/1o3gv84yw_3xLpHRUwYfLl56k7ybl6khX" alt="Early experiments and prototypes">
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-image">
+    <img src="https://lh3.googleusercontent.com/d/19nRxk-ssUPjzFEVBlKpCqgUwSRsR0V_J" alt="Dissertation prototype">
   </div>
   <div class="about-text">
-    <p><strong>FIELD5 — Phantom-powered contact microphone:</strong> Modular and versatile, designed for immersive field recordings and experimental setups.</p>
-    <p>We also run workshops to build microphones, explore field textures, and create collaborative audio pieces. Learn more at <a href="https://denisflueraru.com" target="_blank">denisflueraru.com</a>.</p>
+    <p>
+      This approach became central during my dissertation, where I developed an early version of what later became the TRT.
+      It wasn’t designed as a finished product, but as an experiment, a way to record texture rather than sound in the traditional sense.
+    </p>
+    <p>
+      Many recordings failed, others revealed unexpected rhythms and structures hidden inside materials.
+      That unpredictability became part of the process.
+    </p>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-text">
+    <p>
+      From that point on, the work evolved through trial and error.
+      I began experimenting with different contact microphones, electromagnetic pickups, materials, and enclosures.
+    </p>
+    <p>
+      I learned to use tools like oscilloscopes not from an engineering background, but as a way to visually understand sound, connecting what I heard with what was physically happening.
+    </p>
+  </div>
+  <div class="about-image">
+    <img src="https://lh3.googleusercontent.com/d/1teqeI3pFomGxlrfkoTpnfbX18RigxwCy
+" alt="Oscilloscope and testing process">
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="about-image">
+    <img src="https://lh3.googleusercontent.com/d/18Ok3NVxcqgAAOfNW4cb2ORU9Xd64ZYK6" alt="ATOMAT LAB instruments">
+  </div>
+  <div class="about-text">
+    <p>
+      ATOMAT LAB sits somewhere between artistic research and instrument making.
+      Interactive programming, electronics, 3D printing, and sound research all merge into the same practice.
+            The first instrument I started selling was the CRT1.
+      What began as a small, self-built tool quickly received a lot of support and encouraging feedback,
+      which made it clear that this way of listening resonated with others as well.
+    </p>
+    <p>
+            That response pushed the work forward.
+      I started developing other instruments, refining both the electronics and the physical design,
+      while keeping the same experimental, hands-on approach.
+    </p>
+    <p>    
+      This process eventually led to FIELD5, ATOMAT LAB’s top-of-the-line recording instrument.
+      A phantom-powered contact microphone designed to work reliably across different environments,
+      while still revealing the subtle textures and vibrations that conventional microphones often miss.
+    </p>
   </div>
 </section>
 
