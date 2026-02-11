@@ -14,6 +14,7 @@
   --blue:#0000ff;
   --green:#6eff14;
   --muted:#bdbdbd;
+    --green2:#5ba902;
 }
 /* Force cart count color for both desktop and mobile, and make them bold */
 .cart-count, #cart-count, #cart-count-mobile {
@@ -311,7 +312,7 @@ header{
 /* ================= ADD TO CART ================= */
 
 .add-cart{
-  background: var(--grey);
+  background: var(--blue);
   color: #fff;
   padding: 14px 30px;
   border-radius: 10px;
@@ -320,7 +321,7 @@ header{
   transition: transform .2s ease, background .2s ease;
 }
 .add-cart:hover{
-  background: var(--blue);
+  background: var(--green2);
   transform: scale(1.05);
 }
 
@@ -407,12 +408,11 @@ header{
 
     <section class="accordion">
       <div class="accordion-item">
-        <button onclick="toggleAccordion(0)">HOW TO USE</button>
+        <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
         <div class="accordion-content">
           <p>
-            Plug ERT into a recording device or interface.<br>
-            Move near electronic circuits and devices.<br>
-            Each source reveals a distinct electrical signature.
+            Frequency Response: 10Hz-18kHz<br>
+            Double Inductors <br>1m cable length<br> 6.3mm male jack
           </p>
         </div>
       </div>
@@ -421,34 +421,32 @@ header{
         <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
         <div class="accordion-content">
           <p>
-            ERT EMF microphone<br>
-            1.5 m instrument cable (6.3 mm TS)
+            ERT Mic
           </p>
         </div>
       </div>
 
       <div class="accordion-item">
-        <button onclick="toggleAccordion(2)">NOTES</button>
+        <button onclick="toggleAccordion(2)">SOUND SAMPLES</button>
         <div class="accordion-content">
           <p>
-            Designed for experimental listening.<br>
-            Telephone number required at checkout for courier delivery.
+            COMING SOON
           </p>
         </div>
       </div>
     </section>
 
     <div class="meta">
-      <span class="price">42 EUR</span>
+      <span class="price">40 EUR</span>
       <div class="add-cart" onclick="addToCart({
         id:'ERT',
         name:'ERT',
-        price:4200
+        price:4000
       }); updateCartDot();">Add to cart</div>
     </div>
   </div>
 
-  <img class="hero-img" src="https://lh3.googleusercontent.com/d/13hXGDk9BZJ9dMPNo-i5VsRvNZ6AOqXEw">
+  <img class="hero-img" src="https://lh3.googleusercontent.com/d/1Af-5V3pbrhO3bMs03C9Q-n3AIqmPch1F">
 </section>
 
 <section class="value-grid">
@@ -468,9 +466,9 @@ header{
 
 <section class="gallery-wrap">
   <div class="gallery-grid">
-    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1EdDIYzTXAdcBBt2IH-odFOWcVrGMvStt"></div>
-    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/17-c9y_CEj4oDPFLK3TFn6PhfT1T_gOi"></div>
-    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1NF6HmhnR_SywQ2FqYoC2wXS8xHA3aOIl"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1MNKNFHUCcqD5Hsb5qEQ14NLR0CGKVWEb"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1z1Mnrbys8yJvk_EpDs_9gK5mpTGCBTh-"></div>
+    <div class="gallery-item"><img src="https://lh3.googleusercontent.com/d/1pMwETEIcaqX9UWclXdxUo-WhJjJ4Hqs8"></div>
   </div>
 </section>
 
