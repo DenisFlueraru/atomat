@@ -21,15 +21,15 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-       allow_promotion_codes: true, // Add this line
-      line_items: items, // includes shipping as a separate product already
+      allow_promotion_codes: true, // ADD THIS LINE
+      line_items: items,
       billing_address_collection: 'required',
       shipping_address_collection: {
-        allowed_countries: [country], // only allow the selected country
+        allowed_countries: [country],
       },
       phone_number_collection: { enabled: true },
       shipping_options: [
-        { shipping_rate: SHIPPING_RATE_ID } // dummy rate just to show "Shipping: calculated"
+        { shipping_rate: SHIPPING_RATE_ID }
       ],
       metadata: { shipping_country: country },
       success_url: `${req.headers.origin}/success.html`,
