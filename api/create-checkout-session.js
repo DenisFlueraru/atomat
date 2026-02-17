@@ -18,17 +18,36 @@ export default async function handler(req, res) {
   }
 
   try {
+    const { items } = req.body;
+
+    if (!items || !items.length) {
+      return res.status(400).json({ error: 'No items provided' });
+    }
+
+    const line_items = items.map(item => ({
+      price_data: {
+        currency: 'eur',
+        product_data: {
+          name: item.name,
+        },
+        unit_amount: Number(item.price),
+      },
+      quantity: item.qty,
+    }));
+
     const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
       payment_method_types: ['card'],
       mode: 'payment',
-      line_items: items, // includes shipping as a separate product already
+      allow_promotion_codes: true, // ADD THIS LINE
+      line_items: items,
       billing_address_collection: 'required',
       shipping_address_collection: {
-        allowed_countries: [country], // only allow the selected country
+        allowed_countries: [country],
       },
       phone_number_collection: { enabled: true },
       shipping_options: [
-        { shipping_rate: SHIPPING_RATE_ID } // dummy rate just to show "Shipping: calculated"
+        { shipping_rate: SHIPPING_RATE_ID }
       ],
       metadata: { shipping_country: country },
       success_url: `${req.headers.origin}/success.html`,
