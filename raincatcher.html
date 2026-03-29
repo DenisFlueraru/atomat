@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FIELD5 — ATOMAT LAB</title>
+
+
+<style>
+
+
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ClashGrotesk';
+  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
+       url('fonts/ClashGrotesk-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  font-family: 'ClashGrotesk', sans-serif;
+}
+
+:root{
+  --grey:#2f2f2f;
+  --bg:#fefefe;
+  --blue:#0000ff;
+  --green:#6eff14;
+  --muted:#bdbdbd;
+  --green2:#5ba902;
+}
+
+/* RESET */
+*{box-sizing:border-box}
+html,body{margin:0;font-family:'ClashGrotesk',sans-serif;background:var(--bg);color:var(--grey);}
+
+/* ================= HEADER (UNCHANGED) ================= */
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(5px);
+  border-bottom:1px solid #fff;
+  display:flex;
+  justify-content:center;
+  padding:40px;
+}
+.nav{display:flex;gap:36px}
+.nav a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.7px;
+  padding:6px 12px;
+  border-radius:6px;
+  transition:.25s ease;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:0;height:2px;
+  background:var(--blue);
+  transition:width .3s;
+}
+.nav a:hover{
+  transform:scale(1.1);
+  color:var(--blue);
+  background:var(--green);
+}
+.nav a:hover::after{width:100%;}
+.cart{position:absolute;right:20px;top:20px;font-size:24px}
+
+
+/* CART */
+.cart.desktop-cart {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Remove underline from cart link and its children */
+.cart.desktop-cart,
+.cart.desktop-cart * {
+  text-decoration: none !important;
+}
+
+/* Green dot showing number of items inside */
+.cart .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.cart-count {
+  font-weight: 500;
+  color: var(--grey);
+}
+/* MOBILE CART HEADER — match shop page */
+.cart.mobile-cart-header{
+  display:none;
+  position:absolute;
+  right:20px;
+  top:20px;
+  font-size:24px;
+  cursor:pointer;
+  align-items:center;
+}
+
+.cart.mobile-cart-header,
+.cart.mobile-cart-header *{
+  text-decoration:none !important;
+}
+
+/* ================= MOBILE NAVIGATION ================= */
+.hamburger{
+  display:none;              /* desktop default */
+  position:absolute;
+  left:20px;
+  top:20px;
+  cursor:pointer;
+  z-index:210;
+  font-size:28px;
+  font-weight:700;
+  color:var(--grey);
+  user-select:none;
+  align-items:center;
+  gap:8px;
+}
+.nav-mobile{
+  position:fixed;
+  top:0; left:0; right:0;
+  background:rgba(255,255,255,.95);
+  flex-direction:column;
+  gap:16px;
+  padding:60px 20px 20px;
+  transform:translateY(-120%);
+  transition:transform .3s ease;
+  z-index:200;
+  display:flex;
+}
+.nav-mobile.open{ transform:translateY(0); }
+#close-nav{
+  position:absolute;
+  top:12px;
+  left:12px;
+  font-size:28px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:220;
+}
+.nav-mobile a{
+  text-decoration:none;
+  color:var(--grey);
+  font-weight:700;
+  font-size:20px;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-mobile a:hover{
+  background:var(--green);
+  color:var(--blue);
+}
+
+/* ================= PAGE ================= */
+.product-page{
+  max-width:1120px;
+  margin:80px auto 120px;
+  padding:0 18px;
+}
+
+/* ================= PRODUCT INTRO ================= */
+.product-intro{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:60px;
+  align-items:start;
+  margin-bottom:80px;
+}
+.product-intro h1{
+  font-size:42px;
+  margin:0 0 18px;
+}
+.claim{
+  font-size:20px;
+  line-height:1.55;
+  margin-bottom:36px;
+}
+.hero-img{
+  max-width:340px;
+  border-radius:18px;
+  box-shadow:0 18px 44px rgba(0,0,0,.12);
+}
+
+/* ================= ACCORDION ================= */
+.accordion{
+  margin-bottom:36px;
+}
+.accordion-item{
+  border:2px solid var(--grey);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.accordion-item button{
+  width:100%;
+  padding:14px 18px;
+  background:#fff;
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+  text-align:left;
+}
+.accordion-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
+  padding:0 18px;
+}
+.accordion-content p{margin:14px 0;}
+
+/* ================= PRICE ================= */
+.meta{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  margin-top:24px;
+}
+.price{
+  font-size:26px;
+  font-weight:700;
+}
+.add-btn{
+  background:var(--blue);
+  color:#fff;
+  padding:14px 30px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+}
+/* ================= ADD TO CART ================= */
+
+.add-cart{
+  background: var(--blue);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+.add-cart:hover{
+  background: var(--green2);
+  transform: scale(1.05);
+}
+
+/* ================= VALUES ================= */
+.value-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+  margin-bottom:90px;
+}
+.value{
+  border-top:2px solid var(--grey);
+  padding-top:18px;
+}
+.value h3{
+  margin:0 0 6px;
+  font-size:16px;
+  font-weight:800;
+}
+.value p{
+  margin:0;
+  line-height:1.55;
+}
+
+/* ================= GALLERY ================= */
+.gallery-wrap{
+  max-width:900px;
+  margin:0 auto 100px;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.gallery-item{
+  cursor:pointer;
+  border-radius:14px;
+  overflow:hidden;
+}
+.gallery-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* ================= MODAL ================= */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.95);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:200;
+}
+.modal img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:18px;
+}
+.modal .close{
+  position:absolute;
+  top:30px;
+  right:40px;
+  font-size:32px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+/* ================= PAYMENT LOGOS ================= */
+.payment-logos{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  margin:0 auto 60px;
+}
+.payment-logos img{
+  height:26px;
+  opacity:.8;
+}
+
+/* ================= FOOTER (UNCHANGED) ================= */
+.footer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:36px;
+  padding:40px 12px 80px;
+  color:var(--grey);
+  border-top:1px solid #eee;
+  flex-wrap:wrap;
+  text-align:center;
+}
+
+/* ================= ROTATING LOGO ================= */
+#rotating-logo{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  width:110px;
+  cursor:pointer;
+  animation:spin 18s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav{display:none;}
+  .hamburger{display:flex;}
+  .cart{display:none;}
+  .product-intro,.value-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+}
+
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html">HOME</a>
+    <a href="shop.html" class="shop-link">SHOP</a>
+    <a href="about.html">ABOUT</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <a href="cart.html" class="cart desktop-cart" title="Cart">
+    🛒
+    <span id="cart-dot" class="dot"></span>
+    <span id="cart-count" class="cart-count">(0)</span>
+  </a>
+
+  <div class="hamburger" id="hamburger">
+    <span id="hamburger-symbol">+</span>
+  </div>
+</header>
+
+<div class="nav-mobile" id="navMobile">
+  <div id="close-nav">×</div>
+  <a href="index.html">HOME</a>
+  <a href="shop.html" class="shop-link">SHOP</a>
+  <a href="about.html">ABOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="#"><span class="cart mobile-cart">
+    CART 🛒<span class="dot">0</span>
+  </span></a>
+</div>
+
+<main class="product-page">
+
+<section class="product-intro">
+  <div>
+    <h1>FIELD5</h1>
+    <p class="claim">
+      FIELD5 is a 48V phantom-powered contact microphone designed to listen in any circumstance.
+      With the included accesories it can fit most of the structures and objects. 
+      
+    </p>
+
+    <section class="accordion">
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
+        <div class="accordion-content"><p>Designed as an acoustic isolation attachment for FIELD5. Optimized for transient capture and environmental micro-detail.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
+        <div class="accordion-content"><p>Raincatcher attachment module, support, M4 knob, 4mm engraved plexi board</p></div>
+      </div>
+      <div class="accordion-item">
+        <button onclick="toggleAccordion(2)">SOUND SAMPLES</button>
+        <div class="accordion-content">
+<iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2189812859&color=%23264f22&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+<div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
+<a href="https://soundcloud.com/atomat-lab" title="ATOMAT LAB" target="_blank" style="color: #cccccc; text-decoration: none;">ATOMAT LAB</a> · 
+<a href="https://soundcloud.com/atomat-lab/sets/field5-mic-samples" title="FIELD5 MIC SAMPLES" target="_blank" style="color: #cccccc; text-decoration: none;">FIELD5 MIC SAMPLES</a>
+</div>
+</div>
+      </div>
+    </section>
+
+    <div class="meta">
+      <span class="price">35 EUR</span>
+      <div class="add-cart" onclick="addToCart({
+        id:'field5',
+        name:'FIELD5',
+        price:3500
+      })">Add to cart</div>
+    </div>
+  </div>
+
+<img class="hero-img" src="https://lh3.googleusercontent.com/d/13UepvpNRKhmvHaclufc7e0s_sADvkhu2">
+</section>
+
+<!-- <section class="value-grid">
+  <div class="value"><h3>WATERPROOF</h3><p>Epoxy coated PCB</p></div>
+  <div class="value"><h3>FIELD & STUDIO</h3><p>Copper shielding and male XLR Output</p></div>
+  <div class="value"><h3>PHANTOM POWERED</h3><p>No external preamp required.</p></div>
+</section> -->
+
+<section class="gallery-wrap">
+  <div class="gallery-grid">
+   <div class="gallery-item">
+  <img src="https://lh3.googleusercontent.com/d/13UepvpNRKhmvHaclufc7e0s_sADvkhu2=w1000">
+</div>
+<div class="gallery-item">
+  <img src="https://lh3.googleusercontent.com/d/1lWpdttYUXDqBBHXRYuQH_F2WSCQSc7iF=w1000">
+</div>
+<div class="gallery-item">
+  <img src="https://lh3.googleusercontent.com/d/11lormdFwoHSULj1RKMsP2ex4frG3Gc8V=w1000">
+</div>
+<div class="gallery-item">
+  <img src="https://lh3.googleusercontent.com/d/1n2Yt3kc606-aZG8zB7TYu3w7KdEjOz6Y=w1000">
+</div>
+  </div>
+</section>
+
+<div class="payment-logos">
+<a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
+    <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
+    <a href="http://paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2"></a>
+</div>
+
+</main>
+
+<section class="footer">
+  <div style="line-height:1.6;">
+    © ATOMAT LAB — tools that listen<br>
+    <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
+      contact@atomatlab.com
+    </a>
+  </div>
+  <div style="width:1px;height:60px;background:#d4d4d4;opacity:.8;"></div>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
+       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
+    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
+    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
+  </div>
+</section>
+
+<a href="index.html">
+  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
+</a>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modal-img">
+</div>
+
+<script>
+function toggleAccordion(n){
+  const p=document.querySelectorAll('.accordion-content');
+  p[n].style.maxHeight=p[n].style.maxHeight?null:p[n].scrollHeight+"px";
+}
+
+const modal=document.getElementById('modal');
+const modalImg=document.getElementById('modal-img');
+
+document.querySelectorAll('.gallery-item img').forEach(img=>{
+  img.onclick=()=>{
+    modal.style.display='flex';
+    modalImg.src=img.src;
+  }
+});
+
+function closeModal(){
+  modal.style.display='none';
+}
+
+modal.addEventListener('click',e=>{
+  if(e.target===modal) closeModal();
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeModal();
+});
+
+/* ================= MOBILE NAVIGATION TOGGLE ================= */
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+const closeNav = document.getElementById('close-nav');
+
+hamburger.addEventListener('click', e => {
+  e.stopPropagation();
+  navMobile.classList.add('open');
+  hamburger.style.display = 'none';
+});
+
+closeNav.addEventListener('click', () => {
+  navMobile.classList.remove('open');
+  hamburger.style.display = 'flex';
+});
+
+document.addEventListener('click', e => {
+  if(navMobile.classList.contains('open') &&
+     !navMobile.contains(e.target) &&
+     !hamburger.contains(e.target)){
+    navMobile.classList.remove('open');
+    hamburger.style.display = 'flex';
+  }
+});
+</script>
+
+<script src="cart.js"></script>
+<script>
+  function updateCartDot() {
+    const cart = getCart(); // from cart.js
+    const cartDot = document.getElementById('cart-dot');
+    const cartCount = document.getElementById('cart-count');
+
+    if(cart && cart.length > 0){
+      cartDot.style.display = 'inline-block';
+      cartCount.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
+    } else {
+      cartDot.style.display = 'none';
+      cartCount.textContent = `(0)`;
+    }
+  }
+
+  updateCartDot();
+</script>
+
+</body>
+</html>

@@ -465,6 +465,28 @@ header{
         </div>
       </div>
 
+      <!-- Raincatcher (Accesory) -->
+      <div class="product" onclick="goToProduct('crt1.html', event)">
+        <img src="https://lh3.googleusercontent.com/d/13UepvpNRKhmvHaclufc7e0s_sADvkhu2=w2000" alt="Raincatcher">
+        <div class="product-content">
+          <div class="product-title">Raincatcher</div>
+          <div class="product-desc">FIELD5 attachment</div>
+          <div class="toggle-details" onclick="toggleDetails(this)">+ Quick info</div>
+          <div class="product-details">
+            <p>Designed to isolate and capture drops of rain or similar transients · 3D Printed Support and 4mm Plexi board</p>
+            <p>30cm diameter </p>
+          </div>
+          <div class="product-footer">
+            <div class="price">35 EUR</div>
+            <div class="add-cart" onclick="event.stopPropagation(); addToCart({
+    id:'raincatcher',
+    name:'Raincatcher',
+    price:3500
+  }); updateCartDot();">Add to cart</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
