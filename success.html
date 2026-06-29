@@ -338,6 +338,7 @@ header{
 <main class="success-container">
   <h1>Thank you!</h1>
   <p>Your order has been successfully placed.</p>
+  <p style="font-weight:300;opacity:.7;max-width:460px;margin:14px auto 24px;line-height:1.5;">You'll receive an email confirmation, and a shipping note once your order is on its way. Questions? Write to <a href="mailto:contact@atomatlab.com" style="color:inherit;">contact@atomatlab.com</a>.</p>
   <a href="index.html">Back to Home</a>
 </main>
 
@@ -360,11 +361,11 @@ header{
 
 <script>
 /* ================= CLEAR CART ================= */
-localStorage.removeItem('cart');
+localStorage.removeItem('atomat_cart');
 
 /* ================= CART DOT UPDATE ================= */
 function updateCartDot() {
-  const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+  const cart = JSON.parse(localStorage.getItem('atomat_cart') || '[]');
   const count = Object.values(cart).reduce((acc, item) => acc + (item.quantity || 0), 0);
   const cartDot = document.getElementById('cart-dot');
   const cartCount = document.getElementById('cart-count');

@@ -302,6 +302,14 @@ header{
     grid-template-rows:auto auto;
   }
 }
+
+/* ===== ADDED: totals breakdown + trust ===== */
+.totals{display:flex;flex-direction:column;gap:8px;}
+.totals-row{display:flex;justify-content:space-between;gap:24px;min-width:240px;font-weight:300;opacity:.8;font-size:15px;}
+.total{margin-top:6px;}
+.returns-note{display:inline-block;margin-top:14px;font-size:13px;font-weight:300;opacity:.65;border-bottom:1px solid currentColor;}
+.payments.secure-note{align-items:center;gap:14px;}
+.payments.secure-note span{font-size:13px;font-weight:300;opacity:.7;letter-spacing:.3px;}
 </style>
 </head>
 
@@ -371,18 +379,20 @@ header{
         Please select shipping country
       </div>
 
-      <div class="total">
-        Total: €<span id="total">0</span>
+      <div class="totals">
+        <div class="totals-row"><span>Subtotal</span><span>€<span id="subtotal">0.00</span></span></div>
+        <div class="totals-row"><span>Shipping</span><span>€<span id="shipFee">0.00</span></span></div>
+        <div class="total">Total: €<span id="total">0</span></div>
       </div>
+      <a href="refundpolicy.html" class="returns-note">14-day returns under EU cooling-off rules</a>
     </div>
 
     <div class="checkout" id="checkoutBtn">Checkout</div>
   </div>
 
-  <div class="payments">
-    <a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW" alt="Visa"></a>
-    <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe"></a>
-    <a href="https://www.paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2" alt="PayPal"></a>
+  <div class="payments secure-note">
+    <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
+    <span>Secure checkout · payments handled by Stripe</span>
   </div>
 </main>
 
@@ -414,7 +424,8 @@ function renderCartPage(){
 
   if(!cart.length){
     list.innerHTML = '<p>Your cart is empty.</p>';
-    totalEl.textContent = '0.00';
+    window.cartSubtotal = 0;
+    updateTotal();
     return;
   }
 
@@ -441,8 +452,12 @@ function renderCartPage(){
 function updateTotal(){
   const countrySelect = document.getElementById('shippingCountry');
   const fee = parseInt(countrySelect?.selectedOptions[0]?.dataset.fee || 0);
-  const total = (window.cartSubtotal + fee) / 100;
-  document.getElementById('total').textContent = total.toFixed(2);
+  const sub = window.cartSubtotal || 0;
+  const subEl = document.getElementById('subtotal');
+  const feeEl = document.getElementById('shipFee');
+  if(subEl) subEl.textContent = (sub / 100).toFixed(2);
+  if(feeEl) feeEl.textContent = (fee / 100).toFixed(2);
+  document.getElementById('total').textContent = ((sub + fee) / 100).toFixed(2);
 }
 
 function changeQty(index, delta){

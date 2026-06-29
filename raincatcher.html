@@ -398,6 +398,43 @@ header{
 }
 
 
+
+/* ===== ADDED: trust / reassurance ===== */
+.buy-reassure{
+  margin:16px 0 0;
+  font-size:13px;
+  font-weight:300;
+  letter-spacing:.3px;
+  opacity:.65;
+}
+.product-review{
+  margin:28px 0 0;
+  padding:0 0 0 16px;
+  max-width:440px;
+  border-left:2px solid var(--green);
+}
+.product-review blockquote{
+  margin:0;
+  font-size:15px;
+  font-style:italic;
+  line-height:1.45;
+}
+.product-review figcaption{
+  margin-top:8px;
+  font-size:12px;
+  font-weight:300;
+  opacity:.55;
+}
+.secure-note{
+  align-items:center;
+  gap:14px;
+}
+.secure-note span{
+  font-size:13px;
+  font-weight:300;
+  opacity:.7;
+  letter-spacing:.3px;
+}
 </style>
 </head>
 
@@ -466,13 +503,15 @@ header{
     </section>
 
     <div class="meta">
-      <span class="price">35 EUR</span>
+      <span class="price">45 EUR</span>
       <div class="add-cart" onclick="addToCart({
         id:'raincatcher',
         name:'Raincatcher',
-        price:3500
+        price:4500
       })">Add to cart</div>
     </div>
+
+    <p class="buy-reassure">Handmade to order in Romania · ships within a few days · 14-day EU returns</p>
   </div>
 
 <img class="hero-img" src="https://lh3.googleusercontent.com/d/13UepvpNRKhmvHaclufc7e0s_sADvkhu2">
@@ -501,8 +540,9 @@ header{
   </div>
 </section>
 
-<div class="payment-logos">
-    <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
+<div class="payment-logos secure-note">
+  <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
+  <span>Secure checkout · payments handled by Stripe</span>
 </div>
 
 </main>

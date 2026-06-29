@@ -425,6 +425,43 @@ header{
   .nav { display: none; }
   .hamburger { display: flex; }
 }
+
+/* ===== ADDED: trust / reassurance ===== */
+.buy-reassure{
+  margin:16px 0 0;
+  font-size:13px;
+  font-weight:300;
+  letter-spacing:.3px;
+  opacity:.65;
+}
+.product-review{
+  margin:28px 0 0;
+  padding:0 0 0 16px;
+  max-width:440px;
+  border-left:2px solid var(--green);
+}
+.product-review blockquote{
+  margin:0;
+  font-size:15px;
+  font-style:italic;
+  line-height:1.45;
+}
+.product-review figcaption{
+  margin-top:8px;
+  font-size:12px;
+  font-weight:300;
+  opacity:.55;
+}
+.secure-note{
+  align-items:center;
+  gap:14px;
+}
+.secure-note span{
+  font-size:13px;
+  font-weight:300;
+  opacity:.7;
+  letter-spacing:.3px;
+}
 </style>
 </head>
 
@@ -502,13 +539,19 @@ header{
     </section>
 
     <div class="meta">
-      <span class="price">50 EUR</span>
+      <span class="price">60 EUR</span>
       <div class="add-cart" onclick="addToCart({
-        id:'field5',
+        id:'crt2',
         name:'CRT2',
-        price:5000
+        price:6000
       })">Add to cart</div>
     </div>
+
+    <p class="buy-reassure">Handmade to order in Romania · ships within a few days · 14-day EU returns</p>
+    <figure class="product-review">
+      <blockquote>“Excellent microphone and excellent service by Dennis!”</blockquote>
+      <figcaption>— Verified buyer</figcaption>
+    </figure>
   </div>
 
   <img class="hero-img" src="https://lh3.googleusercontent.com/d/10mUsk15DakAyVxJI7PYLPsoJRYcf3NpK">
@@ -538,10 +581,9 @@ header{
   </div>
 </section>
 
-<div class="payment-logos">
-<a href="https://www.visa.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1eIMy8x9fJ7A5GyUACeilGAP6Ea43cQkW"></a>
-    <a href="https://www.stripe.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt"></a>
-    <a href="http://paypal.com" target="_blank"><img src="https://lh3.googleusercontent.com/d/1e5iKPJC1rjZQqHvecAJVOdhMQ1JZiQ-2"></a>
+<div class="payment-logos secure-note">
+  <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
+  <span>Secure checkout · payments handled by Stripe</span>
 </div>
 
 </main>
