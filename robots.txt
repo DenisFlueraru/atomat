@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /cart.html
+Disallow: /success.html
+
+Sitemap: https://atomatlab.com/sitemap.xml
