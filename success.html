@@ -1,423 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ATOMAT LAB — Success</title>
-<meta name="robots" content="noindex,follow">
-<!-- ClashGrotesk FontFace Definitions -->
-
-<style>
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Extralight.woff') format('woff');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Light.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Medium.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk-Variable';
-  src: url('fonts/ClashGrotesk-Variable.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Variable.woff') format('woff');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-/* <style> */
-  :root{
-  --grey:#2f2f2f;
-  --bg:#fefefe;
-  --blue:#0000ff;
-  --green:#6eff14;
-  --rust:#cd6c27;
-  --muted:#bdbdbd;
-}
-
-/* RESET */
-*{box-sizing:border-box;}
-html,body{
-  margin:0;
-  font-family:'ClashGrotesk','ClashGrotesk-Variable',sans-serif;
-  background:var(--bg);
-  color:var(--grey);
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
-}
-
-/* ================= HEADER ================= */
-header{
-  position:sticky; top:0; z-index:50;
-  background:rgba(255,255,255,.2);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #fff;
-  display:flex;
-  justify-content:center;
-  padding:40px;
-}
-.nav{display:flex;gap:36px;}
-.nav a{
-  font-weight:700;
-  font-size:18px;
-  letter-spacing:.7px;
-  padding:6px 12px;
-  border-radius:6px;
-  transition:.25s;
-  position:relative;
-  text-decoration: none;
-  color: var(--grey);
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0; bottom:0;
-  width:0; height:2px;
-  background:var(--blue);
-  transition:.3s;
-}
-.nav a:hover{
-  transform:scale(1.1);
-  color:var(--blue);
-  background:var(--green);
-}
-.nav a:hover::after{width:100%;}
-
-/* CART */
-.cart.desktop-cart {
-  position: absolute;
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  text-decoration: none !important;
-}
-
-/* Remove underline from cart link and its children */
-.cart.desktop-cart,
-.cart.desktop-cart * {
-  text-decoration: none !important;
-}
-
-/* Green dot showing number of items inside */
-.cart .dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: var(--green);
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.cart-count {
-  font-weight: 500;
-  color: var(--grey);
-}
-
-/* Mobile cart header */
-.mobile-cart-header {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 24px;
-  text-decoration: none !important;
-  color: var(--grey);
-  cursor: pointer;
-  user-select: none;
-}
-
-/* Remove underline from mobile cart and its children */
-.mobile-cart-header,
-.mobile-cart-header * {
-  text-decoration: none !important;
-}
-
-/* Dot and count in mobile cart */
-.mobile-cart-header .dot {
-  margin: 0;
-}
-
-.mobile-cart-header .cart-count {
-  margin-left: 2px;
-}
-
-/* ================= MOBILE NAVIGATION ================= */
-.hamburger{
-  display:none;              /* desktop default */
-  position:absolute;
-  left:20px;
-  top:20px;
-  cursor:pointer;
-  z-index:210;
-  font-size:28px;
-  font-weight:700;
-  color:var(--grey);
-  user-select:none;
-  align-items:center;
-  gap:8px;
-}
-.nav-mobile{
-  position:fixed;
-  top:0; left:0; right:0;
-  background:rgba(255,255,255,.95);
-  flex-direction:column;
-  gap:16px;
-  padding:60px 20px 20px;
-  transform:translateY(-120%);
-  transition:transform .3s ease;
-  z-index:200;
-  display:flex;
-}
-.nav-mobile.open{ transform:translateY(0); }
-#close-nav{
-  position:absolute;
-  top:12px;
-  left:12px;
-  font-size:28px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:220;
-}
-.nav-mobile a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:20px;
-  padding:8px 12px;
-  border-radius:6px;
-}
-.nav-mobile a:hover{
-  background:var(--green);
-  color:var(--blue);
-}
-
-/* ================= SUCCESS MESSAGE ================= */
-.success-container{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:0 20px;
-}
-.success-container h1{
-  font-size:36px;
-  font-weight:700;
-  margin-bottom:20px;
-  color:var(--blue);
-}
-.success-container p{
-  font-size:18px;
-  margin-bottom:40px;
-  color:var(--grey);
-}
-.success-container a{
-  display:inline-block;
-  padding:14px 28px;
-  background:var(--green);
-  color:var(--grey);
-  font-weight:700;
-  border-radius:10px;
-  transition:background .3s, transform .2s;
-}
-.success-container a:hover{
-  background:var(--blue);
-  color:#fff;
-  transform:scale(1.05);
-}
-
-/* ================= FOOTER ================= */
-.footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:36px;
-  padding:40px 12px 80px;
-  border-top:1px solid #eee;
-  flex-wrap:wrap;
-  text-align:center;
-  color:var(--grey);
-}
-
-/* ROTATING LOGO */
-#rotating-logo{
-  position:fixed;
-  left:14px;
-  bottom:14px;
-  width:110px;
-  animation:spin 18s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-@media(max-width:900px){
-  .nav{display:none;}
-  .hamburger{display:flex;}
-  .cart.desktop-cart{display:none;}
-}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order confirmed — ATOMAT LAB</title>
+<meta name="description" content="Your ATOMAT LAB order is confirmed.">
+<link rel="canonical" href="https://atomatlab.com/success.html">
+<link rel="icon" href="media/favicon.png">
+<link rel="apple-touch-icon" href="media/logo.png">
+<meta name="theme-color" content="#e4e3dd">
+<meta property="og:site_name" content="ATOMAT LAB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Order confirmed — ATOMAT LAB">
+<meta property="og:description" content="Your ATOMAT LAB order is confirmed.">
+<meta property="og:url" content="https://atomatlab.com/success.html">
+<meta property="og:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Order confirmed — ATOMAT LAB">
+<meta name="twitter:description" content="Your ATOMAT LAB order is confirmed.">
+<meta name="twitter:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/shop.css">
 </head>
 <body>
-
-<header>
-  <nav class="nav">
-    <a href="index.html">HOME</a>
-    <a href="shop.html">SHOP</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
-  </nav>
-  <a href="cart.html" class="cart desktop-cart" title="Cart">
-    🛒
-    <span class="dot" id="cart-dot"></span>
-    <span class="cart-count" id="cart-count">(0)</span>
+<a class="skip" href="#main">Skip to content</a>
+<header class="head">
+  <a class="brand" href="index.html" aria-label="ATOMAT LAB home">
+    <img src="media/logo-rotating.sm.png" alt="" width="40" height="40">
+    <span>Atomat Lab</span>
   </a>
-  <div class="hamburger" id="hamburger">+</div>
-  <a href="cart.html" class="mobile-cart-header" title="Cart" style="display:none;">
-    🛒
-    <span class="dot" id="cart-dot-mobile"></span>
-    <span class="cart-count" id="cart-count-mobile">(0)</span>
+  <nav class="nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+  <a class="cart-link" href="cart.html">
+    <span>Cart</span><span class="badge zero" data-cart-count>0</span>
   </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
-
-<div class="nav-mobile" id="navMobile">
-  <div id="close-nav">×</div>
-  <a href="index.html">HOME</a>
-  <a href="shop.html">SHOP</a>
-  <a href="about.html">ABOUT</a>
-  <a href="contact.html">CONTACT</a>
+<div class="menu" id="menu" hidden>
+  <div class="menu-top">
+    <span class="tag">Atomat Lab</span>
+    <button class="menu-close" type="button">Close ×</button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html" aria-current="page">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart <span class="badge zero" data-cart-count style="vertical-align:middle">0</span></a></nav>
+  <div class="menu-foot"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div><p class="note" style="margin-top:14px">tools that listen · contact@atomatlab.com</p></div>
 </div>
 
-<main class="success-container">
-  <h1>Thank you!</h1>
-  <p>Your order has been successfully placed.</p>
-  <p style="font-weight:300;opacity:.7;max-width:460px;margin:14px auto 24px;line-height:1.5;">You'll receive an email confirmation, and a shipping note once your order is on its way. Questions? Write to <a href="mailto:contact@atomatlab.com" style="color:inherit;">contact@atomatlab.com</a>.</p>
-  <a href="index.html">Back to Home</a>
+<main id="main">
+<div class="wrap">
+  <section style="padding:clamp(40px,7vw,110px) 0 0;max-width:62ch">
+    <div class="tags" style="margin-bottom:18px"><span class="tag acc">Paid</span></div>
+    <h1 style="font-size:clamp(38px,6vw,84px)">Thank <span class="mark">you</span></h1>
+    <p class="lead" style="margin-top:22px">Your order is in. A confirmation is on its way to your inbox from
+    Stripe, and your instrument goes on the bench next — handmade to order, usually shipped within a few days.</p>
+    <p style="margin-top:8px">If anything looks wrong, or you want to add to the order before it ships,
+    write to <a href="mailto:contact@atomatlab.com" style="text-decoration:underline">contact@atomatlab.com</a>.</p>
+    <div class="hero-cta" style="margin-top:28px">
+      <a class="btn big solid" href="shop.html">Back to the instruments</a>
+      <a class="btn big" href="index.html">Home</a>
+    </div>
+  </section>
+  <section class="sec"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div></section>
+</div>
 </main>
-
-<section class="footer">
+<script>try { localStorage.removeItem("atomat_cart"); } catch (e) {}</script>
+<footer class="foot wrap">
+<div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+<div class="foot-grid">
   <div>
-    © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a>
+    <img class="mark-big" src="media/textlogo.sm.png" alt="ATOMAT LAB">
+    <p class="note" style="margin-top:14px">Handmade in Bucharest<br>Ships to 29 countries</p>
   </div>
-  <div style="width:1px;height:60px;background:#d4d4d4;"></div>
-  <div>
-    <a href="termsofservice.html">Terms of Service</a><br>
-    <a href="privacypolicy.html">Privacy Policy</a><br>
-    <a href="refundpolicy.html">Refunds Policy</a>
+  <div><h3>Instruments</h3><ul><li><a href="field5.html">FIELD5</a></li><li><a href="crt2.html">CRT2</a></li><li><a href="crt1.html">CRT1</a></li><li><a href="ert.html">ERT</a></li><li><a href="raincatcher.html">RAINCATCHER</a></li></ul></div>
+  <div><h3>Elsewhere</h3><ul><li><a href="https://instagram.com/atomatlab" rel="me noopener" target="_blank">Instagram <span class="note">@atomatlab</span></a></li><li><a href="https://youtube.com/@atomatlab" rel="me noopener" target="_blank">YouTube <span class="note">@atomatlab</span></a></li><li><a href="https://soundcloud.com/atomat-lab" rel="me noopener" target="_blank">SoundCloud <span class="note">atomat-lab</span></a></li><li><a href="https://tiktok.com/@atomatlab" rel="me noopener" target="_blank">TikTok <span class="note">@atomatlab</span></a></li></ul></div>
+  <div><h3>Legal</h3><ul><li><a href="termsofservice.html">Terms of service</a></li><li><a href="privacypolicy.html">Privacy policy</a></li><li><a href="refundpolicy.html">Refund policy</a></li></ul>
+    <p style="margin-top:14px"><a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></p>
   </div>
-</section>
-
-<a href="index.html">
-  <img alt="" id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
-</a>
-
-<script>
-/* ================= CLEAR CART ================= */
-localStorage.removeItem('atomat_cart');
-
-/* ================= CART DOT UPDATE ================= */
-function updateCartDot() {
-  const cart = JSON.parse(localStorage.getItem('atomat_cart') || '[]');
-  const count = Object.values(cart).reduce((acc, item) => acc + (item.quantity || 0), 0);
-  const cartDot = document.getElementById('cart-dot');
-  const cartCount = document.getElementById('cart-count');
-  const cartDotMobile = document.getElementById('cart-dot-mobile');
-  const cartCountMobile = document.getElementById('cart-count-mobile');
-
-  if (count > 0) {
-    if (cartDot) cartDot.style.display = 'inline-block';
-    if (cartCount) cartCount.textContent = `(${count})`;
-    if (cartDotMobile) cartDotMobile.style.display = 'inline-block';
-    if (cartCountMobile) cartCountMobile.textContent = `(${count})`;
-  } else {
-    if (cartDot) cartDot.style.display = 'none';
-    if (cartCount) cartCount.textContent = '(0)';
-    if (cartDotMobile) cartDotMobile.style.display = 'none';
-    if (cartCountMobile) cartCountMobile.textContent = '(0)';
-  }
-}
-
-/* Initialize cart dot */
-updateCartDot();
-
-/* ================= MOBILE NAVIGATION ================= */
-const hamburger=document.getElementById('hamburger');
-const navMobile=document.getElementById('navMobile');
-const closeNav=document.getElementById('close-nav');
-const mobileCartHeader = document.querySelector('.mobile-cart-header');
-
-function toggleMobileCartVisibility() {
-  if(window.innerWidth <= 900) {
-    mobileCartHeader.style.display = 'flex';
-  } else {
-    mobileCartHeader.style.display = 'none';
-  }
-}
-
-hamburger.onclick=()=>{
-  navMobile.classList.add('open');
-  hamburger.style.display='none';
-  mobileCartHeader.style.display = 'none';
-}
-closeNav.onclick=()=>{
-  navMobile.classList.remove('open');
-  hamburger.style.display='flex';
-  toggleMobileCartVisibility();
-}
-
-/* Show or hide mobile cart on window resize */
-window.addEventListener('resize', toggleMobileCartVisibility);
-toggleMobileCartVisibility();
-</script>
-
+</div>
+<div class="foot-note">
+  <span class="note">© ATOMAT LAB — tools that listen</span>
+  <div class="pay">
+    <span class="note">Secure checkout by Stripe</span>
+    <img src="media/pay-visa.sm.png" alt="Visa">
+    <img src="media/pay-stripe.sm.png" alt="Stripe">
+    <img src="media/pay-paypal.sm.png" alt="PayPal">
+  </div>
+</div>
+</footer>
+<script src="assets/shop.js"></script>
 </body>
 </html>

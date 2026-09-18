@@ -1,547 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>ATOMAT LAB — Cart</title>
-<meta name="robots" content="noindex,follow">
-
-<link href="https://api.fontshare.com/v2/css?f[]=neue-kaine@700,500,400&display=swap" rel="stylesheet">
-
-<style>
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Extralight.woff') format('woff');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Light.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Medium.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Variable.woff2') format('woff2-variations'),
-       url('fonts/ClashGrotesk-Variable.woff') format('woff-variations');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root{
-  --grey:#2f2f2f;
-  --bg:#fefefe;
-  --blue:#0000ff;
-  --green:#6eff14;
-  --rust:#cd6c27;
-  --muted:#bdbdbd;
-  --green2:#5ba902;
-}
-
-/* RESET */
-*{box-sizing:border-box;}
-html,body{
-  margin:0;
-  font-family:'ClashGrotesk',sans-serif;
-  background:var(--bg);
-  color:var(--grey);
-}
-a{text-decoration:none;color:inherit}
-
-/* ================= HEADER ================= */
-header{
-  position:sticky; top:0; z-index:50;
-  background:rgba(255,255,255,.2);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #fff;
-  display:flex;
-  justify-content:center;
-  padding:40px;
-  position:relative;
-}
-.nav{display:flex;gap:36px;}
-.nav a{
-  font-weight:700;
-  font-size:18px;
-  letter-spacing:.7px;
-  padding:6px 12px;
-  border-radius:6px;
-  transition:.25s;
-  position:relative;
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0; bottom:0;
-  width:0; height:2px;
-  background:var(--blue);
-  transition:.3s;
-}
-.nav a:hover{
-  transform:scale(1.1);
-  color:var(--blue);
-  background:var(--green);
-}
-.nav a:hover::after{width:100%;}
-
-.cart.desktop-cart{
-  position:absolute;
-  right:20px;
-  top:20px;
-  font-size:24px;
-  cursor:pointer;
-}
-.cart .dot{
-  position:absolute;
-  right:-6px;
-  top:-6px;
-  width:12px;
-  height:12px;
-  background:var(--green);
-  border-radius:50%;
-  display:none;
-}
-
-/* ================= MOBILE NAV ================= */
-.hamburger{
-  display:none;
-  position:absolute;
-  left:20px;
-  top:20px;
-  cursor:pointer;
-  z-index:210;
-  font-size:28px;
-  font-weight:700;
-}
-.nav-mobile{
-  position:fixed;
-  top:0; left:0; right:0;
-  background:rgba(255,255,255,.95);
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  padding:60px 20px 20px;
-  transform:translateY(-120%);
-  transition:.3s;
-  z-index:200;
-}
-.nav-mobile.open{transform:translateY(0)}
-#close-nav{
-  position:absolute;
-  top:12px; left:12px;
-  font-size:28px;
-  cursor:pointer;
-}
-.nav-mobile a{
-  font-size:20px;
-  font-weight:700;
-  padding:8px 12px;
-  border-radius:6px;
-}
-.nav-mobile a:hover{
-  background:var(--green);
-  color:var(--blue);
-}
-
-/* ================= CART PAGE ================= */
-.cart-page{
-  max-width:900px;
-  margin:80px auto 120px;
-  padding:0 20px;
-}
-.cart-title{
-  font-size:24px;
-  font-weight:700;
-  letter-spacing:.6px;
-  margin-bottom:40px;
-}
-.cart-list{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
-.cart-item{
-  display:grid;
-  grid-template-columns:1fr 120px 80px 40px;
-  align-items:center;
-  gap:12px;
-  padding:18px;
-  border:1px solid #e5e5e5;
-  border-radius:10px;
-  background:#fff;
-}
-.cart-item-name{font-weight:500}
-.cart-qty{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-.qty-btn{
-  width:28px;
-  height:28px;
-  border:1px solid var(--muted);
-  background:#fff;
-  cursor:pointer;
-  font-weight:700;
-}
-.cart-price{font-weight:700}
-.remove{
-  cursor:pointer;
-  font-size:20px;
-  opacity:.6;
-}
-.remove:hover{opacity:1}
-
-/* SUMMARY */
-.cart-summary{
-  margin-top:40px;
-  padding-top:24px;
-  border-top:1px solid #ddd;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.total{
-  font-size:25px;
-  font-weight:500;
-}
-.checkout{
-  background:var(--blue);
-  color:#fff;
-  padding:14px 28px;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-}
-.checkout:hover{background:var(--green2)}
-
-/* PAYMENTS ICONS */
-.payments{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin:60px 0 20px;
-}
-.payments img{
-  height:24px;
-  opacity:.9;
-  transition:transform .2s ease, opacity .2s ease;
-}
-.payments a:hover img{
-  transform:scale(1.15);
-  opacity:1;
-}
-
-/* FOOTER */
-.footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:36px;
-  padding:40px 12px 80px;
-  border-top:1px solid #eee;
-  flex-wrap:wrap;
-  text-align:center;
-}
-
-/* ROTATING LOGO */
-#rotating-logo{
-  position:fixed;
-  left:14px;
-  bottom:14px;
-  width:110px;
-  animation:spin 18s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .nav{display:none;}
-  .hamburger{display:flex;}
-  .cart.desktop-cart{display:none;}
-  .cart-item{
-    grid-template-columns:1fr auto;
-    grid-template-rows:auto auto;
-  }
-}
-
-/* ===== ADDED: totals breakdown + trust ===== */
-.totals{display:flex;flex-direction:column;gap:8px;}
-.totals-row{display:flex;justify-content:space-between;gap:24px;min-width:240px;font-weight:300;opacity:.8;font-size:15px;}
-.total{margin-top:6px;}
-.returns-note{display:inline-block;margin-top:14px;font-size:13px;font-weight:300;opacity:.65;border-bottom:1px solid currentColor;}
-.payments.secure-note{align-items:center;gap:14px;}
-.payments.secure-note span{font-size:13px;font-weight:300;opacity:.7;letter-spacing:.3px;}
-</style>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cart — ATOMAT LAB</title>
+<meta name="description" content="Your ATOMAT LAB cart: handmade contact and EMF microphones, built to order and shipped from Romania.">
+<link rel="canonical" href="https://atomatlab.com/cart.html">
+<link rel="icon" href="media/favicon.png">
+<link rel="apple-touch-icon" href="media/logo.png">
+<meta name="theme-color" content="#e4e3dd">
+<meta property="og:site_name" content="ATOMAT LAB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cart — ATOMAT LAB">
+<meta property="og:description" content="Your ATOMAT LAB cart: handmade contact and EMF microphones, built to order and shipped from Romania.">
+<meta property="og:url" content="https://atomatlab.com/cart.html">
+<meta property="og:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cart — ATOMAT LAB">
+<meta name="twitter:description" content="Your ATOMAT LAB cart: handmade contact and EMF microphones, built to order and shipped from Romania.">
+<meta name="twitter:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/shop.css">
 </head>
-
 <body>
-
-<header>
-  <nav class="nav">
-    <a href="index.html">HOME</a>
-    <a href="shop.html">SHOP</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
-  </nav>
-  <a href="cart.html" class="cart desktop-cart" title="Cart">🛒<span id="cart-dot"></span></a>
-  <div class="hamburger" id="hamburger">+</div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="head">
+  <a class="brand" href="index.html" aria-label="ATOMAT LAB home">
+    <img src="media/logo-rotating.sm.png" alt="" width="40" height="40">
+    <span>Atomat Lab</span>
+  </a>
+  <nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+  <a class="cart-link" href="cart.html">
+    <span>Cart</span><span class="badge zero" data-cart-count>0</span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
-
-<div class="nav-mobile" id="navMobile">
-  <div id="close-nav">×</div>
-  <a href="index.html">HOME</a>
-  <a href="shop.html">SHOP</a>
-  <a href="about.html">ABOUT</a>
-  <a href="contact.html">CONTACT</a>
-  <a href="cart.html">CART 🛒</a>
+<div class="menu" id="menu" hidden>
+  <div class="menu-top">
+    <span class="tag">Atomat Lab</span>
+    <button class="menu-close" type="button">Close ×</button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart <span class="badge zero" data-cart-count style="vertical-align:middle">0</span></a></nav>
+  <div class="menu-foot"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div><p class="note" style="margin-top:14px">tools that listen · contact@atomatlab.com</p></div>
 </div>
 
-<main class="cart-page">
-  <div class="cart-title">Cart</div>
-  <div class="cart-list" id="cartList"></div>
-
-  <div class="cart-summary">
-    <div style="display:flex;flex-direction:column;gap:20px;">
-      <label for="shippingCountry" style="font-weight:500;">Shipping country</label>
-      <select id="shippingCountry" style="padding:10px;border-radius:8px;border:2px solid #000dc0;">
-        <option value="">Select country</option>
-        <option value="RO" data-fee="500">Romania (€5)</option>
-        <option value="DE" data-fee="1200">Germany (€12)</option>
-        <option value="HU" data-fee="1200">Hungary (€12)</option>
-        <option value="GB" data-fee="2600">UK (€26)</option>
-        <option value="AT" data-fee="1300">Austria (€13)</option>
-        <option value="BE" data-fee="2200">Belgium (€22)</option>
-        <option value="FR" data-fee="1400">France (€14)</option>
-        <option value="PL" data-fee="1200">Poland (€12)</option>
-        <option value="ES" data-fee="1500">Spain (€15)</option>
-        <option value="LU" data-fee="2000">Luxembourg (€20)</option>
-        <option value="DK" data-fee="2000">Denmark (€20)</option>
-        <option value="CZ" data-fee="1000">Czech Republic (€10)</option>
-        <option value="SK" data-fee="1000">Slovakia (€10)</option>
-        <option value="HR" data-fee="1000">Croatia (€10)</option>
-        <option value="CY" data-fee="1000">Cyprus (€10)</option>
-        <option value="EE" data-fee="1500">Estonia (€15)</option>
-        <option value="LV" data-fee="1500">Latvia (€15)</option>
-        <option value="FI" data-fee="4000">Finland (€40)</option>
-        <option value="IE" data-fee="1800">Ireland (€18)</option>
-        <option value="LT" data-fee="1500">Lithuania (€15)</option>
-        <option value="NL" data-fee="1700">Netherlands (€17)</option>
-        <option value="PT" data-fee="1400">Portugal (€14)</option>
-        <option value="SI" data-fee="1000">Slovenia (€10)</option>
-        <option value="SE" data-fee="2500">Sweden (€25)</option>
-        <option value="CH" data-fee="2500">Switzerland (€25)</option>
-        <option value="IT" data-fee="1400">Italy (€14)</option>
-        <option value="BG" data-fee="1000">Bulgaria (€10)</option>
-        <option value="GR" data-fee="1000">Greece (€10)</option>
-        <option value="US" data-fee="2500">USA (€30)</option>
-      </select>
-
-      <div id="shippingError" style="color:red;font-weight:500;display:none;">
-        Please select shipping country
+<main id="main">
+<div class="wrap">
+  <section style="padding:clamp(34px,5vw,64px) 0 0">
+    <h1 style="font-size:clamp(38px,6vw,78px)">Cart</h1>
+  </section>
+  <section class="sec">
+    <div class="cart-grid">
+      <div>
+        <div class="rows" id="cartList"></div>
+        <p class="note" style="margin-top:16px">Handmade to order in Romania · ships within a few days · 14-day EU returns</p>
       </div>
-
-      <div class="totals">
-        <div class="totals-row"><span>Subtotal</span><span>€<span id="subtotal">0.00</span></span></div>
-        <div class="totals-row"><span>Shipping</span><span>€<span id="shipFee">0.00</span></span></div>
-        <div class="total">Total: €<span id="total">0</span></div>
-      </div>
-      <a href="refundpolicy.html" class="returns-note">14-day returns under EU cooling-off rules</a>
-    </div>
-
-    <div class="checkout" id="checkoutBtn">Checkout</div>
-  </div>
-
-  <div class="payments secure-note">
-    <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
-    <span>Secure checkout · payments handled by Stripe</span>
-  </div>
-</main>
-
-<section class="footer">
-  <div>
-    © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a>
-  </div>
-  <div style="width:1px;height:60px;background:#d4d4d4;"></div>
-  <div>
-    <a href="termsofservice.html">Terms of Service</a><br>
-    <a href="privacypolicy.html">Privacy Policy</a><br>
-    <a href="refundpolicy.html">Refunds Policy</a>
-  </div>
-</section>
-
-<a href="index.html"><img alt="" id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd"></a>
-
-<script>
-/* CART PAGE — USE SHARED cart.js STORAGE */
-
-function renderCartPage(){
-  const cart = getCart();
-  const list = document.getElementById('cartList');
-  const totalEl = document.getElementById('total');
-
-  list.innerHTML = '';
-  let subtotal = 0;
-
-  if(!cart.length){
-    list.innerHTML = '<p>Your cart is empty.</p>';
-    window.cartSubtotal = 0;
-    updateTotal();
-    return;
-  }
-
-  cart.forEach((item, i) => {
-    subtotal += item.price * item.qty;
-    list.innerHTML += `
-      <div class="cart-item">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-qty">
-          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
-          ${item.qty}
-          <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+      <aside class="totals">
+        <div class="field">
+          <label for="country">Shipping country</label>
+          <select id="country" name="country">
+            <option value="">Select a country…</option>
+            <option value="RO">Romania — €5</option><option value="BG">Bulgaria — €10</option><option value="CZ">Czech Republic — €10</option><option value="HR">Croatia — €10</option><option value="CY">Cyprus — €10</option><option value="GR">Greece — €10</option><option value="SK">Slovakia — €10</option><option value="SI">Slovenia — €10</option><option value="DE">Germany — €12</option><option value="HU">Hungary — €12</option><option value="PL">Poland — €12</option><option value="AT">Austria — €13</option><option value="FR">France — €14</option><option value="IT">Italy — €14</option><option value="PT">Portugal — €14</option><option value="ES">Spain — €15</option><option value="EE">Estonia — €15</option><option value="LV">Latvia — €15</option><option value="LT">Lithuania — €15</option><option value="NL">Netherlands — €17</option><option value="IE">Ireland — €18</option><option value="LU">Luxembourg — €20</option><option value="DK">Denmark — €20</option><option value="BE">Belgium — €22</option><option value="SE">Sweden — €25</option><option value="CH">Switzerland — €25</option><option value="US">USA — €30</option><option value="GB">United Kingdom — €26</option><option value="FI">Finland — €40</option>
+          </select>
+          <p class="err" id="shipErr" hidden>Please choose a shipping country.</p>
         </div>
-        <div class="cart-price">€${(item.price * item.qty / 100).toFixed(2)}</div>
-        <div class="remove" onclick="removeFromCart(${i})">×</div>
-      </div>`;
-  });
-
-  window.cartSubtotal = subtotal;
-  updateTotal();
-}
-
-// Update total whenever cart or country changes
-function updateTotal(){
-  const countrySelect = document.getElementById('shippingCountry');
-  const fee = parseInt(countrySelect?.selectedOptions[0]?.dataset.fee || 0);
-  const sub = window.cartSubtotal || 0;
-  const subEl = document.getElementById('subtotal');
-  const feeEl = document.getElementById('shipFee');
-  if(subEl) subEl.textContent = (sub / 100).toFixed(2);
-  if(feeEl) feeEl.textContent = (fee / 100).toFixed(2);
-  document.getElementById('total').textContent = ((sub + fee) / 100).toFixed(2);
-}
-
-function changeQty(index, delta){
-  const cart = getCart();
-  cart[index].qty += delta;
-  if(cart[index].qty <= 0) cart.splice(index,1);
-  saveCart(cart);
-  renderCartPage();
-}
-
-function removeFromCart(index){
-  const cart = getCart();
-  cart.splice(index,1);
-  saveCart(cart);
-  renderCartPage();
-}
-
-document.getElementById('shippingCountry').addEventListener('change', () => {
-  document.getElementById('shippingError').style.display = 'none';
-  updateTotal();
-});
-
-document.getElementById('checkoutBtn').addEventListener('click', async () => {
-  const cart = getCart();
-  const countrySelect = document.getElementById('shippingCountry');
-
-  if(!cart.length) return;
-
-  if(!countrySelect.value){
-    document.getElementById('shippingError').style.display = 'block';
-    return;
-  }
-
-  // Build items for Stripe, including shipping
-  const shippingFee = parseInt(countrySelect.selectedOptions[0].dataset.fee);
-  const itemsForStripe = cart.map(item => ({
-    price_data: {
-      currency: 'eur',
-      product_data: { name: item.name },
-      unit_amount: item.price
-    },
-    quantity: item.qty
-  }));
-
-  // Add shipping as a separate item
-  itemsForStripe.push({
-    price_data: {
-      currency: 'eur',
-      product_data: { name: `Shipping (${countrySelect.value})` },
-      unit_amount: shippingFee
-    },
-    quantity: 1
-  });
-
-  try {
-    const res = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: itemsForStripe,
-        country: countrySelect.value
-      })
-    });
-
-    const data = await res.json();
-    if(data.url) window.location.href = data.url;
-    else alert('Checkout failed');
-  } catch(e){
-    console.error(e);
-    alert('Checkout failed');
-  }
-});
-
-document.addEventListener('DOMContentLoaded', renderCartPage);
-/* MOBILE NAV */
-const hamburger=document.getElementById('hamburger');
-const navMobile=document.getElementById('navMobile');
-const closeNav=document.getElementById('close-nav');
-hamburger.onclick=()=>{navMobile.classList.add('open');hamburger.style.display='none'}
-closeNav.onclick=()=>{navMobile.classList.remove('open');hamburger.style.display='flex'}
-</script>
-<script src="cart.js"></script>
-<script>
-</script>
+        <dl>
+          <dt>Subtotal</dt><dd id="sub">€0.00</dd>
+          <dt>Shipping</dt><dd id="fee">—</dd>
+        </dl>
+        <div class="grand"><span class="m">Total</span><b id="grand">€0.00</b></div>
+        <button class="btn big solid block" type="button" id="checkout" disabled>Checkout →</button>
+        <p class="note">Payments handled by Stripe. Prices and shipping are confirmed on the
+        server, so what you see here is what you pay.</p>
+      </aside>
+    </div>
+  </section>
+</div>
+</main>
+<footer class="foot wrap">
+<div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+<div class="foot-grid">
+  <div>
+    <img class="mark-big" src="media/textlogo.sm.png" alt="ATOMAT LAB">
+    <p class="note" style="margin-top:14px">Handmade in Bucharest<br>Ships to 29 countries</p>
+  </div>
+  <div><h3>Instruments</h3><ul><li><a href="field5.html">FIELD5</a></li><li><a href="crt2.html">CRT2</a></li><li><a href="crt1.html">CRT1</a></li><li><a href="ert.html">ERT</a></li><li><a href="raincatcher.html">RAINCATCHER</a></li></ul></div>
+  <div><h3>Elsewhere</h3><ul><li><a href="https://instagram.com/atomatlab" rel="me noopener" target="_blank">Instagram <span class="note">@atomatlab</span></a></li><li><a href="https://youtube.com/@atomatlab" rel="me noopener" target="_blank">YouTube <span class="note">@atomatlab</span></a></li><li><a href="https://soundcloud.com/atomat-lab" rel="me noopener" target="_blank">SoundCloud <span class="note">atomat-lab</span></a></li><li><a href="https://tiktok.com/@atomatlab" rel="me noopener" target="_blank">TikTok <span class="note">@atomatlab</span></a></li></ul></div>
+  <div><h3>Legal</h3><ul><li><a href="termsofservice.html">Terms of service</a></li><li><a href="privacypolicy.html">Privacy policy</a></li><li><a href="refundpolicy.html">Refund policy</a></li></ul>
+    <p style="margin-top:14px"><a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></p>
+  </div>
+</div>
+<div class="foot-note">
+  <span class="note">© ATOMAT LAB — tools that listen</span>
+  <div class="pay">
+    <span class="note">Secure checkout by Stripe</span>
+    <img src="media/pay-visa.sm.png" alt="Visa">
+    <img src="media/pay-stripe.sm.png" alt="Stripe">
+    <img src="media/pay-paypal.sm.png" alt="PayPal">
+  </div>
+</div>
+</footer>
+<script src="assets/shop.js"></script>
 </body>
 </html>

@@ -1,312 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Privacy Policy — ATOMAT LAB</title>
-<meta name="robots" content="noindex,follow">
-
-<style>
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-extralight.woff2') format('woff2'),
-       url('fonts/clashgrotesk-extralight.woff') format('woff');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-light.woff2') format('woff2'),
-       url('fonts/clashgrotesk-light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-regular.woff2') format('woff2'),
-       url('fonts/clashgrotesk-regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-medium.woff2') format('woff2'),
-       url('fonts/clashgrotesk-medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-semibold.woff2') format('woff2'),
-       url('fonts/clashgrotesk-semibold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-bold.woff2') format('woff2'),
-       url('fonts/clashgrotesk-bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/clashgrotesk-variable.woff2') format('woff2-variations');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root{
-  --grey:#2f2f2f;
-  --bg:#fefefe;
-  --blue:#0000ff;
-  --green:#6eff14;
-  --muted:#bdbdbd;
-}
-
-/* RESET */
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  font-family:'ClashGrotesk',sans-serif;
-  background:var(--bg);
-  color:var(--grey);
-  line-height:1.6;
-}
-
-/* ================= HEADER (CLONED) ================= */
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,.2);
-  backdrop-filter:blur(5px);
-  border-bottom:1px solid #fff;
-  display:flex;
-  justify-content:center;
-  padding:40px;
-}
-.nav{display:flex;gap:36px}
-.nav a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:18px;
-  letter-spacing:.7px;
-  padding:6px 12px;
-  border-radius:6px;
-  transition:.25s ease;
-  position:relative;
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:0;
-  width:0;height:2px;
-  background:var(--blue);
-  transition:width .3s;
-}
-.nav a:hover{
-  transform:scale(1.1);
-  color:var(--blue);
-  background:var(--green);
-}
-.nav a:hover::after{width:100%;}
-
-/* CART */
-.cart.desktop-cart {
-  position: absolute;
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-/* Remove underline from cart link and its children */
-.cart.desktop-cart,
-.cart.desktop-cart * {
-  text-decoration: none !important;
-}
-
-/* Green dot showing number of items inside */
-.cart .dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: var(--green);
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.cart-count {
-  font-weight: 500;
-  color: var(--grey);
-}
-
-/* ================= MOBILE NAVIGATION ================= */
-.hamburger{
-  display:none;              /* desktop default */
-  position:absolute;
-  left:20px;
-  top:20px;
-  cursor:pointer;
-  z-index:210;
-  font-size:28px;
-  font-weight:700;
-  color:var(--grey);
-  user-select:none;
-  align-items:center;
-  gap:8px;
-}
-.nav-mobile{
-  position:fixed;
-  top:0; left:0; right:0;
-  background:rgba(255,255,255,.95);
-  flex-direction:column;
-  gap:16px;
-  padding:60px 20px 20px;
-  transform:translateY(-120%);
-  transition:transform .3s ease;
-  z-index:200;
-  display:flex;
-}
-.nav-mobile.open{ transform:translateY(0); }
-#close-nav{
-  position:absolute;
-  top:12px;
-  left:12px;
-  font-size:28px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:220;
-}
-.nav-mobile a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:20px;
-  padding:8px 12px;
-  border-radius:6px;
-}
-.nav-mobile a:hover{
-  background:var(--green);
-  color:var(--blue);
-}
-
-.cart.mobile-cart-fixed {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 24px;
-  text-decoration: none;
-}
-
-.cart.mobile-cart-fixed .dot {
-  margin: 0;
-}
-
-.cart.mobile-cart-fixed .cart-count {
-  margin-left: 2px;
-}
-
-/* ================= PAGE ================= */
-.policy-page{
-  max-width:900px;
-  margin:80px auto 120px;
-  padding:0 18px;
-}
-.policy-page h1{
-  font-size:42px;
-  margin-bottom:32px;
-}
-.policy-page h2{
-  font-size:22px;
-  margin-top:36px;
-  margin-bottom:10px;
-}
-.policy-page p,
-.policy-page li{
-  font-size:16px;
-  margin-bottom:14px;
-}
-.policy-page ul{
-  padding-left:18px;
-}
-
-/* ================= FOOTER (CLONED) ================= */
-.footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:36px;
-  padding:40px 12px 80px;
-  color:var(--grey);
-  border-top:1px solid #eee;
-  flex-wrap:wrap;
-  text-align:center;
-}
-
-/* ================= ROTATING LOGO ================= */
-#rotating-logo{
-  position:fixed;
-  left:14px;
-  bottom:14px;
-  width:110px;
-  cursor:pointer;
-  animation:spin 18s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* RESPONSIVE */
-@media(max-width:700px){
-  .policy-page h1{font-size:32px;}
-}
-</style>
+<meta name="description" content="How ATOMAT LAB collects, uses and protects your personal information.">
+<link rel="canonical" href="https://atomatlab.com/privacypolicy.html">
+<link rel="icon" href="media/favicon.png">
+<link rel="apple-touch-icon" href="media/logo.png">
+<meta name="theme-color" content="#e4e3dd">
+<meta property="og:site_name" content="ATOMAT LAB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Privacy Policy — ATOMAT LAB">
+<meta property="og:description" content="How ATOMAT LAB collects, uses and protects your personal information.">
+<meta property="og:url" content="https://atomatlab.com/privacypolicy.html">
+<meta property="og:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy Policy — ATOMAT LAB">
+<meta name="twitter:description" content="How ATOMAT LAB collects, uses and protects your personal information.">
+<meta name="twitter:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/shop.css">
 </head>
-
 <body>
-
-<header>
-  <nav class="nav">
-    <a href="index.html">HOME</a>
-    <a href="shop.html">SHOP</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
-  </nav>
-  <div class="hamburger" id="hamburger">
-    <span id="hamburger-symbol">+</span>
-  </div>
- <a href="cart.html" class="cart desktop-cart" title="Cart">
-  🛒
-  <span class="cart-dot" id="cart-dot"></span>
-  <span class="cart-count" id="cart-count">(0)</span>
-</a>
+<a class="skip" href="#main">Skip to content</a>
+<header class="head">
+  <a class="brand" href="index.html" aria-label="ATOMAT LAB home">
+    <img src="media/logo-rotating.sm.png" alt="" width="40" height="40">
+    <span>Atomat Lab</span>
+  </a>
+  <nav class="nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+  <a class="cart-link" href="cart.html">
+    <span>Cart</span><span class="badge zero" data-cart-count>0</span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+<div class="menu" id="menu" hidden>
+  <div class="menu-top">
+    <span class="tag">Atomat Lab</span>
+    <button class="menu-close" type="button">Close ×</button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html" aria-current="page">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart <span class="badge zero" data-cart-count style="vertical-align:middle">0</span></a></nav>
+  <div class="menu-foot"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div><p class="note" style="margin-top:14px">tools that listen · contact@atomatlab.com</p></div>
+</div>
 
-<div class="nav-mobile" id="navMobile">
-  <div id="close-nav">×</div>
-  <a href="index.html">HOME</a>
-  <a href="shop.html">SHOP</a>
-  <a href="about.html">ABOUT</a>
-  <a href="contact.html">CONTACT</a>
-<a href="cart.html" class="cart desktop-cart" title="Cart" style="text-decoration:none;">🛒<span id="cart-dot"></span></a></div>
-
-<main class="policy-page">
-  <h1>Privacy Policy</h1>
+<main id="main">
+<div class="wrap">
+  <section style="padding:clamp(34px,5vw,64px) 0 0">
+    <div class="tags" style="margin-bottom:16px"><span class="tag">Legal</span></div>
+    <h1 style="font-size:clamp(32px,4.6vw,60px)">Privacy policy</h1>
+  </section>
+  <section class="sec">
+    <div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+    <div class="prose" style="margin-top:28px">
 
   <h2>Personal information we collect</h2>
   <p>
@@ -370,51 +118,33 @@ header{
   <p>
     For more information about our privacy practices, contact us at
     <b>contact@atomatlab.com</b>.
-  </p>
+  </p></div>
+  </section>
+</div>
 </main>
-
-<section class="footer">
-  <div style="line-height:1.6;">
-    © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
-      contact@atomatlab.com
-    </a>
+<footer class="foot wrap">
+<div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+<div class="foot-grid">
+  <div>
+    <img class="mark-big" src="media/textlogo.sm.png" alt="ATOMAT LAB">
+    <p class="note" style="margin-top:14px">Handmade in Bucharest<br>Ships to 29 countries</p>
   </div>
-  <div style="width:1px;height:60px;background:#d4d4d4;opacity:.8;"></div>
-  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
-       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
-    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
-    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
-</section>
-
-<a href="index.html">
-  <img id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd" alt="AtomatLab logo">
-</a>
-
+  <div><h3>Instruments</h3><ul><li><a href="field5.html">FIELD5</a></li><li><a href="crt2.html">CRT2</a></li><li><a href="crt1.html">CRT1</a></li><li><a href="ert.html">ERT</a></li><li><a href="raincatcher.html">RAINCATCHER</a></li></ul></div>
+  <div><h3>Elsewhere</h3><ul><li><a href="https://instagram.com/atomatlab" rel="me noopener" target="_blank">Instagram <span class="note">@atomatlab</span></a></li><li><a href="https://youtube.com/@atomatlab" rel="me noopener" target="_blank">YouTube <span class="note">@atomatlab</span></a></li><li><a href="https://soundcloud.com/atomat-lab" rel="me noopener" target="_blank">SoundCloud <span class="note">atomat-lab</span></a></li><li><a href="https://tiktok.com/@atomatlab" rel="me noopener" target="_blank">TikTok <span class="note">@atomatlab</span></a></li></ul></div>
+  <div><h3>Legal</h3><ul><li><a href="termsofservice.html">Terms of service</a></li><li><a href="privacypolicy.html">Privacy policy</a></li><li><a href="refundpolicy.html">Refund policy</a></li></ul>
+    <p style="margin-top:14px"><a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></p>
+  </div>
+</div>
+<div class="foot-note">
+  <span class="note">© ATOMAT LAB — tools that listen</span>
+  <div class="pay">
+    <span class="note">Secure checkout by Stripe</span>
+    <img src="media/pay-visa.sm.png" alt="Visa">
+    <img src="media/pay-stripe.sm.png" alt="Stripe">
+    <img src="media/pay-paypal.sm.png" alt="PayPal">
+  </div>
+</div>
+</footer>
+<script src="assets/shop.js"></script>
 </body>
-<script>
-const hamburger = document.getElementById('hamburger');
-const navMobile = document.getElementById('navMobile');
-const closeNav = document.getElementById('close-nav');
-
-hamburger.addEventListener('click', e => {
-  e.stopPropagation();
-  navMobile.classList.add('open');
-  hamburger.style.display = 'none';
-});
-
-closeNav.addEventListener('click', () => {
-  navMobile.classList.remove('open');
-  hamburger.style.display = 'flex';
-});
-
-document.addEventListener('click', e => {
-  if(navMobile.classList.contains('open') && !navMobile.contains(e.target)){
-    navMobile.classList.remove('open');
-    hamburger.style.display = 'flex';
-  }
-});
-</script>
-<script src="cart.js"></script>
-
 </html>

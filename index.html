@@ -2,539 +2,203 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ATOMAT LAB — Handmade Contact Microphones · Tools That Listen</title>
 <meta name="description" content="ATOMAT LAB builds handmade contact microphones, EMF microphones and tools for field recording, sound art and experimental music. Made to order in the EU, shipped worldwide.">
 <link rel="canonical" href="https://atomatlab.com/">
+<link rel="icon" href="media/favicon.png">
+<link rel="apple-touch-icon" href="media/logo.png">
+<meta name="theme-color" content="#e4e3dd">
 <meta property="og:site_name" content="ATOMAT LAB">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ATOMAT LAB — Handmade Contact Microphones · Tools That Listen">
 <meta property="og:description" content="ATOMAT LAB builds handmade contact microphones, EMF microphones and tools for field recording, sound art and experimental music. Made to order in the EU, shipped worldwide.">
 <meta property="og:url" content="https://atomatlab.com/">
-<meta property="og:image" content="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
+<meta property="og:image" content="https://atomatlab.com/media/field5-shop.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ATOMAT LAB — Handmade Contact Microphones · Tools That Listen">
 <meta name="twitter:description" content="ATOMAT LAB builds handmade contact microphones, EMF microphones and tools for field recording, sound art and experimental music. Made to order in the EU, shipped worldwide.">
-<meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
-
-<style>
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Extralight.woff') format('woff');
-  font-weight: 200;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Light.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Medium.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ClashGrotesk';
-  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-}
-body, html, * {
-  font-family: 'ClashGrotesk', sans-serif !important;
-}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-</style>
-
-<style>
-:root{
-  --grey:#2f2f2f;
-  --bg:#fefefe;
-  --blue:#0000ff;
-  --green:#6eff14;
-  --offwhite:#f3f3f1;
-}
-
-/* RESET */
-*{box-sizing:border-box;}
-html,body{margin:0;font-family:'Neue Kaine',sans-serif;background:var(--bg);color:var(--grey);}
-
-/* ================= HEADER ================= */
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,.2);
-  backdrop-filter:blur(5px);
-  border-bottom:1px solid #fff;
-  display:flex;
-  justify-content:center;
-  padding:40px;
-}
-.nav{display:flex;gap:36px;}
-.nav a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:18px;
-  letter-spacing:.7px;
-  padding:6px 12px;
-  border-radius:6px;
-  transition: all .25s ease;
-  position:relative;
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:0;
-  width:0;height:2px;
-  background:var(--blue);
-  transition:width .3s;
-}
-.nav a:hover{
-  transform:scale(1.1);
-  color:var(--blue);
-  background:var(--green);
-}
-.nav a:hover::after{width:100%;}
-
-/* CART */
-.cart.desktop-cart {
-  position: absolute;
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-/* Remove underline from cart link and its children */
-.cart.desktop-cart,
-.cart.desktop-cart * {
-  text-decoration: none !important;
-}
-
-/* Green dot showing number of items inside */
-.cart .dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: var(--green);
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.cart-count {
-  font-weight: 500;
-  color: var(--grey);
-}
-
-/* ================= MOBILE NAVIGATION ================= */
-.hamburger{
-  display:none;              /* desktop default */
-  position:absolute;
-  left:20px;
-  top:20px;
-  cursor:pointer;
-  z-index:210;
-  font-size:28px;
-  font-weight:700;
-  color:var(--grey);
-  user-select:none;
-  align-items:center;
-  gap:8px;
-}
-.nav-mobile{
-  position:fixed;
-  top:0; left:0; right:0;
-  background:rgba(255,255,255,.95);
-  flex-direction:column;
-  gap:16px;
-  padding:60px 20px 20px;
-  transform:translateY(-120%);
-  transition:transform .3s ease;
-  z-index:200;
-  display:flex;
-}
-.nav-mobile.open{ transform:translateY(0); }
-#close-nav{
-  position:absolute;
-  top:12px;
-  left:12px;
-  font-size:28px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:220;
-}
-.nav-mobile a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:20px;
-  padding:8px 12px;
-  border-radius:6px;
-}
-.nav-mobile a:hover{
-  background:var(--green);
-  color:var(--blue);
-}
-
-.cart.mobile-cart-fixed {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 24px;
-  text-decoration: none;
-}
-
-.cart.mobile-cart-fixed .dot {
-  margin: 0;
-}
-
-.cart.mobile-cart-fixed .cart-count {
-  margin-left: 2px;
-}
-/* ================= HERO ================= */
-.hero{display:flex;justify-content:center;padding:20px 16px 32px;position:relative}
-.hero-inner{width:clamp(260px,70vw,800px);aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center}
-.circle-svg{position:absolute;inset:0;animation:spin 40s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.center-image{width:clamp(140px,40vw,420px);aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 40px 30px rgba(0,0,0,.08)}
-.center-image img{width:100%;height:100%;object-fit:cover;}
-
-/* ================= GLITCH ================= */
-#glitch-layer{position:fixed;inset:0;pointer-events:none;z-index:1000}
-.glitch-text{
-  position:absolute;
-  font-weight:700;
-  letter-spacing:.6px;
-  opacity:0;
-  transition:.18s ease;
-  filter:blur(.3px);
-}
-
-/* ================= REVIEWS ================= */
-.reviews{background:var(--offwhite);padding:72px 16px 120px;text-align:center}
-.reviews h2{font-weight:700;letter-spacing:.6px;margin-bottom:40px;font-size:24px}
-.review-box{max-width:520px;margin:0 auto 28px;background:white;padding:28px 24px;border-radius:10px;box-shadow:0 0 0 1px #ddd,0 10px 24px rgba(0,0,255,.12);min-height:150px}
-.review-text{font-size:16px;margin-bottom:14px}
-.review-stars{letter-spacing:3px;margin-bottom:6px;color:#f5a623}
-.review-name{font-size:13px;opacity:.6}
-
-/* Timeline BELOW */
-.timeline-wrap{max-width:520px;margin:0 auto;padding-top:10px}
-.timeline{position:relative;height:2px;background:var(--blue)}
-.timeline-dot{position:absolute;top:-7px;width:16px;height:16px;background:black;border-radius:50%;cursor:pointer}
-
-/* Payments */
-.payments{display:flex;justify-content:center;gap:20px;margin-top:48px}
-.payments img{height:22px;opacity:.9;transition:transform .2s}
-.payments a:hover img{transform:scale(1.2)}
-.payments.secure-note{align-items:center;gap:14px}
-.payments.secure-note span{font-size:13px;font-weight:300;opacity:.7;letter-spacing:.3px}
-
-/* ================= FOOTER ================= */
-.footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:36px;
-  padding:40px 12px 80px;
-  color:var(--grey);
-  border-top:1px solid #eee;
-  flex-wrap:wrap;
-  text-align:center;
-}
-
-/* ================= ROTATING LOGO ================= */
-#rotating-logo{position:fixed;left:14px;bottom:14px;width:110px;cursor:pointer;animation:spin 18s linear infinite}
-
-/* ================= RESPONSIVE ================= */
-@media(max-width:700px){
-  .nav{display:none;}
-  .hamburger{display:flex; align-items:center; justify-content:center;}
-  .cart.desktop-cart{display:none;}
-}
-/* Hide mobile nav on desktop */
-@media(min-width:701px){
-  .nav-mobile{
-    display:none !important;
-  }
-}
-</style>
-
-<script type="application/ld+json">
-{
+<meta name="twitter:image" content="https://atomatlab.com/media/field5-shop.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/shop.css">
+<script type="application/ld+json">{
  "@context": "https://schema.org",
  "@type": "Organization",
  "name": "ATOMAT LAB",
  "url": "https://atomatlab.com/",
- "logo": "https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd",
+ "logo": "https://atomatlab.com/media/logo.png",
  "email": "contact@atomatlab.com",
- "description": "Handmade contact microphones, EMF microphones and listening tools for field recording, sound art and experimental music.",
+ "description": "Contact and electromagnetic microphones for field recording, sound design and experimental music \u2014 soldered, sealed and tested by hand in Bucharest.",
  "sameAs": [
-  "https://www.instagram.com/atomatlab/",
+  "https://instagram.com/atomatlab",
+  "https://youtube.com/@atomatlab",
   "https://soundcloud.com/atomat-lab",
+  "https://tiktok.com/@atomatlab",
   "https://denisflueraru.com"
  ]
-}
-</script>
+}</script>
 </head>
 <body>
-<h1 class="sr-only">ATOMAT LAB — handmade contact microphones, EMF microphones and tools that listen</h1>
-
-<header>
-  <nav class="nav">
-    <a href="index.html">HOME</a>
-    <a href="shop.html">SHOP</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
-  </nav>
-  <div class="hamburger" id="hamburger">
-  <span id="hamburger-symbol">+</span>
-</div>
-<a href="cart.html" class="cart desktop-cart" aria-label="Cart">
-  <span class="cart-icon">🛒</span>
-  <span id="cart-dot" class="dot"></span>
-  <span id="cart-count" class="cart-count">(0)</span>
-</a>
-
+<a class="skip" href="#main">Skip to content</a>
+<header class="head">
+  <a class="brand" href="index.html" aria-label="ATOMAT LAB home">
+    <img src="media/logo-rotating.sm.png" alt="" width="40" height="40">
+    <span>Atomat Lab</span>
+  </a>
+  <nav class="nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+  <a class="cart-link" href="cart.html">
+    <span>Cart</span><span class="badge zero" data-cart-count>0</span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </header>
-
-<!-- MOBILE NAV -->
-<div class="nav-mobile" id="navMobile">
-  <div id="close-nav" style="position:absolute;top:12px;left:12px;font-size:28px;font-weight:700;cursor:pointer;z-index:220;">×</div>
-  <a href="index.html">HOME</a>
-  <a href="shop.html">SHOP</a>
-  <a href="about.html">ABOUT</a>
-  <a href="contact.html">CONTACT</a>
+<div class="menu" id="menu" hidden>
+  <div class="menu-top">
+    <span class="tag">Atomat Lab</span>
+    <button class="menu-close" type="button">Close ×</button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html" aria-current="page">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart <span class="badge zero" data-cart-count style="vertical-align:middle">0</span></a></nav>
+  <div class="menu-foot"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div><p class="note" style="margin-top:14px">tools that listen · contact@atomatlab.com</p></div>
 </div>
 
-<div id="glitch-layer"></div>
-
-<section class="hero">
-  <div class="hero-inner">
-    <svg class="circle-svg" viewBox="0 0 100 100">
-      <defs><path id="circlePath" d="M50,20 a30,30 0 1,1 0,60 a30,30 0 1,1 0,-60"/></defs>
-      <text font-size="4">
-        <textPath href="#circlePath">+ tools that listen + tools that listen + </textPath>
-      </text>
-    </svg>
-    <a href="shop.html" class="center-image">
-      <img alt="ATOMAT LAB handmade microphones" src="https://lh3.googleusercontent.com/d/1q1S6hm7zgfIlNC0I8C70cXgxdg87aHK2">
-    </a>
-  </div>
-</section>
-
-<section class="reviews">
-  <h2>User Feedback</h2>
-  <div class="review-box">
-    <div class="review-text" id="reviewText"></div>
-    <div class="review-stars">★★★★★</div>
-    <div class="review-name" id="reviewName"></div>
-  </div>
-  <div class="timeline-wrap">
-    <div class="timeline">
-      <div class="timeline-dot" id="dot"></div>
+<main id="main">
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="tags"><span class="tag">Handmade in Bucharest</span><span class="tag">Ships to 29 countries</span></div>
+      <h1>Tools<br>that <span class="mark">listen</span></h1>
+      <p class="lead">Contact and electromagnetic microphones for field recording, sound design and experimental music — soldered, sealed and tested by hand in Bucharest.</p>
+      <div class="hero-cta">
+        <a class="btn big solid" href="#instruments">See the instruments ↓</a>
+        <a class="btn big" href="field5.html">Start with FIELD5</a>
+      </div>
     </div>
+    <div class="hero-stage"><div class="stage-wrap"><div class="stage"><video src="media/loop-field5.mp4" poster="media/loop-field5.jpg" autoplay muted loop playsinline preload="metadata" aria-label="FIELD5 rotating"></video></div><span class="stage-tag"><span class="tag acc">360° ↻</span></span></div></div>
+  </section>
+
+  <section class="sec" id="instruments">
+    <div class="sec-head">
+      <h2>Instruments</h2>
+      <span class="m" data-rowcount>5 items</span>
+    </div>
+    <div class="rows"><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-F5</span></span>
+  <a class="row-thumb" href="field5.html" aria-label="FIELD5"><video src="media/loop-field5.mp4" poster="media/loop-field5.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="field5.html">FIELD5</a>
+    <span class="d">48V phantom-powered contact microphone</span>
   </div>
-  <div class="payments secure-note">
-    <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
-    <span>Secure checkout · payments handled by Stripe</span>
+  <div class="row-specs">Frequency 10 Hz – 17 kHz<br>48V phantom powered · 87 g<br>2 m cable · mounting kit included<br>Submersible</div>
+  <span class="row-price">€155</span>
+  <span class="row-buy"><button class="btn solid" type="button" data-add="field5">Add to cart +</button></span>
+</div><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-C2</span></span>
+  <a class="row-thumb" href="crt2.html" aria-label="CRT2"><video src="media/loop-crt2.mp4" poster="media/loop-crt2.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="crt2.html">CRT2</a>
+    <span class="d">Submersible contact microphone</span>
   </div>
-</section>
-
-<!-- Footer -->
-<section class="footer" aria-label="Footer">
-  <div style="line-height:1.6;">
-    © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey); text-decoration:none;">contact@atomatlab.com</a>
+  <div class="row-specs">Frequency 10 Hz – 15 kHz<br>Copper shielding · tamed highs<br>1.5 m cable · 55 g<br>Submersible</div>
+  <span class="row-price">€60</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="crt2">Add to cart +</button></span>
+</div><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-C1</span></span>
+  <a class="row-thumb" href="crt1.html" aria-label="CRT1"><video src="media/loop-crt1.mp4" poster="media/loop-crt1.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="crt1.html">CRT1</a>
+    <span class="d">Entry contact microphone</span>
   </div>
-  <div style="width:1px;height:60px;background:#d4d4d4;opacity:0.8;"></div>
-  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
-    <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
-    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
-    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
+  <div class="row-specs">Frequency 10 Hz – 17 kHz<br>All-rounder · entry point<br>1 m cable · 13 g<br>Waterproof</div>
+  <span class="row-price">€45</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="crt1">Add to cart +</button></span>
+</div><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-E1</span></span>
+  <a class="row-thumb" href="ert.html" aria-label="ERT"><video src="media/loop-ert.mp4" poster="media/loop-ert.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="ert.html">ERT</a>
+    <span class="d">Electromagnetic (EMF) microphone</span>
   </div>
-</section>
+  <div class="row-specs">Frequency 10 Hz – 18 kHz<br>Clocks, phones, displays, TVs<br>Double inductors · 1 m cable<br>Plug and play</div>
+  <span class="row-price">€40</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="ert">Add to cart +</button></span>
+</div><div class="row" data-cat="acc">
+  <span class="row-serial"><span class="tag">AL-RC</span></span>
+  <a class="row-thumb" href="raincatcher.html" aria-label="RAINCATCHER"><img src="media/raincatcher-2.sm.jpg" alt="" loading="lazy"></a>
+  <div class="row-name">
+    <a class="t" href="raincatcher.html">RAINCATCHER</a>
+    <span class="d">Rain plate for FIELD5</span>
+  </div>
+  <div class="row-specs">Isolates rain and similar transients<br>3D-printed support · 4 mm plexi board<br>30 cm diameter<br>FIELD5 attachment</div>
+  <span class="row-price">€45</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="raincatcher">Add to cart +</button></span>
+</div></div>
+    <p class="note" style="margin-top:14px">Handmade to order in Romania · ships within a few days · 14-day EU returns</p>
+  </section>
 
-<a href="index.html">
-  <img alt="ATOMAT LAB logo" id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
-</a>
+  <section class="sec">
+    <div class="sec-head"><h2>What they hear</h2><span class="m">Recorded with ATOMAT LAB mics</span></div>
+    <div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+    <div class="sc" style="margin-top:20px">
+      <iframe title="FIELD5 sound samples on SoundCloud" loading="lazy" scrolling="no" frameborder="no"
+        allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/soundcloud%253Aplaylists%253A2189812859&color=%23151515&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false"></iframe>
+      <p class="note" style="margin-top:10px"><a href="https://soundcloud.com/atomat-lab" target="_blank" rel="noopener">ATOMAT LAB on SoundCloud →</a></p>
+    </div>
+  </section>
 
-<script>
-/* ================= MOBILE NAVIGATION TOGGLE ================= */
-const hamburger = document.getElementById('hamburger');
-const navMobile = document.getElementById('navMobile');
-const closeNav = document.getElementById('close-nav');
+  <section class="sec">
+    <div class="sec-head"><h2>From the workbench</h2><span class="m">Trial, error, oscilloscopes</span></div>
+    <div class="duo">
+      <figure style="margin:0"><img src="media/about-studio.sm.jpg" alt="The ATOMAT LAB workbench" loading="lazy"></figure>
+      <div class="card" style="justify-content:space-between">
+        <div>
+          <h3>Between artistic research and instrument making</h3>
+          <p style="margin-top:12px">Every mic is soldered, sealed and tested by hand. Interactive programming,
+          electronics, 3D printing and sound research all merge into the same practice.</p>
+        </div>
+        <a class="btn" href="about.html">Read the story →</a>
+      </div>
+    </div>
+  </section>
 
-hamburger.addEventListener('click', e => {
-  e.stopPropagation();
-  navMobile.classList.add('open');
-  hamburger.style.display = 'none'; // hide the +
-});
-
-closeNav.addEventListener('click', e => {
-  navMobile.classList.remove('open');
-  hamburger.style.display = 'flex'; // show the + again
-});
-
-document.addEventListener('click', e => {
-  if(navMobile.classList.contains('open') && !navMobile.contains(e.target) && !hamburger.contains(e.target)){
-    navMobile.classList.remove('open');
-    hamburger.style.display = 'flex'; // show the + again
-  }
-});
-
-/* ================= REVIEWS TIMELINE AUTOMATED ================= */
-const reviews = [
-  {t:"Very good, as described! Quality and sound top notch!",n:"FIELD5"},
-  {t:"Good service, good reaction time and good product!",n:"CRT1"},
-  {t:"This is exactly what i was looking for! I’ll made some experiment asap..🫟",n:"FIELD 5"},
-  {t:"Excellent microphone and excellent service by Dennis !",n:"CRT2"},
-  {t:"It is a brilliant piece of kit. I had a few issues getting it work but that was my fault, I would recommend this seller and any thing they sell to anybody. Top class communication. Five Stars",n:"ERT1"},
-  {t:"These are great little piezo pickups, the design and execution is great and the form factor of the 3D printed shell is really nice to work with, it has a good quality cable and connector so I’m really looking forward to working with these. Denis was great on the contact side too, he’s clearly put a lot of love into these creations.",n:"CRT1"},
-  {t:"Works well and quality of sound is accurate",n:"ERT1"},
-  {t:"Great Mic. I really like it and ordered one more.",n:"CRT1"},
-  {t:"Amazing mic, picks up loads of sounds",n:"ERT1"},
-  {t:"This contact microphone is well-made and works perfectly. The sound quality is clear, and the build feels solid. Shipping was quick, and Denis was friendly and helpful. Would definitely recommend!",n:"CRT1"},
-  {t:"great communication with seller !",n:"CRT1"},
-  {t:"Great microphone. Good quality. Pick's up interesting noises from mobile phones, laptops and other devices.",n:"ERT1"},
-  {t:"Really high quality, much better sensitivity than other electro-magnetic mic imho, they are able to pick a more diverse range of sounds",n:"ERT1"},
-  {t:"Very useful microphones especially for samples if you're into making music. Recommend them also for the fun of discovering day to day inaudible sounds.",n:"CRT1"},
-  {t:"Sehr freundlich, hilfbereit, schneller Versand und schnelle Antworten! Es gab sogar ein Geschenk. Vielen Dank, gerne wieder!!!",n:"CRT1"},
-  {t:"Interesting microphone, serves its purpose.",n:"ERT1"},
-  {t:"really good build and attention to detail!",n:"CRT1"},
-];
-
-let index = 0;
-let auto = true;
-let timer;
-const text = document.getElementById('reviewText');
-const name = document.getElementById('reviewName');
-const dot = document.getElementById('dot');
-const line = document.querySelector('.timeline');
-let manualTimeout;
-
-function render(){
-  text.textContent = reviews[index].t;
-  name.textContent = reviews[index].n;
-  dot.style.left = `${(index/(reviews.length-1))*100}%`;
-}
-
-function autoPlay(){
-  if(!auto) return;
-  index = (index + 1) % reviews.length;
-  render();
-}
-
-function startTimer(){
-  clearInterval(timer);
-  timer = setInterval(autoPlay, 2500);
-}
-
-dot.onmousedown = e => {
-  auto = false;
-  clearInterval(timer);
-  clearTimeout(manualTimeout);
-  document.onmousemove = ev => {
-    const r = line.getBoundingClientRect();
-    let x = Math.min(Math.max(ev.clientX - r.left, 0), r.width);
-    index = Math.round((x / r.width) * (reviews.length - 1));
-    render();
-  };
-  document.onmouseup = () => {
-    document.onmousemove = null;
-    manualTimeout = setTimeout(() => {
-      auto = true;
-      startTimer();
-    }, 4000);
-  };
-};
-
-render();
-startTimer();
-
-/* ================= GLITCH ================= */
-const glitchColors = ['#0000ff','#b6d228','#cd6c27','#2f2f2f'];
-const glitchLayer = document.getElementById('glitch-layer');
-function spawn(){
-  const n = Math.floor(Math.random()*6)+3;
-  for(let i=0;i<n;i++) setTimeout(make,i*28);
-  setTimeout(spawn,Math.random()*4500+2500);
-}
-function make(){
-  const g = document.createElement('div');
-  g.className='glitch-text';
-  g.textContent='tools that listen';
-  const c = glitchColors[Math.floor(Math.random()*glitchColors.length)];
-  g.style.color = c;
-  g.style.textShadow=`0 0 8px ${c},0 0 20px ${c}`;
-  g.style.fontSize=`${Math.random()*24+14}px`;
-  g.style.left=`${Math.random()*90}vw`;
-  g.style.top=`${Math.random()*85}vh`;
-  g.style.transform=`rotate(${Math.random()*30-15}deg)`;
-  glitchLayer.appendChild(g);
-  requestAnimationFrame(()=>g.style.opacity=1);
-  setTimeout(()=>{g.style.opacity=0;setTimeout(()=>g.remove(),400)},300);
-}
-spawn();
-</script>
-
-<script src="cart.js"></script>
-<script>
-function updateCartDot() {
-  const cart = getCart() || [];
-  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-
-  const pairs = [
-    { dot: 'cart-dot', count: 'cart-count' },
-    { dot: 'cart-dot-mobile', count: 'cart-count-mobile' }
-  ];
-
-  pairs.forEach(p => {
-    const dot = document.getElementById(p.dot);
-    const count = document.getElementById(p.count);
-    if (!dot || !count) return;
-
-    if (totalQty > 0) {
-      dot.style.display = 'inline-block';
-      count.textContent = `(${totalQty})`;
-    } else {
-      dot.style.display = 'none';
-      count.textContent = `(0)`;
-    }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', updateCartDot);
-</script>
+  <section class="sec">
+    <div class="sec-head"><h2>User feedback</h2><span class="m">★★★★★</span></div>
+    <div class="trio"><figure class="card quote">
+  <blockquote>“Very good, as described! Quality and sound top notch!”</blockquote>
+  <figcaption>FIELD5 — verified buyer</figcaption>
+</figure><figure class="card quote">
+  <blockquote>“Excellent microphone and excellent service by Dennis!”</blockquote>
+  <figcaption>CRT2 — verified buyer</figcaption>
+</figure><figure class="card quote">
+  <blockquote>“Great Mic. I really like it and ordered one more.”</blockquote>
+  <figcaption>CRT1 — verified buyer</figcaption>
+</figure></div>
+  </section>
+</div>
+</main>
+<footer class="foot wrap">
+<div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+<div class="foot-grid">
+  <div>
+    <img class="mark-big" src="media/textlogo.sm.png" alt="ATOMAT LAB">
+    <p class="note" style="margin-top:14px">Handmade in Bucharest<br>Ships to 29 countries</p>
+  </div>
+  <div><h3>Instruments</h3><ul><li><a href="field5.html">FIELD5</a></li><li><a href="crt2.html">CRT2</a></li><li><a href="crt1.html">CRT1</a></li><li><a href="ert.html">ERT</a></li><li><a href="raincatcher.html">RAINCATCHER</a></li></ul></div>
+  <div><h3>Elsewhere</h3><ul><li><a href="https://instagram.com/atomatlab" rel="me noopener" target="_blank">Instagram <span class="note">@atomatlab</span></a></li><li><a href="https://youtube.com/@atomatlab" rel="me noopener" target="_blank">YouTube <span class="note">@atomatlab</span></a></li><li><a href="https://soundcloud.com/atomat-lab" rel="me noopener" target="_blank">SoundCloud <span class="note">atomat-lab</span></a></li><li><a href="https://tiktok.com/@atomatlab" rel="me noopener" target="_blank">TikTok <span class="note">@atomatlab</span></a></li></ul></div>
+  <div><h3>Legal</h3><ul><li><a href="termsofservice.html">Terms of service</a></li><li><a href="privacypolicy.html">Privacy policy</a></li><li><a href="refundpolicy.html">Refund policy</a></li></ul>
+    <p style="margin-top:14px"><a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></p>
+  </div>
+</div>
+<div class="foot-note">
+  <span class="note">© ATOMAT LAB — tools that listen</span>
+  <div class="pay">
+    <span class="note">Secure checkout by Stripe</span>
+    <img src="media/pay-visa.sm.png" alt="Visa">
+    <img src="media/pay-stripe.sm.png" alt="Stripe">
+    <img src="media/pay-paypal.sm.png" alt="PayPal">
+  </div>
+</div>
+</footer>
+<script src="assets/shop.js"></script>
 </body>
 </html>

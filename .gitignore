@@ -1,0 +1,7 @@
+# Original full-resolution photos — imported into media/ by _build/optimise.py.
+# Keep them locally, never push them (hundreds of MB).
+DRIVE-IMAGES/
+
+.DS_Store
+node_modules/
+.vercel

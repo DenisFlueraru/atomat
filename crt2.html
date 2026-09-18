@@ -1,488 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CRT2 — Submersible Contact Microphone | ATOMAT LAB</title>
 <meta name="description" content="CRT2 is a submersible contact microphone with copper shielding and velcro mounting for surface and underwater recording. Handmade by ATOMAT LAB, ships from the EU.">
 <link rel="canonical" href="https://atomatlab.com/crt2.html">
+<link rel="icon" href="media/favicon.png">
+<link rel="apple-touch-icon" href="media/logo.png">
+<meta name="theme-color" content="#e4e3dd">
 <meta property="og:site_name" content="ATOMAT LAB">
 <meta property="og:type" content="product">
 <meta property="og:title" content="CRT2 — Submersible Contact Microphone | ATOMAT LAB">
 <meta property="og:description" content="CRT2 is a submersible contact microphone with copper shielding and velcro mounting for surface and underwater recording. Handmade by ATOMAT LAB, ships from the EU.">
 <meta property="og:url" content="https://atomatlab.com/crt2.html">
-<meta property="og:image" content="https://lh3.googleusercontent.com/d/1-YlXxyfEumat2HMHtdylhBVGTXnkq3kF">
+<meta property="og:image" content="https://atomatlab.com/media/crt2-1.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CRT2 — Submersible Contact Microphone | ATOMAT LAB">
 <meta name="twitter:description" content="CRT2 is a submersible contact microphone with copper shielding and velcro mounting for surface and underwater recording. Handmade by ATOMAT LAB, ships from the EU.">
-<meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1-YlXxyfEumat2HMHtdylhBVGTXnkq3kF">
-
-
-<style>
-  
-html, body {
-  font-family: 'Clash Grotesk', sans-serif;
-}
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Extralight.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Extralight.woff') format('woff');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Light.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Regular.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Medium.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Semibold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Semibold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Bold.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Clash Grotesk';
-  src: url('fonts/ClashGrotesk-Variable.woff2') format('woff2'),
-       url('fonts/ClashGrotesk-Variable.woff') format('woff');
-  font-weight: 200 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-:root{
-  --grey:#2f2f2f;
-  --bg:#fefefe;
-  --blue:#0000ff;
-  --green:#6eff14;
-  --muted:#bdbdbd;
-    --green2:#5ba902;
-}
-
-/* RESET */
-*{box-sizing:border-box}
-html,body{margin:0;font-family:'Clash Grotesk',sans-serif;background:var(--bg);color:var(--grey);}
-
-/* ================= HEADER (UNCHANGED) ================= */
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
-  background:rgba(255,255,255,.2);
-  backdrop-filter:blur(5px);
-  border-bottom:1px solid #fff;
-  display:flex;
-  justify-content:center;
-  padding:40px;
-}
-.nav{display:flex;gap:36px}
-.nav a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:18px;
-  letter-spacing:.7px;
-  padding:6px 12px;
-  border-radius:6px;
-  transition:.25s ease;
-  position:relative;
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:0;
-  width:0;height:2px;
-  background:var(--blue);
-  transition:width .3s;
-}
-.nav a:hover{
-  transform:scale(1.1);
-  color:var(--blue);
-  background:var(--green);
-}
-.nav a:hover::after{width:100%;}
-.cart{position:absolute;right:20px;top:20px;font-size:24px}
-
-
-
-/* CART */
-.cart.desktop-cart {
-  position: absolute;
-  right: 10%;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-/* Remove underline from cart link and its children */
-.cart.desktop-cart,
-.cart.desktop-cart * {
-  text-decoration: none !important;
-}
-
-/* Green dot showing number of items inside */
-.cart .dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background: var(--green);
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.cart-count {
-  font-weight: 500;
-  color: var(--grey);
-}
-
-/* ================= MOBILE NAVIGATION ================= */
-.hamburger{
-  display:none;              /* desktop default */
-  position:absolute;
-  left:20px;
-  top:20px;
-  cursor:pointer;
-  z-index:210;
-  font-size:28px;
-  font-weight:700;
-  color:var(--grey);
-  user-select:none;
-  align-items:center;
-  gap:8px;
-}
-.nav-mobile{
-  position:fixed;
-  top:0; left:0; right:0;
-  background:rgba(255,255,255,.95);
-  flex-direction:column;
-  gap:16px;
-  padding:60px 20px 20px;
-  transform:translateY(-120%);
-  transition:transform .3s ease;
-  z-index:200;
-  display:flex;
-}
-.nav-mobile.open{ transform:translateY(0); }
-#close-nav{
-  position:absolute;
-  top:12px;
-  left:12px;
-  font-size:28px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:220;
-}
-.nav-mobile a{
-  text-decoration:none;
-  color:var(--grey);
-  font-weight:700;
-  font-size:20px;
-  padding:8px 12px;
-  border-radius:6px;
-}
-.nav-mobile a:hover{
-  background:var(--green);
-  color:var(--blue);
-}
-
-/* ================= PAGE ================= */
-.product-page{
-  max-width:1120px;
-  margin:80px auto 120px;
-  padding:0 18px;
-}
-
-/* ================= PRODUCT INTRO ================= */
-.product-intro{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:60px;
-  align-items:start;
-  margin-bottom:80px;
-}
-.product-intro h1{
-  font-size:42px;
-  margin:0 0 18px;
-}
-.claim{
-  font-size:20px;
-  line-height:1.55;
-  margin-bottom:36px;
-}
-.hero-img{
-  max-width:340px;
-  border-radius:18px;
-  box-shadow:0 18px 44px rgba(0,0,0,.12);
-}
-
-/* ================= ACCORDION ================= */
-.accordion{
-  margin-bottom:36px;
-}
-.accordion-item{
-  border:2px solid var(--grey);
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:10px;
-}
-.accordion-item button{
-  width:100%;
-  padding:14px 18px;
-  background:#fff;
-  border:none;
-  font-weight:700;
-  cursor:pointer;
-  text-align:left;
-}
-.accordion-content{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .3s ease;
-  padding:0 18px;
-}
-.accordion-content p{
-  margin:14px 0;
-  line-height:1.55;
-}
-
-/* ================= PRICE ================= */
-.meta{
-  display:flex;
-  align-items:center;
-  gap:28px;
-  margin-top:24px;
-}
-.price{
-  font-size:26px;
-  font-weight:700;
-}
-.add-btn{
-  background:var(--grey);
-  color:#fff;
-  padding:14px 30px;
-  border-radius:10px;
-  font-weight:700;
-  text-decoration:none;
-}
-
-/* ================= VALUES ================= */
-.value-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:40px;
-  margin-bottom:90px;
-}
-.value{
-  border-top:2px solid var(--grey);
-  padding-top:18px;
-}
-.value h3{
-  margin:0 0 6px;
-  font-size:16px;
-  font-weight:800;
-}
-.value p{
-  margin:0;
-  line-height:1.55;
-}
-
-/* ================= GALLERY ================= */
-.gallery-wrap{
-  max-width:900px;
-  margin:0 auto 100px;
-}
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
-.gallery-item{
-  cursor:pointer;
-  border-radius:14px;
-  overflow:hidden;
-}
-.gallery-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-/* ================= MODAL ================= */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.95);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:200;
-}
-.modal img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:18px;
-}
-.modal .close{
-  position:absolute;
-  top:30px;
-  right:40px;
-  font-size:32px;
-  cursor:pointer;
-  font-weight:700;
-}
-
-/* ================= ADD TO CART ================= */
-
-.add-cart{
-  background: var(--blue);
-  color: #fff;
-  padding: 14px 30px;
-  border-radius: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .2s ease, background .2s ease;
-}
-.add-cart:hover{
-  background: var(--green2);
-  transform: scale(1.05);
-}
-
-
-/* ================= PAYMENT LOGOS ================= */
-.payment-logos{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-  margin:0 auto 60px;
-}
-.payment-logos img{
-  height:26px;
-  opacity:.8;
-}
-
-
-/* ================= FOOTER (UNCHANGED) ================= */
-.footer{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:36px;
-  padding:40px 12px 80px;
-  color:var(--grey);
-  border-top:1px solid #eee;
-  flex-wrap:wrap;
-  text-align:center;
-}
-
-/* ================= ROTATING LOGO ================= */
-#rotating-logo{
-  position:fixed;
-  left:14px;
-  bottom:14px;
-  width:110px;
-  cursor:pointer;
-  animation:spin 18s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .product-intro,.value-grid{grid-template-columns:1fr;}
-  .gallery-grid{grid-template-columns:1fr 1fr;}
-}
-
-/* MOBILE NAVIGATION RESPONSIVE */
-@media(max-width:700px) {
-  .nav { display: none; }
-  .hamburger { display: flex; }
-}
-
-/* ===== ADDED: trust / reassurance ===== */
-.buy-reassure{
-  margin:16px 0 0;
-  font-size:13px;
-  font-weight:300;
-  letter-spacing:.3px;
-  opacity:.65;
-}
-.product-review{
-  margin:28px 0 0;
-  padding:0 0 0 16px;
-  max-width:440px;
-  border-left:2px solid var(--green);
-}
-.product-review blockquote{
-  margin:0;
-  font-size:15px;
-  font-style:italic;
-  line-height:1.45;
-}
-.product-review figcaption{
-  margin-top:8px;
-  font-size:12px;
-  font-weight:300;
-  opacity:.55;
-}
-.secure-note{
-  align-items:center;
-  gap:14px;
-}
-.secure-note span{
-  font-size:13px;
-  font-weight:300;
-  opacity:.7;
-  letter-spacing:.3px;
-}
-</style>
-
-<script type="application/ld+json">
-{
+<meta name="twitter:image" content="https://atomatlab.com/media/crt2-1.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/shop.css">
+<script type="application/ld+json">{
  "@context": "https://schema.org",
  "@type": "Product",
  "name": "CRT2",
- "image": "https://lh3.googleusercontent.com/d/1-YlXxyfEumat2HMHtdylhBVGTXnkq3kF",
- "description": "Submersible contact microphone with copper shielding and velcro mounting for surface and underwater sound exploration.",
+ "sku": "AL-C2",
+ "image": "https://atomatlab.com/media/crt2-1.jpg",
+ "description": "Submersible contact microphone with copper shielding, internal capacitor and velcro mounting, for surface and underwater recording.",
  "brand": {
   "@type": "Brand",
   "name": "ATOMAT LAB"
@@ -503,234 +48,168 @@ header{
    }
   }
  }
-}
-</script>
+}</script>
 </head>
-
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="head">
+  <a class="brand" href="index.html" aria-label="ATOMAT LAB home">
+    <img src="media/logo-rotating.sm.png" alt="" width="40" height="40">
+    <span>Atomat Lab</span>
+  </a>
+  <nav class="nav" aria-label="Main"><a href="index.html">Home</a><a href="shop.html" aria-current="page">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+  <a class="cart-link" href="cart.html">
+    <span>Cart</span><span class="badge zero" data-cart-count>0</span>
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="menu" id="menu" hidden>
+  <div class="menu-top">
+    <span class="tag">Atomat Lab</span>
+    <button class="menu-close" type="button">Close ×</button>
+  </div>
+  <nav aria-label="Mobile"><a href="index.html">Home</a><a href="shop.html" aria-current="page">Shop</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="cart.html">Cart <span class="badge zero" data-cart-count style="vertical-align:middle">0</span></a></nav>
+  <div class="menu-foot"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div><p class="note" style="margin-top:14px">tools that listen · contact@atomatlab.com</p></div>
+</div>
 
-<header>
-  <nav class="nav">
-    <a href="index.html">HOME</a>
-    <a href="shop.html" class="shop-link">SHOP</a>
-    <a href="about.html">ABOUT</a>
-    <a href="contact.html">CONTACT</a>
+<main id="main">
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="shop.html">Instruments</a><span>/</span><span>CRT2</span>
+    <span style="margin-left:auto"><span class="tag">AL-C2</span></span>
   </nav>
 
-  <a href="cart.html" class="cart desktop-cart" title="Cart">
-    🛒
-    <span id="cart-dot" class="dot"></span>
-    <span id="cart-count" class="cart-count">(0)</span>
-  </a>
-
-  <div class="hamburger" id="hamburger">
-    <span id="hamburger-symbol">+</span>
-  </div>
-</header>
-
-<div class="nav-mobile" id="navMobile">
-  <div id="close-nav">×</div>
-  <a href="index.html">HOME</a>
-  <a href="shop.html" class="shop-link">SHOP</a>
-  <a href="about.html">ABOUT</a>
-  <a href="contact.html">CONTACT</a>
-  <a href="#"><span class="cart mobile-cart">
-    CART 🛒<span class="dot">0</span>
-  </span></a>
-</div>
-
-<main class="product-page">
-
-<section class="product-intro">
-  <div>
-    <h1>CRT2</h1>
-    <p class="claim">
-      CRT2 is a rugged, multi-purpose contact microphone designed for surface and underwater
-      sound exploration. Its sinkable, water-resistant body and the velcro mounting
-      makes it ideal for experimental recording, object resonance, and transforming everyday
-      materials into instruments. A refined version of the CRT1.
-    </p>
-    <p class="claim">Sink it in creeks, aquariums and rain barrels as a compact alternative to a hydrophone, or strap it to pipes, trees, machines and instruments with the velcro strap and textured mounting base. The copper shielding and internal capacitor tame harsh upper frequencies for a smoother, more musical tone — a rugged contact microphone for field recording on land and underwater.</p>
-
-    <section class="accordion">
-      <div class="accordion-item">
-        <button onclick="toggleAccordion(0)">TECHNICAL SPECIFICATIONS</button>
-        <div class="accordion-content">
-          <p>
-          Copper shielding, Velcro hole <br>FQ Resp 10Hz–15kHz
-          <br>
-          Weight: 55gr
-          </p>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <button onclick="toggleAccordion(1)">WHAT’S INCLUDED</button>
-        <div class="accordion-content">
-          <p>
-           CRT2 mic, 1.5m cable length, 6.3mm MONO TS Jack, 40cm Velcro strap
-          </p>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <button onclick="toggleAccordion(2)">SOUND SAMPLES</button>
-        <div class="accordion-content">
-          <p>
-            COMING SOON
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <div class="meta">
-      <span class="price">60 EUR</span>
-      <div class="add-cart" onclick="addToCart({
-        id:'crt2',
-        name:'CRT2',
-        price:6000
-      })">Add to cart</div>
+  <section class="prod">
+    <div class="prod-media">
+      <div data-main-media><div class="stage-wrap"><div class="stage"><video src="media/loop-crt2.mp4" poster="media/loop-crt2.jpg" autoplay muted loop playsinline preload="metadata" aria-label="CRT2 rotating"></video></div><span class="stage-tag"><span class="tag acc">360° ↻</span></span></div></div>
+      <div class="prod-thumbs"><button type="button" data-thumb="media/crt2-1.jpg" data-alt="CRT2 — photo 1"
+      aria-label="Show photo 1"><img src="media/crt2-1.sm.jpg" alt="" loading="lazy"></button><button type="button" data-thumb="media/crt2-2.jpg" data-alt="CRT2 — photo 2"
+      aria-label="Show photo 2"><img src="media/crt2-2.sm.jpg" alt="" loading="lazy"></button><button type="button" data-thumb="media/crt2-shop.jpg" data-alt="CRT2 — photo 3"
+      aria-label="Show photo 3"><img src="media/crt2-shop.sm.jpg" alt="" loading="lazy"></button></div>
     </div>
+    <div class="prod-copy">
+      <div class="tags"><span class="tag">Submersible contact microphone</span></div>
+      <h1>CRT2</h1>
+      <p class="lead">CRT2 is a rugged, multi-purpose contact microphone designed for surface and underwater sound exploration. A refined version of the CRT1.</p>
+      <p>Sink it in creeks, aquariums and rain barrels as a compact alternative to a hydrophone, or strap it to pipes, trees, machines and instruments with the velcro strap and textured mounting base. The copper shielding and internal capacitor tame harsh upper frequencies for a smoother, more musical tone — a rugged contact microphone for field recording on land and underwater.</p>
+      <div class="buy">
+        <span class="price">€60</span>
+        <button class="btn big solid" type="button" data-add="crt2">Add to cart +</button>
+        <a class="btn big" href="cart.html">Cart →</a>
+      </div>
+      <p class="note">Handmade to order in Romania · ships within a few days · 14-day EU returns</p>
+      <figure class="quote">
+  <blockquote>“Excellent microphone and excellent service by Dennis!”</blockquote><figcaption>Verified buyer</figcaption></figure>
+    </div>
+  </section>
 
-    <p class="buy-reassure">Handmade to order in Romania · ships within a few days · 14-day EU returns</p>
-    <figure class="product-review">
-      <blockquote>“Excellent microphone and excellent service by Dennis!”</blockquote>
-      <figcaption>— Verified buyer</figcaption>
-    </figure>
-  </div>
+  <section class="sec">
+    <div class="duo">
+      <div>
+        <div class="sec-head"><h2>Specifications</h2></div>
+        <div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.48%"></i><i class="" style="left:15.02%"></i><i class="" style="left:18.96%"></i><i class="" style="left:22.01%"></i><i class="" style="left:24.50%"></i><i class="" style="left:26.61%"></i><i class="" style="left:28.43%"></i><i class="" style="left:30.04%"></i><i class="maj" style="left:31.49%"></i><b style="left:calc(31.49% + 4px)">100</b><i class="" style="left:40.96%"></i><i class="" style="left:46.51%"></i><i class="" style="left:50.44%"></i><i class="" style="left:53.49%"></i><i class="" style="left:55.99%"></i><i class="" style="left:58.09%"></i><i class="" style="left:59.92%"></i><i class="" style="left:61.53%"></i><i class="maj" style="left:62.97%"></i><b style="left:calc(62.97% + 4px)">1 k</b><i class="" style="left:72.45%"></i><i class="" style="left:77.99%"></i><i class="" style="left:81.93%"></i><i class="" style="left:84.98%"></i><i class="" style="left:87.47%"></i><i class="" style="left:89.58%"></i><i class="" style="left:91.40%"></i><i class="" style="left:93.02%"></i><i class="maj" style="left:94.46%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">15 kHz</b></div>
+        <table class="spec-table"><tr><th>Frequency</th><td>10 Hz – 15 kHz</td></tr><tr><th>Output</th><td>6.3 mm mono TS jack</td></tr><tr><th>Cable</th><td>1.5 m</td></tr><tr><th>Weight</th><td>55 g</td></tr><tr><th>Build</th><td>Copper-shielded, velcro hole, textured base</td></tr></table>
+        <h3 style="margin-top:28px">What’s included</h3>
+        <p style="margin-top:8px">CRT2 mic, 1.5 m cable, 6.3 mm mono TS jack, 40 cm velcro strap</p>
+      </div>
+      <div>
+        <div class="sec-head"><h2>Sound samples</h2></div>
+        <div class="soon-box"><span class="m">Sound samples — coming soon</span></div>
+      </div>
+    </div>
+  </section>
 
-  <img alt="CRT2 submersible contact microphone by ATOMAT LAB" class="hero-img" src="https://lh3.googleusercontent.com/d/10mUsk15DakAyVxJI7PYLPsoJRYcf3NpK">
-</section>
+  <section class="sec">
+    <div class="trio"><div class="card"><span class="m">01</span><h3>Surface &amp; underwater</h3><p>Designed for both dry and submerged environments.</p></div><div class="card"><span class="m">02</span><h3>Flexible mounting</h3><p>Textured base for Blu Tack and a velcro hole.</p></div><div class="card"><span class="m">03</span><h3>Refined sound</h3><p>Copper shielding and an internal capacitor tame the harsh highs.</p></div></div>
+  </section>
 
-<section class="value-grid">
-  <div class="value">
-    <h3>SURFACE & UNDERWATER</h3>
-    <p>Designed for both dry and submerged environments.</p>
-  </div>
-  <div class="value">
-    <h3>FLEXIBLE MOUNTING</h3>
-    <p>Textured base for Blu Tack and Velcro hole.</p>
-  </div>
-  <div class="value">
-    <h3>REFINED SOUND</h3>
-    <p>Copper shielding and internal capacitor taming the harsh upper frequencies.</p>
-  </div>
-</section>
+  <section class="sec">
+    <div class="sec-head"><h2>Gallery</h2><span class="m">3 photos · click to enlarge</span></div>
+    <div class="gal"><figure><img src="media/crt2-1.sm.jpg" data-full="media/crt2-1.jpg"
+      alt="CRT2 — photo 1" loading="lazy"></figure><figure><img src="media/crt2-2.sm.jpg" data-full="media/crt2-2.jpg"
+      alt="CRT2 — photo 2" loading="lazy"></figure><figure><img src="media/crt2-shop.sm.jpg" data-full="media/crt2-shop.jpg"
+      alt="CRT2 — photo 3" loading="lazy"></figure></div>
+  </section>
 
-<section class="gallery-wrap">
-  <div class="gallery-grid">
-    <div class="gallery-item"><img alt="CRT2 submersible contact microphone by ATOMAT LAB — detail 1" src="https://lh3.googleusercontent.com/d/1-YlXxyfEumat2HMHtdylhBVGTXnkq3kF"></div>
-    <div class="gallery-item"><img alt="CRT2 submersible contact microphone by ATOMAT LAB — detail 2" src="https://lh3.googleusercontent.com/d/1CmdRFtXRhFOWFrtIyoRk6SwqvPY-k_Qx"></div>
-    <div class="gallery-item"><img alt="CRT2 submersible contact microphone by ATOMAT LAB — detail 3" src="https://lh3.googleusercontent.com/d/1Oij-9P27sPqUOvihwibh4bMIfZrRScWy"></div>
-    <div class="gallery-item"><img alt="CRT2 submersible contact microphone by ATOMAT LAB — detail 4" src="https://lh3.googleusercontent.com/d/1EXfDSsVznoJfF3MpVTgF4RYFYE2FaPix"></div>
+  <section class="sec">
+    <div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+    <div class="sec-head" style="margin-top:18px"><h2>More instruments</h2><a class="btn" href="shop.html">All →</a></div>
+    <div class="rows"><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-F5</span></span>
+  <a class="row-thumb" href="field5.html" aria-label="FIELD5"><video src="media/loop-field5.mp4" poster="media/loop-field5.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="field5.html">FIELD5</a>
+    <span class="d">48V phantom-powered contact microphone</span>
   </div>
-</section>
-
-<div class="payment-logos secure-note">
-  <img src="https://lh3.googleusercontent.com/d/1Xn0UCNaJ0jCLkEKmNqBFECRff0bNNWzt" alt="Stripe">
-  <span>Secure checkout · payments handled by Stripe</span>
+  <div class="row-specs">Frequency 10 Hz – 17 kHz<br>48V phantom powered · 87 g<br>2 m cable · mounting kit included<br>Submersible</div>
+  <span class="row-price">€155</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="field5">Add to cart +</button></span>
+</div><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-C1</span></span>
+  <a class="row-thumb" href="crt1.html" aria-label="CRT1"><video src="media/loop-crt1.mp4" poster="media/loop-crt1.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="crt1.html">CRT1</a>
+    <span class="d">Entry contact microphone</span>
+  </div>
+  <div class="row-specs">Frequency 10 Hz – 17 kHz<br>All-rounder · entry point<br>1 m cable · 13 g<br>Waterproof</div>
+  <span class="row-price">€45</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="crt1">Add to cart +</button></span>
+</div><div class="row" data-cat="mic">
+  <span class="row-serial"><span class="tag">AL-E1</span></span>
+  <a class="row-thumb" href="ert.html" aria-label="ERT"><video src="media/loop-ert.mp4" poster="media/loop-ert.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></a>
+  <div class="row-name">
+    <a class="t" href="ert.html">ERT</a>
+    <span class="d">Electromagnetic (EMF) microphone</span>
+  </div>
+  <div class="row-specs">Frequency 10 Hz – 18 kHz<br>Clocks, phones, displays, TVs<br>Double inductors · 1 m cable<br>Plug and play</div>
+  <span class="row-price">€40</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="ert">Add to cart +</button></span>
+</div><div class="row" data-cat="acc">
+  <span class="row-serial"><span class="tag">AL-RC</span></span>
+  <a class="row-thumb" href="raincatcher.html" aria-label="RAINCATCHER"><img src="media/raincatcher-2.sm.jpg" alt="" loading="lazy"></a>
+  <div class="row-name">
+    <a class="t" href="raincatcher.html">RAINCATCHER</a>
+    <span class="d">Rain plate for FIELD5</span>
+  </div>
+  <div class="row-specs">Isolates rain and similar transients<br>3D-printed support · 4 mm plexi board<br>30 cm diameter<br>FIELD5 attachment</div>
+  <span class="row-price">€45</span>
+  <span class="row-buy"><button class="btn" type="button" data-add="raincatcher">Add to cart +</button></span>
+</div></div>
+  </section>
 </div>
-
 </main>
-
-<section class="footer">
-  <div style="line-height:1.6;">
-    © ATOMAT LAB — tools that listen<br>
-    <a href="mailto:contact@atomatlab.com" style="color:var(--grey);text-decoration:none;">
-      contact@atomatlab.com
-    </a>
-  </div>
-  <div style="width:1px;height:60px;background:#d4d4d4;opacity:.8;"></div>
-  <div style="display:flex;flex-direction:column;gap:6px;font-size:15px;">
-       <a href="termsofservice.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Terms of Service</a>
-    <a href="privacypolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Privacy Policy</a>
-    <a href="refundpolicy.html" style="color:var(--grey);text-decoration:none;font-weight:600;">Refunds Policy</a>
-  </div>
-</section>
-
-<a href="index.html">
-  <img alt="ATOMAT LAB logo" id="rotating-logo" src="https://lh3.googleusercontent.com/d/1Oz-mWMgJsv7vnKWHDUaHM4pgjF8NZavd">
-</a>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <span class="close" onclick="closeModal()">×</span>
-  <img alt="" id="modal-img">
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo">
+  <button class="lb-close" type="button">Close ×</button>
+  <button class="lb-prev" type="button" aria-label="Previous">←</button>
+  <img src="" alt="">
+  <button class="lb-next" type="button" aria-label="Next">→</button>
+  <span class="lb-count"></span>
 </div>
-
-<script>
-function toggleAccordion(n){
-  const p=document.querySelectorAll('.accordion-content');
-  p[n].style.maxHeight=p[n].style.maxHeight?null:p[n].scrollHeight+"px";
-}
-
-const modal=document.getElementById('modal');
-const modalImg=document.getElementById('modal-img');
-
-document.querySelectorAll('.gallery-item img').forEach(img=>{
-  img.onclick=()=>{
-    modal.style.display='flex';
-    modalImg.src=img.src;
-  }
-});
-
-function closeModal(){
-  modal.style.display='none';
-}
-
-modal.addEventListener('click',e=>{
-  if(e.target===modal) closeModal();
-});
-
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape') closeModal();
-});
-</script>
-
-<script>
-const hamburger = document.getElementById('hamburger');
-const navMobile = document.getElementById('navMobile');
-const closeNav = document.getElementById('close-nav');
-
-hamburger.addEventListener('click', e => {
-  e.stopPropagation();
-  navMobile.classList.add('open');
-  hamburger.style.display = 'none';
-});
-
-closeNav.addEventListener('click', e => {
-  navMobile.classList.remove('open');
-  hamburger.style.display = 'flex';
-});
-
-document.addEventListener('click', e => {
-  if (
-    navMobile.classList.contains('open') &&
-    !navMobile.contains(e.target) &&
-    !hamburger.contains(e.target)
-  ) {
-    navMobile.classList.remove('open');
-    hamburger.style.display = 'flex';
-  }
-});
-</script>
-
-<script src="cart.js"></script>
-<script>
-function updateCartDot() {
-  const cart = getCart(); // from cart.js
-  const cartDot = document.getElementById('cart-dot');
-  const cartCount = document.getElementById('cart-count');
-
-  if(cart && cart.length > 0){
-    cartDot.style.display = 'inline-block';
-    cartCount.textContent = `(${cart.reduce((sum, item) => sum + item.qty, 0)})`;
-  } else {
-    cartDot.style.display = 'none';
-    cartCount.textContent = `(0)`;
-  }
-}
-
-updateCartDot();
-</script>
-
+<footer class="foot wrap">
+<div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+<div class="foot-grid">
+  <div>
+    <img class="mark-big" src="media/textlogo.sm.png" alt="ATOMAT LAB">
+    <p class="note" style="margin-top:14px">Handmade in Bucharest<br>Ships to 29 countries</p>
+  </div>
+  <div><h3>Instruments</h3><ul><li><a href="field5.html">FIELD5</a></li><li><a href="crt2.html">CRT2</a></li><li><a href="crt1.html">CRT1</a></li><li><a href="ert.html">ERT</a></li><li><a href="raincatcher.html">RAINCATCHER</a></li></ul></div>
+  <div><h3>Elsewhere</h3><ul><li><a href="https://instagram.com/atomatlab" rel="me noopener" target="_blank">Instagram <span class="note">@atomatlab</span></a></li><li><a href="https://youtube.com/@atomatlab" rel="me noopener" target="_blank">YouTube <span class="note">@atomatlab</span></a></li><li><a href="https://soundcloud.com/atomat-lab" rel="me noopener" target="_blank">SoundCloud <span class="note">atomat-lab</span></a></li><li><a href="https://tiktok.com/@atomatlab" rel="me noopener" target="_blank">TikTok <span class="note">@atomatlab</span></a></li></ul></div>
+  <div><h3>Legal</h3><ul><li><a href="termsofservice.html">Terms of service</a></li><li><a href="privacypolicy.html">Privacy policy</a></li><li><a href="refundpolicy.html">Refund policy</a></li></ul>
+    <p style="margin-top:14px"><a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a></p>
+  </div>
+</div>
+<div class="foot-note">
+  <span class="note">© ATOMAT LAB — tools that listen</span>
+  <div class="pay">
+    <span class="note">Secure checkout by Stripe</span>
+    <img src="media/pay-visa.sm.png" alt="Visa">
+    <img src="media/pay-stripe.sm.png" alt="Stripe">
+    <img src="media/pay-paypal.sm.png" alt="PayPal">
+  </div>
+</div>
+</footer>
+<script src="assets/shop.js"></script>
 </body>
 </html>
