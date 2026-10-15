@@ -24,7 +24,7 @@ SHIP_NOTE = "Handmade to order in Romania · ships within a few days · 14-day E
 # price: euro cents.  freq: (low, high) in Hz for the spec ruler.
 PRODUCTS = [
     dict(
-        slug="field5", name="FIELD5", serial="AL-F5", price=15500, cat="mic",
+        slug="field5", name="FIELD5", serial="AL-F5", price=15000, cat="mic",
         tagline="48V phantom-powered contact microphone",
         seo_title="FIELD5 — 48V Phantom Powered Contact Microphone | ATOMAT LAB",
         seo_desc=("FIELD5 is a submersible 48V phantom-powered contact microphone with Neutrik XLR "

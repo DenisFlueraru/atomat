@@ -8,7 +8,7 @@
   "field5": {
     "name": "FIELD5",
     "serial": "AL-F5",
-    "price": 15500,
+    "price": 15000,
     "thumb": "media/field5-shop.sm.jpg"
   },
   "crt2": {

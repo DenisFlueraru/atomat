@@ -13,7 +13,7 @@ const CATALOG = {
     "name": "FIELD5",
     "tagline": "48V phantom-powered contact microphone",
     "serial": "AL-F5",
-    "price": 15500,
+    "price": 15000,
     "image": "media/field5-1.sm.jpg"
   },
   "crt2": {
