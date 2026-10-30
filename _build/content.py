@@ -18,7 +18,7 @@ SOCIALS = [
     ("Personal page", "denisflueraru.com", "https://denisflueraru.com"),
 ]
 
-SHIP_NOTE = "Handmade to order in Romania · ships within a few days · 14-day EU returns"
+SHIP_NOTE = "Handmade in Romania · in stock, ships within a few days · 14-day EU returns"
 
 # ---------------------------------------------------------------- products
 # price: euro cents.  freq: (low, high) in Hz for the spec ruler.

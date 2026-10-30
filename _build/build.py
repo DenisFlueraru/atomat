@@ -187,10 +187,7 @@ def footer() -> str:
 <div class="foot-note">
   <span class="note">© ATOMAT LAB — {C.TAGLINE}</span>
   <div class="pay">
-    <span class="note">Secure checkout by Stripe</span>
-    <img src="{media('pay-visa.png', small=True)}" alt="Visa">
     <img src="{media('pay-stripe.png', small=True)}" alt="Stripe">
-    <img src="{media('pay-paypal.png', small=True)}" alt="PayPal">
   </div>
 </div>
 </footer>
@@ -243,7 +240,7 @@ def page_home() -> str:
     }, indent=1)
     return (head("ATOMAT LAB — Handmade Contact Microphones · Tools That Listen",
                  "ATOMAT LAB builds handmade contact microphones, EMF microphones and tools for field "
-                 "recording, sound art and experimental music. Made to order in the EU, shipped worldwide.",
+                 "recording, sound art and experimental music. Handmade in the EU, shipped worldwide.",
                  "", og_image=media("field5-shop.jpg"),
                  extra=f'<script type="application/ld+json">{org}</script>\n')
             + header("index.html") + f"""
@@ -312,16 +309,16 @@ def page_shop() -> str:
     chips += '<button type="button" class="soon" disabled>Preamps — soon</button>'
     return (head("Shop — Contact Microphones &amp; EMF Mics | ATOMAT LAB",
                  "Shop handmade contact microphones, submersible piezo mics and EMF microphones for field "
-                 "recording and experimental sound. Built to order, shipped from the EU.",
+                 "recording and experimental sound. In stock, shipped from the EU.",
                  "shop.html", og_image=media("field5-shop.jpg"))
             + header("shop.html") + f"""
 <main id="main">
 <div class="wrap">
   <section style="padding:clamp(34px,5vw,72px) 0 0">
-    <div class="tags" style="margin-bottom:18px">{tag('Built to order')}{tag('14-day EU returns')}</div>
+    <div class="tags" style="margin-bottom:18px">{tag('Ready to ship')}{tag('14-day EU returns')}</div>
     <h1 style="font-size:clamp(38px,6vw,84px)">Instruments</h1>
     <p class="lead" style="max-width:52ch;margin-top:18px">Handmade contact microphones and EMF microphones
-    for field recording and experimental sound. Every unit is built after you order it, then tested before it ships.</p>
+    for field recording and experimental sound.</p>
   </section>
 
   <section class="sec">
@@ -337,11 +334,16 @@ def page_shop() -> str:
     {ruler()}
     <div class="trio" style="margin-top:24px">
       <div class="card"><span class="m">01</span><h3>Pick a mic</h3><p>CRT1 to start, CRT2 for water and
-      velcro, ERT for electronics, FIELD5 when you want phantom power and XLR.</p></div>
-      <div class="card"><span class="m">02</span><h3>It gets built</h3><p>Soldered, epoxy-sealed and tested
-      by hand in Bucharest, usually within a few days of the order.</p></div>
+      velcro attachment, ERT for electromagnetic fields, FIELD5 when you want a Swiss Army knife for contact
+      recording and experiments, powered by 48V phantom over XLR.</p></div>
+      <div class="card"><span class="m">02</span><h3>It ships fast</h3><p>Every mic is already built, sealed
+      and tested, so your order goes out quickly.</p>
+      <p class="note" style="margin-top:10px">CRT1 — 10 Hz–17 kHz · waterproof piezo · 6.3 mm TS · 1 m · 13 g<br>
+      CRT2 — 10 Hz–15 kHz · submersible, copper-shielded · 6.3 mm TS · 1.5 m · 55 g<br>
+      ERT — 10 Hz–18 kHz · double inductors · 6.3 mm jack · 1 m<br>
+      FIELD5 — 10 Hz–17 kHz · 48V phantom · Neutrik XLR · 2 m · 87 g</p></div>
       <div class="card"><span class="m">03</span><h3>Plug in and listen</h3><p>Straight into any recorder or
-      interface. No preamp needed unless the mic asks for phantom power.</p></div>
+      interface.</p></div>
     </div>
   </section>
 </div>
@@ -453,7 +455,7 @@ def page_product(p: dict) -> str:
 def page_cart() -> str:
     opts = "".join(f'<option value="{c}">{n} — {eur(f)}</option>' for c, n, f in C.SHIPPING)
     return (head("Cart — ATOMAT LAB", "Your ATOMAT LAB cart: handmade contact and EMF microphones, "
-                                      "built to order and shipped from Romania.",
+                                      "handmade and shipped from Romania.",
                  "cart.html", og_image=media("field5-shop.jpg"))
             + header("cart.html") + f"""
 <main id="main">
@@ -577,7 +579,7 @@ def page_success() -> str:
     <div class="tags" style="margin-bottom:18px">{tag('Paid', 'acc')}</div>
     <h1 style="font-size:clamp(38px,6vw,84px)">Thank <span class="mark">you</span></h1>
     <p class="lead" style="margin-top:22px">Your order is in. A confirmation is on its way to your inbox from
-    Stripe, and your instrument goes on the bench next — handmade to order, usually shipped within a few days.</p>
+    Stripe, and your instrument is packed and on its way within a few days.</p>
     <p style="margin-top:8px">If anything looks wrong, or you want to add to the order before it ships,
     write to <a href="mailto:{C.EMAIL}" style="text-decoration:underline">{C.EMAIL}</a>.</p>
     <div class="hero-cta" style="margin-top:28px">
