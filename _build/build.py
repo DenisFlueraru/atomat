@@ -208,6 +208,13 @@ def lightbox() -> str:
 """
 
 
+def buy_button(p: dict, cls: str) -> str:
+    slug = p["slug"]
+    if p.get("soldout"):
+        return f'<button class="{cls} out" type="button" data-add="{slug}">Sold out</button>'
+    return f'<button class="{cls}" type="button" data-add="{slug}">Add to cart +</button>'
+
+
 def row(p: dict, first: bool = False) -> str:
     specs = "<br>".join(p["grid_specs"])
     return f"""<div class="row" data-cat="{p['cat']}">
@@ -219,7 +226,7 @@ def row(p: dict, first: bool = False) -> str:
   </div>
   <div class="row-specs">{specs}</div>
   <span class="row-price">{eur(p['price'])}</span>
-  <span class="row-buy"><button class="btn{' solid' if first else ''}" type="button" data-add="{p['slug']}">Add to cart +</button></span>
+  <span class="row-buy">{buy_button(p, 'btn solid' if first else 'btn')}</span>
 </div>"""
 
 
@@ -379,7 +386,7 @@ def page_product(p: dict) -> str:
         "url": f"{C.SITE}/{p['slug']}.html",
         "offers": {
             "@type": "Offer", "url": f"{C.SITE}/{p['slug']}.html", "priceCurrency": "EUR",
-            "price": f"{p['price'] / 100:.2f}", "availability": "https://schema.org/InStock",
+            "price": f"{p['price'] / 100:.2f}", "availability": "https://schema.org/" + ("OutOfStock" if p.get("soldout") else "InStock"),
             "itemCondition": "https://schema.org/NewCondition",
             "shippingDetails": {"@type": "OfferShippingDetails",
                                 "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "EU"}},
@@ -408,11 +415,11 @@ def page_product(p: dict) -> str:
       <p class="lead">{p['claim']}</p>
       <p>{p['body']}</p>
       <div class="buy">
-        <span class="price">{eur(p['price'])}</span>
-        <button class="btn big solid" type="button" data-add="{p['slug']}">Add to cart +</button>
+        <span class="price">{eur(p['price'])}</span>{tag('Sold out — coming back soon', 'ghost') if p.get('soldout') else ''}
+        {buy_button(p, 'btn big solid')}
         <a class="btn big" href="cart.html">Cart →</a>
       </div>
-      <p class="note">{C.SHIP_NOTE}</p>
+      {'' if p.get('soldout') else f'<p class="note">{C.SHIP_NOTE}</p>'}
       {quote}
     </div>
   </section>
@@ -626,7 +633,8 @@ def page_policy(fname: str, label: str, title: str, desc: str) -> str:
 # ---------------------------------------------------------------- assets
 def js_catalog() -> str:
     return json.dumps({p["slug"]: {"name": p["name"], "serial": p["serial"], "price": p["price"],
-                                   "thumb": media(p["hero"], small=True)}
+                                   "thumb": media(p["hero"], small=True),
+                                   "soldout": bool(p.get("soldout"))}
                        for p in C.PRODUCTS}, indent=2)
 
 
@@ -636,7 +644,8 @@ def js_shipping() -> str:
 
 def api_catalog() -> str:
     return json.dumps({p["slug"]: {"name": p["name"], "tagline": p["tagline"], "serial": p["serial"],
-                                   "price": p["price"], "image": media(p["gallery"][0], small=True)}
+                                   "price": p["price"], "image": media(p["gallery"][0], small=True),
+                                   "soldout": bool(p.get("soldout"))}
                        for p in C.PRODUCTS}, indent=2)
 
 

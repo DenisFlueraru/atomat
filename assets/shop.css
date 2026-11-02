@@ -171,6 +171,7 @@ p:last-child { margin-bottom: 0; }
 .btn:hover { background: var(--ink); color: var(--paper); }
 .btn.solid { background: var(--acc); border-color: var(--acc); }
 .btn.solid:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.btn.out, .btn.out:hover { background: none; border-color: var(--ink-40); color: var(--ink-40); cursor: not-allowed; }
 .btn.big { padding: 18px 28px; font-size: 13px; }
 .btn.block { width: 100%; justify-content: center; }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }

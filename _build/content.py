@@ -61,6 +61,7 @@ PRODUCTS = [
     ),
     dict(
         slug="crt2", name="CRT2", serial="AL-C2", price=6000, cat="mic",
+        soldout=True,  # shows "Sold out", blocks add to cart and checkout; delete to sell again
         tagline="Submersible contact microphone",
         seo_title="CRT2 — Submersible Contact Microphone | ATOMAT LAB",
         seo_desc=("CRT2 is a submersible contact microphone with copper shielding and velcro mounting "

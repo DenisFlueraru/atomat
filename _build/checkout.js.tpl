@@ -40,6 +40,9 @@ export default async function handler(req, res) {
     if (!product) {
       return res.status(400).json({ error: 'Unknown product' });
     }
+    if (product.soldout) {
+      return res.status(400).json({ error: `${product.name} is sold out — coming back soon` });
+    }
     const qty = typeof item.qty === 'number' ? item.qty : Number(item.qty);
     if (!Number.isInteger(qty) || qty < 1) {
       return res.status(400).json({ error: 'Invalid quantity' });

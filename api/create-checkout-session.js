@@ -14,35 +14,40 @@ const CATALOG = {
     "tagline": "48V phantom-powered contact microphone",
     "serial": "AL-F5",
     "price": 15000,
-    "image": "media/field5-1.sm.jpg"
+    "image": "media/field5-1.sm.jpg",
+    "soldout": false
   },
   "crt2": {
     "name": "CRT2",
     "tagline": "Submersible contact microphone",
     "serial": "AL-C2",
     "price": 6000,
-    "image": "media/crt2-1.sm.jpg"
+    "image": "media/crt2-1.sm.jpg",
+    "soldout": true
   },
   "crt1": {
     "name": "CRT1",
     "tagline": "Entry contact microphone",
     "serial": "AL-C1",
     "price": 4500,
-    "image": "media/crt1-1.sm.jpg"
+    "image": "media/crt1-1.sm.jpg",
+    "soldout": false
   },
   "ert": {
     "name": "ERT",
     "tagline": "Electromagnetic (EMF) microphone",
     "serial": "AL-E1",
     "price": 4000,
-    "image": "media/ert-1.sm.jpg"
+    "image": "media/ert-1.sm.jpg",
+    "soldout": false
   },
   "raincatcher": {
     "name": "RAINCATCHER",
     "tagline": "Rain plate for FIELD5",
     "serial": "AL-RC",
     "price": 4500,
-    "image": "media/raincatcher-1.sm.jpg"
+    "image": "media/raincatcher-1.sm.jpg",
+    "soldout": false
   }
 };
 
@@ -192,6 +197,9 @@ export default async function handler(req, res) {
     const product = slug && Object.prototype.hasOwnProperty.call(CATALOG, slug) ? CATALOG[slug] : null;
     if (!product) {
       return res.status(400).json({ error: 'Unknown product' });
+    }
+    if (product.soldout) {
+      return res.status(400).json({ error: `${product.name} is sold out — coming back soon` });
     }
     const qty = typeof item.qty === 'number' ? item.qty : Number(item.qty);
     if (!Number.isInteger(qty) || qty < 1) {

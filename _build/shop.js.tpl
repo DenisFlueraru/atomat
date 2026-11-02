@@ -27,7 +27,7 @@
           return CATALOG[s].name.toLowerCase().replace(/[^a-z0-9]/g, "") === name;
         })[0];
       }
-      if (!slug || !CATALOG[slug]) return;
+      if (!slug || !CATALOG[slug] || CATALOG[slug].soldout) return;
       var qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
       var found = out.filter(function (o) { return o.slug === slug; })[0];
       if (found) found.qty = Math.min(99, found.qty + qty); else out.push({ slug: slug, qty: qty });
@@ -77,6 +77,7 @@
     e.preventDefault();
     var slug = b.getAttribute("data-add");
     if (!CATALOG[slug]) return;
+    if (CATALOG[slug].soldout) { say(CATALOG[slug].name + " is not available — coming back soon"); return; }
     var cart = read();
     var found = cart.filter(function (i) { return i.slug === slug; })[0];
     if (found) found.qty = Math.min(99, found.qty + 1); else cart.push({ slug: slug, qty: 1 });
