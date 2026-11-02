@@ -15,15 +15,15 @@ OUT = ROOT / "media"
 # source (relative to DRIVE-IMAGES)  ->  name in media/
 PHOTOS = {
     # FIELD5
-    "FIELD5/FIELD51.jpg":               "field5-1.jpg",
-    "FIELD5/FIELD5_1.JPG":              "field5-2.jpg",
-    "FIELD5/FIELD5CLOSEUP.jpg":         "field5-closeup.jpg",
-    "FIELD5/FIELD5_NUTCLOSEUP.jpg":     "field5-nut.jpg",
-    "FIELD5/FIELD5BOX1.jpg":            "field5-box.jpg",
-    "FIELD5/IMG_0060.JPG":              "field5-3.jpg",
-    "FIELD5/IMG_0082.JPG":              "field5-4.jpg",
-    "FIELD5/IMG_0083.JPG":              "field5-5.jpg",
-    "SHOP SECTION/Copy of FIELD5_4.JPG":"field5-shop.jpg",
+    "FIELD5/watersplash.jpg":           "field5-1.jpg",
+    "FIELD5/product placement.jpg":     "field5-2.jpg",
+    "FIELD5/watercup.jpg":              "field5-3.jpg",
+    "FIELD5/Field 5 2.jpg":             "field5-5.jpg",
+    "FIELD5/tree trunk.jpg":            "field5-6.jpg",
+    "FIELD5/metal hinge.jpg":           "field5-7.jpg",
+    "FIELD5/barbed wire.jpg":           "field5-8.jpg",
+    "FIELD5/soil.jpg":                  "field5-9.jpg",
+    "FIELD5/Hero Product Field5.jpg":   "field5-shop.jpg",
     # CRT2
     "CRT2/CRT2_FRONT.jpg":              "crt2-1.jpg",
     "CRT2/CRT2FRONT.jpg":               "crt2-2.jpg",
