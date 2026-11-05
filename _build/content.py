@@ -188,7 +188,32 @@ PRODUCTS = [
 
 BY_SLUG = {p["slug"]: p for p in PRODUCTS}
 
-FILTERS = [("all", "All"), ("mic", "Microphones"), ("acc", "Accessories")]
+FILTERS = [("all", "All"), ("mic", "Microphones"), ("acc", "Accessories"), ("app", "Apps")]
+
+# ---------------------------------------------------------------- apps
+# Apps are not sold through the cart: their row links to the app's own page
+# (atomatlab.com/transmit) and the stores handle the purchase.
+# Paste the store links in when the app is live; empty shows "coming soon".
+APPS = [
+    dict(
+        slug="transmit", name="TRANSMIT OSC", serial="AL-APP1",
+        url="/transmit",
+        tagline="Your phone's sensors as OSC",
+        price_label="Free",
+        price_note="full version €4.99",
+        icon="transmit-icon.png",
+        shots=[("transmit-1.jpg", "Link — type a name, enter the receiver, transmit"),
+               ("transmit-2.jpg", "Sense — switch every sensor on or off"),
+               ("transmit-3.jpg", "Play — 16 faders, labelled from the computer"),
+               ("transmit-4.jpg", "Play — 16 pads, hit or toggle")],
+        grid_specs=["iPhone · Android", "Max · TouchDesigner · any OSC app",
+                    "Motion, audio, camera, hands", "No accounts, no tracking"],
+        play_url="",
+        appstore_url="",
+        updated="5 November 2026",
+    ),
+]
+
 
 # ---------------------------------------------------------------- shipping
 # (code, label, cents).  The same table is emitted into the serverless function,

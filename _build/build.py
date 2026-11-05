@@ -16,6 +16,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import content as C  # noqa: E402
+from html import escape as E  # noqa: E402
 
 HERE = pathlib.Path(__file__).parent
 ROOT = HERE.parent
@@ -166,6 +167,7 @@ def header(active: str) -> str:
 
 def footer() -> str:
     shop = "".join(f'<li><a href="{p["slug"]}.html">{p["name"]}</a></li>' for p in C.PRODUCTS)
+    shop += "".join(f'<li><a href="{a["url"]}">{a["name"].title()} <span class="note">app</span></a></li>' for a in C.APPS)
     legal = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in
                     [("termsofservice.html", "Terms of service"), ("privacypolicy.html", "Privacy policy"),
                      ("refundpolicy.html", "Refund policy")])
@@ -227,6 +229,21 @@ def row(p: dict, first: bool = False) -> str:
   <div class="row-specs">{specs}</div>
   <span class="row-price">{eur(p['price'])}</span>
   <span class="row-buy">{buy_button(p, 'btn solid' if first else 'btn')}</span>
+</div>"""
+
+
+def app_row(a: dict) -> str:
+    specs = "<br>".join(a["grid_specs"])
+    return f"""<div class="row" data-cat="app">
+  <span class="row-serial">{tag(a['serial'])}</span>
+  <a class="row-thumb app" href="{a['url']}" aria-label="{a['name']}"><img src="{media(a['icon'], small=True)}" alt="" loading="lazy"></a>
+  <div class="row-name">
+    <a class="t" href="{a['url']}">{a['name']}</a>
+    <span class="d">{a['tagline']}</span>
+  </div>
+  <div class="row-specs">{specs}</div>
+  <span class="row-price">{a['price_label']}<span class="row-price-note">{a['price_note']}</span></span>
+  <span class="row-buy"><a class="btn" href="{a['url']}">View app →</a></span>
 </div>"""
 
 
@@ -310,7 +327,7 @@ def page_home() -> str:
 
 
 def page_shop() -> str:
-    rows = "".join(row(p) for p in C.PRODUCTS)
+    rows = "".join(row(p) for p in C.PRODUCTS) + "".join(app_row(a) for a in C.APPS)
     chips = "".join(f'<button type="button" data-filter="{k}" aria-pressed="false">{t}</button>'
                     for k, t in C.FILTERS)
     chips += '<button type="button" class="soon" disabled>Preamps — soon</button>'
@@ -331,7 +348,7 @@ def page_shop() -> str:
   <section class="sec">
     <div class="sec-head">
       <div class="filters">{chips}</div>
-      <span class="m" data-rowcount>{len(C.PRODUCTS)} items</span>
+      <span class="m" data-rowcount>{len(C.PRODUCTS) + len(C.APPS)} items</span>
     </div>
     <div class="rows">{rows}</div>
     <p class="note" style="margin-top:14px">{C.SHIP_NOTE}</p>
@@ -630,6 +647,159 @@ def page_policy(fname: str, label: str, title: str, desc: str) -> str:
 """ + footer())
 
 
+# ---------------------------------------------------------------- app pages
+# Served at clean nested URLs (/transmit, /transmit/privacy …) as transmit/index.html,
+# transmit/privacy/index.html …, so every local link on them is made root-absolute.
+def rootify(html: str) -> str:
+    return re.sub(r'((?:href|src|data-full|data-thumb)=")(?!https?:|mailto:|tel:|#|/|data:)', r"\1/", html)
+
+
+def app_nav(a: dict, current: str) -> str:
+    items = [("", "Overview"), ("/guide", "How to use"), ("/privacy", "Privacy"), ("/terms", "Terms")]
+    out = []
+    for sub, t in items:
+        on = sub == current
+        out.append(f'<a class="btn{" solid" if on else ""}" href="{a["url"]}{sub}"'
+                   + (' aria-current="page"' if on else "") + f">{t}</a>")
+    return "".join(out)
+
+
+def store_buttons(a: dict) -> str:
+    out = []
+    for key, label in (("appstore_url", "App Store"), ("play_url", "Google Play")):
+        if a.get(key):
+            out.append(f'<a class="btn big solid" href="{a[key]}" rel="noopener" target="_blank">{label} ↗</a>')
+        else:
+            out.append(f'<span class="btn big out" aria-disabled="true">{label} — soon</span>')
+    return "".join(out)
+
+
+def page_app(a: dict) -> str:
+    shots = "".join(f'<figure class="shot"><img src="{media(f)}" alt="{E(c)}" loading="lazy" width="660" height="1434">'
+                    f'<figcaption class="note">{E(c)}</figcaption></figure>' for f, c in a["shots"])
+    sends = [("Motion", "Acceleration, gyroscope, tilt, shake energy"),
+             ("Audio", "Loudness, pitch, onsets, 8 bands — no sound leaves the phone"),
+             ("Camera", "Face, body (13 points), hands, colour"),
+             ("Place", "Compass, air pressure, location, outside temperature"),
+             ("Controls", "16 faders, 16 pads, multitouch XY, keys, sequencer"),
+             ("Gamepads", "Any Bluetooth game controller")]
+    send_rows = "".join(f"<tr><th>{k}</th><td>{v}</td></tr>" for k, v in sends)
+    schema = json.dumps({
+        "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Transmit OSC",
+        "operatingSystem": "iOS, Android", "applicationCategory": "MultimediaApplication",
+        "description": "Send your phone's sensors, camera tracking and controls as OSC to Max or TouchDesigner.",
+        "url": f"{C.SITE}{a['url']}", "image": f"{C.SITE}/{media(a['icon'])}",
+        "author": {"@type": "Person", "name": "Denis Flueraru"},
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+    }, indent=1)
+    return (head("Transmit OSC — Your Phone's Sensors as OSC | ATOMAT LAB",
+                 "Transmit OSC sends your phone's motion, audio, camera tracking, faders and pads as OSC to "
+                 "Max/MSP, TouchDesigner and any OSC app. For workshops, performances and installations.",
+                 a["url"].lstrip("/"), og_image=media("transmit-feature.jpg"),
+                 extra=f'<script type="application/ld+json">{schema}</script>\n')
+            + header("shop.html") + f"""
+<main id="main">
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="shop.html">Shop</a><span>/</span><span>Apps</span><span>/</span><span>Transmit OSC</span>
+    <span style="margin-left:auto">{tag(a['serial'])}</span>
+  </nav>
+
+  <section class="app-hero">
+    <img class="app-icon" src="{media(a['icon'])}" alt="Transmit OSC app icon" width="512" height="512">
+    <div class="prod-copy">
+      <div class="tags">{tag('iPhone')}{tag('Android')}{tag('Free · full version €4.99', 'acc')}</div>
+      <h1>Transmit OSC</h1>
+      <p class="lead">Turn every phone in the room into an instrument. Motion, sound, face, body and hand tracking,
+      faders and pads — sent as OSC over Wi-Fi to Max/MSP, TouchDesigner, Pure Data, Ableton or anything that speaks OSC.</p>
+      <p>Made by atomat lab for workshops, performances and installations. Everyone types a name, scans a code,
+      and every phone gets its own addresses — <code>/anna/motion/tilt</code> — so twelve phones never get mixed up.</p>
+      <div class="buy">{store_buttons(a)}</div>
+      <div class="app-nav">{app_nav(a, "")}</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Screens</h2><span class="m">link · sense · play</span></div>
+    <div class="shots">{shots}</div>
+  </section>
+
+  <section class="sec">
+    <div class="duo">
+      <div>
+        <div class="sec-head"><h2>What it sends</h2></div>
+        <table class="spec-table">{send_rows}</table>
+      </div>
+      <div>
+        <div class="sec-head"><h2>Built for workshops</h2></div>
+        <ul class="app-list">
+          <li>Scan a QR code to connect in seconds</li>
+          <li>Switch every sensor, and every part of it, on or off</li>
+          <li>The computer talks back: rename faders, send messages, colour the screen, vibrate, flash</li>
+          <li>Lock the screen — sensors keep sending</li>
+          <li>Scenes, smoothing, record and loop, several receivers</li>
+          <li>MIDI out over the network, USB or Bluetooth (full version)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="trio">
+      <div class="card"><span class="m">Free</span><h3>Everything works</h3><p>All sensors and controls.
+      Sending pauses for 10 seconds every 30 seconds, and MIDI out is off.</p></div>
+      <div class="card"><span class="m">Full version · €4.99</span><h3>One time, for good</h3><p>No pauses, MIDI out.
+      No subscription. Restore it on a new phone with the same store account.</p></div>
+      <div class="card"><span class="m">Private</span><h3>No accounts, no tracking</h3><p>Your data only goes to the computer you
+      choose. Camera and microphone are analysed on the phone. <a href="{a['url']}/privacy">Privacy policy →</a></p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    {ruler()}
+    <div class="sec-head" style="margin-top:18px"><h2>Support</h2><a class="btn" href="{a['url']}/guide">How to use →</a></div>
+    <p class="prose">Questions, a workshop setup, or something not working? Write to
+    <a href="mailto:{C.EMAIL}">{C.EMAIL}</a> with your phone model and what you’re sending to.</p>
+  </section>
+</div>
+</main>
+""" + footer())
+
+
+APP_DOCS = [("guide", "How to use Transmit OSC", "How to use",
+             "Set up Transmit OSC: connect to Max or TouchDesigner, choose sensors, play, and the full list of OSC addresses."),
+            ("privacy", "Transmit OSC — Privacy Policy", "Privacy policy",
+             "What Transmit OSC does with motion, audio, camera and location data: it stays on your phone or goes only to your computer."),
+            ("terms", "Transmit OSC — Terms of Use", "Terms of use",
+             "The terms for using the Transmit OSC app and its one-time full version.")]
+
+
+def page_app_doc(a: dict, key: str, title: str, label: str, desc: str) -> str:
+    body = (HERE / "transmit" / f"{key}.html").read_text(encoding="utf-8").strip()
+    dated = "" if key == "guide" else f'<p class="note" style="margin-top:14px">Last updated: {a["updated"]}</p>'
+    return (head(f"{title} | ATOMAT LAB", desc, f"{a['url'].lstrip('/')}/{key}",
+                 og_image=media("transmit-feature.jpg"))
+            + header("shop.html") + f"""
+<main id="main">
+<div class="wrap">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="shop.html">Shop</a><span>/</span><a href="{a['url']}">Transmit OSC</a><span>/</span><span>{label}</span>
+  </nav>
+  <section style="padding:0">
+    <div class="tags" style="margin-bottom:16px">{tag('Transmit OSC')}</div>
+    <h1 style="font-size:clamp(32px,4.6vw,60px)">{label}</h1>
+    {dated}
+    <div class="app-nav" style="margin-top:22px">{app_nav(a, "/" + key)}</div>
+  </section>
+  <section class="sec">
+    {ruler()}
+    <div class="prose" style="margin-top:28px">{body}</div>
+  </section>
+</div>
+</main>
+""" + footer())
+
+
 # ---------------------------------------------------------------- assets
 def js_catalog() -> str:
     return json.dumps({p["slug"]: {"name": p["name"], "serial": p["serial"], "price": p["price"],
@@ -656,6 +826,9 @@ def api_shipping() -> str:
 def sitemap() -> str:
     urls = [""] + ["shop.html", "about.html", "contact.html"] + [f"{p['slug']}.html" for p in C.PRODUCTS] \
            + ["termsofservice.html", "privacypolicy.html", "refundpolicy.html"]
+    for a in C.APPS:
+        base = a["url"].strip("/")
+        urls += [base] + [f"{base}/{k}" for k, *_ in APP_DOCS]
     body = "".join(f"  <url><loc>{C.SITE}/{u}</loc></url>\n" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
@@ -678,8 +851,14 @@ def build() -> dict:
         pages[f"{p['slug']}.html"] = page_product(p)
     for fname, label, title, desc in POLICIES:
         pages[fname] = page_policy(fname, label, title, desc)
+    for a in C.APPS:
+        base = a["url"].strip("/")
+        pages[f"{base}/index.html"] = rootify(page_app(a))
+        for key, title, label, desc in APP_DOCS:
+            pages[f"{base}/{key}/index.html"] = rootify(page_app_doc(a, key, title, label, desc))
 
     for name, html in pages.items():
+        (OUT / name).parent.mkdir(parents=True, exist_ok=True)
         (OUT / name).write_text(html, encoding="utf-8")
 
     js = (HERE / "shop.js.tpl").read_text(encoding="utf-8")
@@ -708,6 +887,9 @@ def check(pages: dict, media_dir: pathlib.Path | None) -> int:
                 continue
             target, _, frag = r.partition("#")
             if not target:
+                continue
+            target = target.lstrip("/")
+            if target.rstrip("/") + "/index.html" in names:
                 continue
             if target.startswith(MEDIA + "/"):
                 if media_dir is None:

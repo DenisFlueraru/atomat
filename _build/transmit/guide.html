@@ -1,0 +1,101 @@
+<h2>1. Before you start</h2>
+<ul>
+  <li>Your phone and your computer must be on the <strong>same Wi-Fi network</strong>. Guest and public networks often
+  block devices from talking to each other — a phone hotspot or your own router works best.</li>
+  <li>On the computer, open something that receives OSC: Max/MSP, TouchDesigner, Pure Data, Ableton (Max for Live),
+  Processing, Unity, Resolume… The app sends to port <strong>9000</strong> by default.</li>
+  <li>Find the computer’s IP address: on a Mac, System Settings → Wi-Fi → Details; on Windows, Settings → Network → Wi-Fi → Properties.
+  It looks like <code>192.168.1.20</code>.</li>
+</ul>
+
+<h2>2. Connect (link tab)</h2>
+<ol>
+  <li><strong>Type your name.</strong> Every message starts with it — <code>/anna/motion/tilt</code> — so many phones never get mixed up.
+  Spaces and accents are cleaned up automatically.</li>
+  <li><strong>Enter the receiver:</strong> the computer’s IP address and port (9000). Or tap <em>scan workshop code</em> and scan the
+  QR code your workshop leader shows.</li>
+  <li><strong>Tap transmit.</strong> The button turns orange and shows how many messages per second are going out.</li>
+</ol>
+<p>You can add up to three extra receivers in settings (top-right icon), to send to several computers at once.</p>
+
+<h2>3. Choose what to send (sense tab)</h2>
+<p>Every sensor has its own on/off button, and inside each sensor you can switch single values on or off.
+Only what is on gets sent. Camera, microphone and location ask for permission the first time you switch them on.</p>
+<ul>
+  <li><strong>Motion</strong> — acceleration, gyroscope, tilt, shake energy</li>
+  <li><strong>Compass</strong> and <strong>air pressure</strong></li>
+  <li><strong>Audio</strong> — loudness, peak, pitch, onsets (claps), 8 frequency bands. No sound leaves the phone.</li>
+  <li><strong>Location</strong> — position, speed, accuracy; <strong>temperature</strong> outside and humidity</li>
+  <li><strong>Gestures</strong> — shake, phone face up / face down</li>
+  <li><strong>Camera</strong> — face (head angles, smile, eyes), body (13 points), average colour</li>
+  <li><strong>Hands</strong> — palm, fingertips, pinch, grab</li>
+  <li><strong>Gamepad</strong> — any Bluetooth game controller</li>
+  <li><strong>Light, proximity, battery, Wi-Fi</strong></li>
+</ul>
+<p>Use <em>zero</em> on tilt and compass to make the current position the centre. <em>Smoothing</em> calms jittery values.</p>
+
+<h2>4. Play</h2>
+<ul>
+  <li><strong>Faders</strong> — 16 faders on two pages, values 0–1.</li>
+  <li><strong>Pads</strong> — 16 pads. Each pad can be a hit (on while pressed) or a toggle. Tap the pencil to rename them.</li>
+  <li><strong>XY</strong> — a multitouch pad, one point per finger.</li>
+  <li><strong>Mix</strong> — faders and pads together, in the layout your workshop leader sets.</li>
+  <li><strong>Keys and sequencer</strong> — play notes, or let the step sequencer generate patterns (full version: as MIDI).</li>
+</ul>
+<p><strong>Lock</strong> (the padlock on every tab) stops accidental touches while the sensors keep sending. Hold for about a second to unlock.
+<strong>Performer mode</strong> turns the screen black with a pulsing beat; tap five times quickly to leave.</p>
+
+<h2>5. Receive it on the computer</h2>
+<p><strong>Max/MSP:</strong> <code>[udpreceive 9000]</code> → <code>[route /anna]</code> → <code>[route /motion]</code> …
+A ready-made receiving patch is available on request.</p>
+<p><strong>TouchDesigner:</strong> add an <em>OSC In CHOP</em> (numbers) or <em>OSC In DAT</em> (everything), set the port to 9000.</p>
+<p><strong>Anything else:</strong> listen for OSC over UDP on port 9000.</p>
+
+<h3 style="margin-top:1.4em">Addresses the phone sends</h3>
+<p>Every address starts with <code>/yourname</code>.</p>
+<table class="spec-table">
+  <tr><th>/motion/accel · /gyro · /tilt · /energy</th><td>movement</td></tr>
+  <tr><th>/compass · /env/pressure</th><td>heading, air pressure</td></tr>
+  <tr><th>/audio/rms · /peak · /pitch · /onset · /bands</th><td>sound analysis (bands = 8 values)</td></tr>
+  <tr><th>/geo · /geo/speed · /geo/accuracy</th><td>location</td></tr>
+  <tr><th>/outside · /humidity</th><td>weather where you are</td></tr>
+  <tr><th>/gesture/shake · /gesture/face</th><td>gestures</td></tr>
+  <tr><th>/face/… · /body/… · /hands/… · /color</th><td>camera tracking</td></tr>
+  <tr><th>/fader/1–16 · /pad/1–16 · /xy/n</th><td>controls</td></tr>
+  <tr><th>/gamepad/… · /light · /proximity · /battery · /wifi</th><td>everything else</td></tr>
+  <tr><th>/test</th><td>sent when you tap “test” in settings</td></tr>
+</table>
+
+<h2>6. The computer can talk back</h2>
+<p>The phone listens on port <strong>9001</strong> (you can change it to 9002 or 9003 in settings). Send to
+<code>/yourname/…</code> for one phone or <code>/all/…</code> for every phone:</p>
+<table class="spec-table">
+  <tr><th>msg "text"</th><td>show a message on the screen (no text clears it)</td></tr>
+  <tr><th>label/fader/n "text" · label/pad/n "text"</th><td>rename a fader or pad</td></tr>
+  <tr><th>fader/n 0–1 · pad/n 0|1</th><td>move a fader, light a pad</td></tr>
+  <tr><th>color r g b [a]</th><td>tint the screen (values 0–1, no values clears)</td></tr>
+  <tr><th>vibrate · flash 0|1</th><td>vibrate, flashlight on/off</td></tr>
+  <tr><th>sensor/motion 0|1 …</th><td>switch a sensor on or off</td></tr>
+  <tr><th>lock 0|1 · scene "name"</th><td>lock the screen, load a saved scene</td></tr>
+  <tr><th>bpm n · beat n · performer 0|1</th><td>tempo, beat and performer mode</td></tr>
+</table>
+
+<h2>7. MIDI (full version)</h2>
+<p>On iPhone, MIDI goes out over the network MIDI session and to any connected MIDI device; on Android over USB
+or Bluetooth MIDI. Faders send CC 1–16. The sequencer can follow Ableton’s MIDI clock.</p>
+
+<h2>8. Free and full version</h2>
+<p>Everything works in the free version, except MIDI out, and sending pauses for 10 seconds every 30 seconds.
+The one-time <strong>full version</strong> removes the pauses and adds MIDI. Bought it before? Use <em>already bought?</em>
+at the bottom of settings.</p>
+
+<h2>9. If nothing arrives</h2>
+<ul>
+  <li>Check both devices are on the same network, and the IP and port are right.</li>
+  <li>Allow incoming connections for Max / TouchDesigner in the computer’s firewall (macOS asks the first time).</li>
+  <li>On iPhone, allow <em>Local Network</em> for Transmit OSC: Settings → Privacy &amp; Security → Local Network.</li>
+  <li>Try a phone hotspot — some routers isolate devices from each other.</li>
+  <li>Tap <em>test</em> in settings: if <code>/yourname/test</code> arrives, the connection works.</li>
+</ul>
+<p>Still stuck? Write to <a href="mailto:contact@atomatlab.com">contact@atomatlab.com</a> with your phone model and
+what you’re sending to — we’ll help.</p>
