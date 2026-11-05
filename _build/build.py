@@ -823,14 +823,43 @@ def api_shipping() -> str:
     return json.dumps({c: {"name": n, "amount": f} for c, n, f in C.SHIPPING}, indent=2)
 
 
+def lastmod(page: str) -> str:
+    """Date the page last changed: today if the build just changed it, else its last commit."""
+    import datetime, subprocess
+    today = datetime.date.today().isoformat()
+    try:
+        if subprocess.run(["git", "diff", "--quiet", "HEAD", "--", page], cwd=OUT).returncode != 0:
+            return today
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", page], cwd=OUT,
+                             capture_output=True, text=True).stdout.strip()
+        return out or today
+    except OSError:
+        return today
+
+
 def sitemap() -> str:
-    urls = [""] + ["shop.html", "about.html", "contact.html"] + [f"{p['slug']}.html" for p in C.PRODUCTS] \
-           + ["termsofservice.html", "privacypolicy.html", "refundpolicy.html"]
+    """(url, file, images) for every public page; cart and success pages stay out."""
+    entries = [("", "index.html", [media("field5-shop.jpg")]),
+               ("shop.html", "shop.html", []),
+               ("about.html", "about.html", [media("about-studio.jpg")]),
+               ("contact.html", "contact.html", [])]
+    entries += [(f"{p['slug']}.html", f"{p['slug']}.html", [media(g) for g in p["gallery"]])
+                for p in C.PRODUCTS]
     for a in C.APPS:
         base = a["url"].strip("/")
-        urls += [base] + [f"{base}/{k}" for k, *_ in APP_DOCS]
-    body = "".join(f"  <url><loc>{C.SITE}/{u}</loc></url>\n" for u in urls)
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
+        entries.append((base, f"{base}/index.html", [media(a["icon"])] + [media(f) for f, _ in a["shots"]]))
+        entries += [(f"{base}/{k}", f"{base}/{k}/index.html", []) for k, *_ in APP_DOCS]
+    entries += [(f, f, []) for f in ("termsofservice.html", "privacypolicy.html", "refundpolicy.html")]
+
+    rows = []
+    for url, page, images in entries:
+        imgs = "".join(f"\n    <image:image><image:loc>{C.SITE}/{i}</image:loc></image:image>"
+                       for i in dict.fromkeys(images))
+        rows.append(f"  <url>\n    <loc>{C.SITE}/{url}</loc>\n    <lastmod>{lastmod(page)}</lastmod>{imgs}\n  </url>\n")
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+            '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
+            + "".join(rows) + "</urlset>\n")
 
 
 # ---------------------------------------------------------------- driver
