@@ -1,0 +1,17 @@
+{
+  "name": "ATOMAT LAB \u2014 Listen",
+  "short_name": "Atomat Lab",
+  "start_url": "/fair/",
+  "scope": "/fair/",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#e4e3dd",
+  "theme_color": "#e4e3dd",
+  "icons": [
+    {
+      "src": "/media/logo.png",
+      "sizes": "1294x1105",
+      "type": "image/png"
+    }
+  ]
+}

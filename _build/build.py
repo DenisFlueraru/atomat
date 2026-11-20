@@ -862,6 +862,271 @@ def sitemap() -> str:
             + "".join(rows) + "</urlset>\n")
 
 
+# ---------------------------------------------------------------- fair kiosk
+# An iPad page for fairs at /fair: an attract screen, recordings to play, how contact and EMF
+# mics work, the mics, and QR codes. Everything is root-absolute and cached by fair/sw.js, so
+# once opened on good Wi-Fi it keeps working with no connection at all.
+FAIR = ROOT / "fair"
+FAIR_STATIC = ["fair/fair.css", "fair/fair.js", "fair/qr-shop.svg", "fair/qr-instagram.svg"]
+FONTS_CSS = ("https://fonts.googleapis.com/css2?"
+             "family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap")
+CACHE_SLOT = "__FAIR_CACHE__"
+
+FAIR_KINDS = {
+    "contact": ("Contact", "Vibration inside things"),
+    "emf": ("EMF", "Electromagnetic fields"),
+}
+
+# Inline line drawings for "How it works": what each kind of mic actually listens to.
+FAIR_SVG = {
+    "air": """<svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+<rect x="22" y="48" width="34" height="50" rx="17"/><path d="M39 98v22M25 120h28"/>
+<path d="M92 50a40 40 0 0 1 0 46M112 36a62 62 0 0 1 0 74M132 22a84 84 0 0 1 0 102" stroke-dasharray="3 7"/>
+<circle cx="200" cy="73" r="16"/><path d="M216 73h12"/></g></svg>""",
+    "contact": """<svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+<rect x="14" y="62" width="212" height="58" rx="3"/>
+<path d="M28 92c10-18 20 18 30 0s20 18 30 0 20 18 30 0 20 18 30 0 20 18 30 0 20 18 30 0" />
+<path d="M120 46V20h70" /></g>
+<rect x="96" y="44" width="48" height="16" rx="3" fill="var(--acc)" stroke="currentColor" stroke-width="2.5"/></svg>""",
+    "emf": """<svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+<rect x="22" y="30" width="56" height="92" rx="8"/><path d="M42 112h16"/>
+<path d="M88 46c22 6 22 54 0 60M100 34c34 10 34 78 0 88M112 22c46 14 46 102 0 116" stroke-dasharray="2 6"/>
+<path d="M200 76v44h28"/></g>
+<g fill="none" stroke="var(--acc)" stroke-width="5" stroke-linecap="round"><path d="M180 52c0-12 40-12 40 0s-40 12-40 24 40 12 40 0"/></g>
+<rect x="176" y="40" width="48" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>""",
+}
+
+
+def fair_sounds() -> tuple[list[dict], list[str]]:
+    """Sounds whose file is in fair/sounds/, as page data, plus the names of the missing ones."""
+    found, missing = [], []
+    for s in C.FAIR_SOUNDS:
+        if not (FAIR / "sounds" / s["file"]).exists():
+            missing.append(s["file"])
+            continue
+        p = C.BY_SLUG[s["mic"]]
+        found.append({"src": f"/fair/sounds/{s['file']}", "title": s["title"], "where": s["where"],
+                      "kind": s["kind"], "kindLabel": FAIR_KINDS[s["kind"]][0],
+                      "mic": p["slug"], "micName": p["name"],
+                      "img": "/" + media(s.get("image") or p["hero"], small=True)})
+    return found, missing
+
+
+def fair_video(p: dict) -> str:
+    if p.get("loop"):
+        return (f'<video src="/{media(p["loop"] + ".mp4")}" poster="/{media(p["loop"] + ".jpg")}" '
+                'muted loop playsinline preload="none" aria-hidden="true"></video>')
+    return f'<img src="/{media(p["hero"], small=True)}" alt="">'
+
+
+def page_fair(sounds: list[dict]) -> str:
+    field5 = C.BY_SLUG["field5"]
+    has = {s["mic"] for s in sounds}
+    kinds = {s["kind"] for s in sounds}
+
+    filters = "".join(f'<button type="button" class="chip" data-filter="{k}"{" aria-pressed=\"true\"" if k == "all" else ""}>{t}</button>'
+                      for k, t in [("all", "All")] + [(k, FAIR_KINDS[k][0]) for k in FAIR_KINDS if k in kinds])
+
+    def how(key: str, title: str, hears: str, text: str, tryon: list[str], mics: list[str], ours: bool) -> str:
+        names = " · ".join(C.BY_SLUG[m]["name"] for m in mics)
+        btn = (f'<button type="button" class="btn solid big" data-go="listen" data-filter="{key}">Hear {FAIR_KINDS[key][0]} recordings →</button>'
+               if key in kinds else "")
+        foot = (f'<p class="m how-mics">Our {title.lower()}s: {names}</p>{btn}' if ours else
+                '<p class="m how-mics">Microphones you already know</p>')
+        return f"""<article class="how{' ours' if ours else ''}">
+  <div class="how-art">{FAIR_SVG[key if ours else 'air']}</div>
+  <p class="m">{'A normal mic' if not ours else 'A ' + title.lower()} hears</p>
+  <h2>{hears}</h2>
+  <p>{text}</p>
+  <div class="tags">{''.join(tag(t, 'ghost') for t in tryon)}</div>
+  {foot}
+</article>"""
+
+    how_html = (
+        how("air", "Mic", "The air",
+            "Sound travelling through the room. Voices, music, traffic: everything at once.",
+            ["Voices", "Music", "The room"], [], False)
+        + how("contact", "Contact mic", "The material",
+              "Stuck onto a surface, it picks up the vibration travelling inside it. "
+              "No air, no room: just what the object itself is doing.",
+              ["Fences", "Trees", "Water", "Ice", "Strings", "Machines"], ["field5", "crt2", "crt1"], True)
+        + how("emf", "EMF mic", "Electricity",
+              "A coil turns the invisible electromagnetic fields around electronics into sound. "
+              "Every device has its own voice.",
+              ["Phones", "Chargers", "Routers", "Screens", "Motors"], ["ert"], True))
+
+    mic_cards = []
+    for p in C.PRODUCTS:
+        price = tag("Sold out — back soon", "ghost") if p.get("soldout") else f'<span class="price">{eur(p["price"])}</span>'
+        hear = (f'<button type="button" class="btn" data-go="listen" data-mic="{p["slug"]}">Hear it →</button>'
+                if p["slug"] in has else "")
+        mic_cards.append(f"""<article class="mic">
+  <div class="stage sm">{fair_video(p)}</div>
+  <div class="mic-txt">
+    <span class="m">{p['serial']}</span>
+    <h2>{p['name']}</h2>
+    <p>{E(p['tagline'])}</p>
+    <p class="m dim">{E(p['short'])}</p>
+    <div class="mic-buy">{price}{hear}</div>
+  </div>
+</article>""")
+
+    data = {"sounds": sounds, "idle": C.FAIR_IDLE_SECONDS, "cache": CACHE_SLOT}
+    no_sounds = ('<p class="empty">No recordings yet. Put your clips in <b>fair/sounds/</b> '
+                 '(names are in <b>_build/content.py</b>) and re-run the build.</p>') if not sounds else ""
+
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>ATOMAT LAB — Listen</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e4e3dd">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Atomat Lab">
+<link rel="manifest" href="/fair/manifest.webmanifest">
+<link rel="icon" href="/{media('favicon.png')}">
+<link rel="apple-touch-icon" href="/{media('logo.png')}">
+{FONTS}
+<link rel="stylesheet" href="/assets/shop.css">
+<link rel="stylesheet" href="/fair/fair.css">
+</head>
+<body>
+
+<section class="attract" id="attract" aria-label="Start">
+  <div class="attract-copy">
+    <span class="tag acc">Put the headphones on</span>
+    <h1>Hear the <span class="mark">inside</span> of things.</h1>
+    <p class="lead">Contact and electromagnetic microphones, handmade in Bucharest.</p>
+    <span class="btn big solid attract-go">Touch to listen →</span>
+  </div>
+  <div class="attract-stage">
+    <div class="stage">{fair_video(field5).replace('preload="none"', 'preload="auto" autoplay')}</div>
+  </div>
+  <div class="attract-foot">{ruler()}<div class="attract-brand"><img src="/{media('textlogo.png', small=True)}" alt="ATOMAT LAB"><span class="m">{C.TAGLINE}</span></div></div>
+</section>
+
+<div class="app" id="app" hidden>
+  <header class="k-head">
+    <button type="button" class="k-brand" id="brand" aria-label="ATOMAT LAB">
+      <img src="/{media('logo-rotating.png', small=True)}" alt="" width="44" height="44"><span>Atomat Lab</span>
+    </button>
+    <nav class="k-tabs" role="tablist">
+      <button type="button" role="tab" data-tab="listen">Listen</button>
+      <button type="button" role="tab" data-tab="how">How it works</button>
+      <button type="button" role="tab" data-tab="mics">The mics</button>
+      <button type="button" role="tab" data-tab="home">Take it home</button>
+    </nav>
+    <button type="button" class="k-restart" id="restart">↺ Start</button>
+  </header>
+
+  <main class="k-main">
+    <section class="panel" data-panel="listen" role="tabpanel">
+      <div class="panel-head">
+        <h2>Tap a sound</h2>
+        <div class="chips">{filters}</div>
+      </div>
+      <div class="grid" id="grid"></div>{no_sounds}
+    </section>
+
+    <section class="panel" data-panel="how" role="tabpanel" hidden>
+      <div class="panel-head"><h2>What does it hear?</h2></div>
+      <div class="hows">{how_html}</div>
+    </section>
+
+    <section class="panel" data-panel="mics" role="tabpanel" hidden>
+      <div class="panel-head"><h2>The mics</h2><span class="m dim">Handmade in Bucharest · ask at the table</span></div>
+      <div class="mics">{''.join(mic_cards)}</div>
+    </section>
+
+    <section class="panel" data-panel="home" role="tabpanel" hidden>
+      <div class="panel-head"><h2>Take it home</h2><span class="m dim">Point your phone camera at a code</span></div>
+      <div class="qrs">
+        <div class="qr"><img src="/fair/qr-shop.svg" alt="QR code for atomatlab.com"><h3>Shop &amp; recordings</h3><p class="m">atomatlab.com</p></div>
+        <div class="qr"><img src="/fair/qr-instagram.svg" alt="QR code for Instagram @atomatlab"><h3>Follow the lab</h3><p class="m">Instagram @atomatlab</p></div>
+        <div class="qr-txt">
+          <p class="lead">Like what you heard? Every mic is on the table: pick one up, try it, take it with you.</p>
+          {ruler(light=True)}
+          <p class="m">{C.EMAIL}<br>soundcloud.com/atomat-lab</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="player" id="player" hidden>
+    <button type="button" class="pp" id="pp" aria-label="Play"><span></span></button>
+    <div class="p-txt"><b id="p-title"></b><span class="m" id="p-meta"></span></div>
+    <canvas class="wave" id="wave" aria-label="Waveform, tap to jump"></canvas>
+    <span class="m p-time" id="p-time">0:00</span>
+  </div>
+</div>
+
+<div class="admin" id="admin" hidden role="dialog" aria-label="Setup">
+  <div class="admin-box">
+    <h2>Setup</h2>
+    <p id="admin-status" class="lead">Checking…</p>
+    <p class="m dim" id="admin-detail"></p>
+    <div class="admin-btns">
+      <button type="button" class="btn solid big" id="admin-save">Save everything for offline</button>
+      <button type="button" class="btn big" id="admin-reload">Reload page</button>
+      <button type="button" class="btn big" id="admin-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="fair-data">{json.dumps(data, ensure_ascii=False)}</script>
+<script src="/fair/fair.js"></script>
+</body>
+</html>
+"""
+
+
+def fair_manifest() -> str:
+    return json.dumps({
+        "name": "ATOMAT LAB — Listen", "short_name": "Atomat Lab",
+        "start_url": "/fair/", "scope": "/fair/", "display": "fullscreen", "orientation": "any",
+        "background_color": "#e4e3dd", "theme_color": "#e4e3dd",
+        "icons": [{"src": "/" + media("logo.png"), "sizes": "1294x1105", "type": "image/png"}],
+    }, indent=2) + "\n"
+
+
+def fair_build() -> dict:
+    """Write fair/index.html, manifest and sw.js. Returns {page: html} for the link check."""
+    import hashlib
+    sounds, missing = fair_sounds()
+    html = page_fair(sounds)
+    manifest = fair_manifest()
+
+    # Every local file the page can ask for, so the service worker can save them all up front.
+    files = ["/fair/", "/fair/manifest.webmanifest", "/assets/shop.css", FONTS_CSS]
+    files += ["/" + f for f in FAIR_STATIC]
+    files += sorted(set(re.findall(r'"(/(?:media|fair/sounds)/[^"]+)"', html)))
+    files = list(dict.fromkeys(files))
+
+    h = hashlib.sha1(html.encode() + manifest.encode())
+    for f in files:
+        local = ROOT / f.lstrip("/")
+        if f.startswith("/") and local.is_file():
+            h.update(local.read_bytes())
+    cache = "fair-" + h.hexdigest()[:10]
+    html = html.replace(CACHE_SLOT, cache)
+
+    sw = (HERE / "fair-sw.js.tpl").read_text(encoding="utf-8")
+    sw = sw.replace("__CACHE__", json.dumps(cache)).replace("__FILES__", json.dumps(files, indent=2))
+
+    (FAIR / "index.html").write_text(html, encoding="utf-8")
+    (FAIR / "manifest.webmanifest").write_text(manifest, encoding="utf-8")
+    (FAIR / "sw.js").write_text(sw, encoding="utf-8")
+
+    print(f"fair: {len(sounds)} of {len(C.FAIR_SOUNDS)} sounds, {len(files)} files cached offline ({cache})")
+    for m in missing:
+        print(f"  fair: no fair/sounds/{m} yet, left off the page")
+    return {"fair/index.html": html}
+
+
 # ---------------------------------------------------------------- driver
 def build() -> dict:
     OUT.mkdir(parents=True, exist_ok=True)
@@ -902,13 +1167,15 @@ def build() -> dict:
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {C.SITE}/sitemap.xml\n", encoding="utf-8")
 
     print(f"{len(pages)} pages + assets/shop.css, assets/shop.js, api/create-checkout-session.js")
+    pages.update(fair_build())
     return pages
 
 
 def check(pages: dict, media_dir: pathlib.Path | None) -> int:
     """Verify every local href/src resolves, and every media file exists if we can see them."""
     bad = 0
-    names = set(pages) | {"assets/shop.css", "assets/shop.js", "sitemap.xml", "robots.txt"}
+    names = set(pages) | {"assets/shop.css", "assets/shop.js", "sitemap.xml", "robots.txt",
+                          "fair/manifest.webmanifest", *FAIR_STATIC}
     for name, html in pages.items():
         refs = re.findall(r'(?:href|src|data-full|data-thumb)="([^"]+)"', html)
         for r in refs:

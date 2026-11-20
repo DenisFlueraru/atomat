@@ -33,3 +33,23 @@ Adding a product
 1. Put its photos in DRIVE-IMAGES/<NAME>/ and add them to PHOTOS in optimise.py.
 2. Add a dict to PRODUCTS in content.py (copy an existing one).
 3. python3 _build/optimise.py && python3 _build/build.py --check
+
+Fair kiosk (atomatlab.com/fair)
+-------------------------------
+An iPad page for fairs: start screen, recordings to play, how contact and EMF mics
+work, the mics with prices, and QR codes. It is built with the rest of the site, so
+prices and "sold out" always match the shop.
+
+1. Put recordings in fair/sounds/ (.m4a or .mp3, 15–30 s). The file names, titles and
+   which mic made each one are in FAIR_SOUNDS at the bottom of content.py; edit freely.
+2. python3 _build/build.py --check. It lists any sound that is still missing; missing
+   sounds are simply left off the page.
+3. Push. On the iPad, open atomatlab.com/fair in Safari on good Wi-Fi, then Share →
+   Add to Home Screen and open it from that icon (fullscreen, no browser bars).
+4. Hold the spinning logo for 2 seconds to open Setup: it says whether every file is
+   saved on the iPad for offline use, with a button to save them all.
+
+fair/fair.css and fair/fair.js are hand-written. fair/index.html, fair/sw.js and
+fair/manifest.webmanifest are generated. The offline cache name is a hash of every
+file the page uses, so after changing anything just rebuild and push: the iPad picks
+up the new version the next time it opens the page online.

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>ATOMAT LAB — Listen</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#e4e3dd">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Atomat Lab">
+<link rel="manifest" href="/fair/manifest.webmanifest">
+<link rel="icon" href="/media/favicon.png">
+<link rel="apple-touch-icon" href="/media/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/shop.css">
+<link rel="stylesheet" href="/fair/fair.css">
+</head>
+<body>
+
+<section class="attract" id="attract" aria-label="Start">
+  <div class="attract-copy">
+    <span class="tag acc">Put the headphones on</span>
+    <h1>Hear the <span class="mark">inside</span> of things.</h1>
+    <p class="lead">Contact and electromagnetic microphones, handmade in Bucharest.</p>
+    <span class="btn big solid attract-go">Touch to listen →</span>
+  </div>
+  <div class="attract-stage">
+    <div class="stage"><video src="/media/loop-field5.mp4" poster="/media/loop-field5.jpg" muted loop playsinline preload="auto" autoplay aria-hidden="true"></video></div>
+  </div>
+  <div class="attract-foot"><div class="ruler" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div><div class="attract-brand"><img src="/media/textlogo.sm.png" alt="ATOMAT LAB"><span class="m">tools that listen</span></div></div>
+</section>
+
+<div class="app" id="app" hidden>
+  <header class="k-head">
+    <button type="button" class="k-brand" id="brand" aria-label="ATOMAT LAB">
+      <img src="/media/logo-rotating.sm.png" alt="" width="44" height="44"><span>Atomat Lab</span>
+    </button>
+    <nav class="k-tabs" role="tablist">
+      <button type="button" role="tab" data-tab="listen">Listen</button>
+      <button type="button" role="tab" data-tab="how">How it works</button>
+      <button type="button" role="tab" data-tab="mics">The mics</button>
+      <button type="button" role="tab" data-tab="home">Take it home</button>
+    </nav>
+    <button type="button" class="k-restart" id="restart">↺ Start</button>
+  </header>
+
+  <main class="k-main">
+    <section class="panel" data-panel="listen" role="tabpanel">
+      <div class="panel-head">
+        <h2>Tap a sound</h2>
+        <div class="chips"><button type="button" class="chip" data-filter="all" aria-pressed="true">All</button></div>
+      </div>
+      <div class="grid" id="grid"></div><p class="empty">No recordings yet. Put your clips in <b>fair/sounds/</b> (names are in <b>_build/content.py</b>) and re-run the build.</p>
+    </section>
+
+    <section class="panel" data-panel="how" role="tabpanel" hidden>
+      <div class="panel-head"><h2>What does it hear?</h2></div>
+      <div class="hows"><article class="how">
+  <div class="how-art"><svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+<rect x="22" y="48" width="34" height="50" rx="17"/><path d="M39 98v22M25 120h28"/>
+<path d="M92 50a40 40 0 0 1 0 46M112 36a62 62 0 0 1 0 74M132 22a84 84 0 0 1 0 102" stroke-dasharray="3 7"/>
+<circle cx="200" cy="73" r="16"/><path d="M216 73h12"/></g></svg></div>
+  <p class="m">A normal mic hears</p>
+  <h2>The air</h2>
+  <p>Sound travelling through the room. Voices, music, traffic: everything at once.</p>
+  <div class="tags"><span class="tag ghost">Voices</span><span class="tag ghost">Music</span><span class="tag ghost">The room</span></div>
+  <p class="m how-mics">Microphones you already know</p>
+</article><article class="how ours">
+  <div class="how-art"><svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+<rect x="14" y="62" width="212" height="58" rx="3"/>
+<path d="M28 92c10-18 20 18 30 0s20 18 30 0 20 18 30 0 20 18 30 0 20 18 30 0 20 18 30 0" />
+<path d="M120 46V20h70" /></g>
+<rect x="96" y="44" width="48" height="16" rx="3" fill="var(--acc)" stroke="currentColor" stroke-width="2.5"/></svg></div>
+  <p class="m">A contact mic hears</p>
+  <h2>The material</h2>
+  <p>Stuck onto a surface, it picks up the vibration travelling inside it. No air, no room: just what the object itself is doing.</p>
+  <div class="tags"><span class="tag ghost">Fences</span><span class="tag ghost">Trees</span><span class="tag ghost">Water</span><span class="tag ghost">Ice</span><span class="tag ghost">Strings</span><span class="tag ghost">Machines</span></div>
+  <p class="m how-mics">Our contact mics: FIELD5 · CRT2 · CRT1</p>
+</article><article class="how ours">
+  <div class="how-art"><svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+<rect x="22" y="30" width="56" height="92" rx="8"/><path d="M42 112h16"/>
+<path d="M88 46c22 6 22 54 0 60M100 34c34 10 34 78 0 88M112 22c46 14 46 102 0 116" stroke-dasharray="2 6"/>
+<path d="M200 76v44h28"/></g>
+<g fill="none" stroke="var(--acc)" stroke-width="5" stroke-linecap="round"><path d="M180 52c0-12 40-12 40 0s-40 12-40 24 40 12 40 0"/></g>
+<rect x="176" y="40" width="48" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+  <p class="m">A emf mic hears</p>
+  <h2>Electricity</h2>
+  <p>A coil turns the invisible electromagnetic fields around electronics into sound. Every device has its own voice.</p>
+  <div class="tags"><span class="tag ghost">Phones</span><span class="tag ghost">Chargers</span><span class="tag ghost">Routers</span><span class="tag ghost">Screens</span><span class="tag ghost">Motors</span></div>
+  <p class="m how-mics">Our emf mics: ERT</p>
+</article></div>
+    </section>
+
+    <section class="panel" data-panel="mics" role="tabpanel" hidden>
+      <div class="panel-head"><h2>The mics</h2><span class="m dim">Handmade in Bucharest · ask at the table</span></div>
+      <div class="mics"><article class="mic">
+  <div class="stage sm"><video src="/media/loop-field5.mp4" poster="/media/loop-field5.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+  <div class="mic-txt">
+    <span class="m">AL-F5</span>
+    <h2>FIELD5</h2>
+    <p>48V phantom-powered contact microphone</p>
+    <p class="m dim">Submersible · 48V phantom · Neutrik XLR</p>
+    <div class="mic-buy"><span class="price">€150</span></div>
+  </div>
+</article><article class="mic">
+  <div class="stage sm"><video src="/media/loop-crt2.mp4" poster="/media/loop-crt2.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+  <div class="mic-txt">
+    <span class="m">AL-C2</span>
+    <h2>CRT2</h2>
+    <p>Submersible contact microphone</p>
+    <p class="m dim">Copper shielded · velcro mount</p>
+    <div class="mic-buy"><span class="tag ghost">Sold out — back soon</span></div>
+  </div>
+</article><article class="mic">
+  <div class="stage sm"><video src="/media/loop-crt1.mp4" poster="/media/loop-crt1.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+  <div class="mic-txt">
+    <span class="m">AL-C1</span>
+    <h2>CRT1</h2>
+    <p>Entry contact microphone</p>
+    <p class="m dim">Waterproof piezo · 1 m cable</p>
+    <div class="mic-buy"><span class="price">€45</span></div>
+  </div>
+</article><article class="mic">
+  <div class="stage sm"><video src="/media/loop-ert.mp4" poster="/media/loop-ert.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+  <div class="mic-txt">
+    <span class="m">AL-E1</span>
+    <h2>ERT</h2>
+    <p>Electromagnetic (EMF) microphone</p>
+    <p class="m dim">Hear screens, chargers, motors</p>
+    <div class="mic-buy"><span class="price">€40</span></div>
+  </div>
+</article><article class="mic">
+  <div class="stage sm"><img src="/media/raincatcher-2.sm.jpg" alt=""></div>
+  <div class="mic-txt">
+    <span class="m">AL-RC</span>
+    <h2>RAINCATCHER</h2>
+    <p>Rain plate for FIELD5</p>
+    <p class="m dim">30 cm resonant plate</p>
+    <div class="mic-buy"><span class="price">€45</span></div>
+  </div>
+</article></div>
+    </section>
+
+    <section class="panel" data-panel="home" role="tabpanel" hidden>
+      <div class="panel-head"><h2>Take it home</h2><span class="m dim">Point your phone camera at a code</span></div>
+      <div class="qrs">
+        <div class="qr"><img src="/fair/qr-shop.svg" alt="QR code for atomatlab.com"><h3>Shop &amp; recordings</h3><p class="m">atomatlab.com</p></div>
+        <div class="qr"><img src="/fair/qr-instagram.svg" alt="QR code for Instagram @atomatlab"><h3>Follow the lab</h3><p class="m">Instagram @atomatlab</p></div>
+        <div class="qr-txt">
+          <p class="lead">Like what you heard? Every mic is on the table: pick one up, try it, take it with you.</p>
+          <div class="ruler light" aria-hidden="true"><i class="maj" style="left:0.00%"></i><b style="left:calc(0.00% + 4px)">10 Hz</b><i class="" style="left:9.32%"></i><i class="" style="left:14.77%"></i><i class="" style="left:18.64%"></i><i class="" style="left:21.64%"></i><i class="" style="left:24.09%"></i><i class="" style="left:26.16%"></i><i class="" style="left:27.96%"></i><i class="" style="left:29.54%"></i><i class="maj" style="left:30.96%"></i><b style="left:calc(30.96% + 4px)">100</b><i class="" style="left:40.27%"></i><i class="" style="left:45.72%"></i><i class="" style="left:49.59%"></i><i class="" style="left:52.59%"></i><i class="" style="left:55.04%"></i><i class="" style="left:57.12%"></i><i class="" style="left:58.91%"></i><i class="" style="left:60.49%"></i><i class="maj" style="left:61.91%"></i><b style="left:calc(61.91% + 4px)">1 k</b><i class="" style="left:71.23%"></i><i class="" style="left:76.68%"></i><i class="" style="left:80.55%"></i><i class="" style="left:83.55%"></i><i class="" style="left:86.00%"></i><i class="" style="left:88.07%"></i><i class="" style="left:89.87%"></i><i class="" style="left:91.45%"></i><i class="maj" style="left:92.87%"></i><i class="maj" style="left:calc(100% - 1px)"></i><b class="end" style="left:calc(100% - 4px)">17 kHz</b></div>
+          <p class="m">contact@atomatlab.com<br>soundcloud.com/atomat-lab</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="player" id="player" hidden>
+    <button type="button" class="pp" id="pp" aria-label="Play"><span></span></button>
+    <div class="p-txt"><b id="p-title"></b><span class="m" id="p-meta"></span></div>
+    <canvas class="wave" id="wave" aria-label="Waveform, tap to jump"></canvas>
+    <span class="m p-time" id="p-time">0:00</span>
+  </div>
+</div>
+
+<div class="admin" id="admin" hidden role="dialog" aria-label="Setup">
+  <div class="admin-box">
+    <h2>Setup</h2>
+    <p id="admin-status" class="lead">Checking…</p>
+    <p class="m dim" id="admin-detail"></p>
+    <div class="admin-btns">
+      <button type="button" class="btn solid big" id="admin-save">Save everything for offline</button>
+      <button type="button" class="btn big" id="admin-reload">Reload page</button>
+      <button type="button" class="btn big" id="admin-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="fair-data">{"sounds": [], "idle": 90, "cache": "fair-3dc84d5770"}</script>
+<script src="/fair/fair.js"></script>
+</body>
+</html>

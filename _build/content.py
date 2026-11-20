@@ -286,3 +286,37 @@ ABOUT = [
 CONTACT_INTRO = ("We love hearing from collaborators, users and experimental audio enthusiasts. "
                  "Custom builds, workshops, repairs, or just a question about which mic to start with — "
                  "write to us.")
+
+
+# ---------------------------------------------------------------- fair kiosk (atomatlab.com/fair)
+# The iPad page for fairs. Prices, photos and "sold out" come from PRODUCTS above.
+#
+# SOUNDS: drop each recording into fair/sounds/ under the file name below
+# (.m4a or .mp3; 15–30 s clips that start straight on the interesting part work best),
+# then re-run the build. Entries whose file is missing are left off the page and listed
+# by the build, so you can't ship a dead button.
+#   kind:  "contact" (vibration inside things) or "emf" (electromagnetic fields)
+#   mic:   product slug that recorded it
+#   image: a photo from media/ for the card; leave it out to use the mic's own photo
+FAIR_SOUNDS = [
+    dict(file="metal-fence.m4a", title="Metal fence", where="Wind and footsteps travelling along the wire",
+         kind="contact", mic="field5"),
+    dict(file="rain.m4a", title="Rain on plexiglass", where="Every drop read straight off the plate",
+         kind="contact", mic="raincatcher", image="raincatcher-2.jpg"),
+    dict(file="underwater.m4a", title="Underwater", where="Mic submerged in a river",
+         kind="contact", mic="field5", image="field5-3.jpg"),
+    dict(file="ice.m4a", title="Ice cracking", where="Contact mic frozen into a block of ice",
+         kind="contact", mic="crt1"),
+    dict(file="tree.m4a", title="Inside a tree", where="Taped to a trunk on a windy day",
+         kind="contact", mic="crt2"),
+    dict(file="phone.m4a", title="Smartphone", where="Scrolling a phone screen",
+         kind="emf", mic="ert"),
+    dict(file="charger.m4a", title="Laptop charger", where="The hum of a power brick",
+         kind="emf", mic="ert", image="ert-2.jpg"),
+    dict(file="router.m4a", title="Wi-Fi router", where="Data pulses, as heard by a coil",
+         kind="emf", mic="ert", image="ert-3.jpg"),
+]
+
+# After this many seconds with nobody touching the iPad, the sound stops and the
+# page goes back to the start screen.
+FAIR_IDLE_SECONDS = 90
