@@ -4,7 +4,7 @@
    picks up the new copies the next time it opens the page online. */
 "use strict";
 
-var CACHE = "fair-3dc84d5770";
+var CACHE = "fair-e3f51080f5";
 var FILES = [
   "/fair/",
   "/fair/manifest.webmanifest",
@@ -14,7 +14,26 @@ var FILES = [
   "/fair/fair.js",
   "/fair/qr-shop.svg",
   "/fair/qr-instagram.svg",
+  "/fair/sounds/ert-clock.m4a",
+  "/fair/sounds/ert-guitar-sustain.m4a",
+  "/fair/sounds/ert-guitar.m4a",
+  "/fair/sounds/ert-laptop.m4a",
+  "/fair/sounds/ert-wifi.m4a",
+  "/fair/sounds/field5-guitar.m4a",
+  "/fair/sounds/field5-heartbeat.m4a",
+  "/fair/sounds/field5-metal-plate.m4a",
+  "/fair/sounds/field5-plate-resampled.m4a",
+  "/fair/sounds/field5-water.m4a",
+  "/media/ert-1.sm.jpg",
+  "/media/ert-2.sm.jpg",
+  "/media/ert-3.sm.jpg",
+  "/media/ert-shop.sm.jpg",
   "/media/favicon.png",
+  "/media/field5-2.sm.jpg",
+  "/media/field5-3.sm.jpg",
+  "/media/field5-5.sm.jpg",
+  "/media/field5-6.sm.jpg",
+  "/media/field5-7.sm.jpg",
   "/media/logo-rotating.sm.png",
   "/media/logo.png",
   "/media/loop-crt1.jpg",

@@ -905,10 +905,14 @@ def fair_sounds() -> tuple[list[dict], list[str]]:
             missing.append(s["file"])
             continue
         p = C.BY_SLUG[s["mic"]]
+        img = s.get("image") or p["hero"]
+        if not (ROOT / media(img, small=True)).exists():
+            print(f"  fair: no photo media/{img} for \"{s['title']}\", using the {p['name']} photo")
+            img = p["hero"]
         found.append({"src": f"/fair/sounds/{s['file']}", "title": s["title"], "where": s["where"],
                       "kind": s["kind"], "kindLabel": FAIR_KINDS[s["kind"]][0],
                       "mic": p["slug"], "micName": p["name"],
-                      "img": "/" + media(s.get("image") or p["hero"], small=True)})
+                      "img": "/" + media(img, small=True)})
     return found, missing
 
 

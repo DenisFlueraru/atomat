@@ -299,22 +299,28 @@ CONTACT_INTRO = ("We love hearing from collaborators, users and experimental aud
 #   mic:   product slug that recorded it
 #   image: a photo from media/ for the card; leave it out to use the mic's own photo
 FAIR_SOUNDS = [
-    dict(file="metal-fence.m4a", title="Metal fence", where="Wind and footsteps travelling along the wire",
-         kind="contact", mic="field5"),
-    dict(file="rain.m4a", title="Rain on plexiglass", where="Every drop read straight off the plate",
-         kind="contact", mic="raincatcher", image="raincatcher-2.jpg"),
-    dict(file="underwater.m4a", title="Underwater", where="Mic submerged in a river",
+    # FIELD5 — from the "FIELD5 MIC SAMPLES" set on SoundCloud
+    dict(file="field5-heartbeat.m4a", title="Heartbeat", where="A pulse, picked up straight through the skin",
+         kind="contact", mic="field5", image="field5-6.jpg"),
+    dict(file="field5-metal-plate.m4a", title="Metal plate taps", where="Fingertips on a sheet of metal",
          kind="contact", mic="field5", image="field5-3.jpg"),
-    dict(file="ice.m4a", title="Ice cracking", where="Contact mic frozen into a block of ice",
-         kind="contact", mic="crt1"),
-    dict(file="tree.m4a", title="Inside a tree", where="Taped to a trunk on a windy day",
-         kind="contact", mic="crt2"),
-    dict(file="phone.m4a", title="Smartphone", where="Scrolling a phone screen",
-         kind="emf", mic="ert"),
-    dict(file="charger.m4a", title="Laptop charger", where="The hum of a power brick",
+    dict(file="field5-water.m4a", title="Drinking water", where="Every swallow, heard from the inside",
+         kind="contact", mic="field5", image="field5-2.jpg"),
+    dict(file="field5-guitar.m4a", title="Guitar", where="The mic on the body of an acoustic guitar",
+         kind="contact", mic="field5", image="field5-7.jpg"),
+    dict(file="field5-plate-resampled.m4a", title="Metal plate, resampled", where="The plate taps, turned into an instrument",
+         kind="contact", mic="field5", image="field5-5.jpg"),
+    # ERT — from the "ERT1 Microphone" set on SoundCloud
+    dict(file="ert-wifi.m4a", title="Wi-Fi router", where="Data pulses, as heard by a coil",
+         kind="emf", mic="ert", image="ert-1.jpg"),
+    dict(file="ert-laptop.m4a", title="Laptop", where="The hidden hum of a computer at work",
          kind="emf", mic="ert", image="ert-2.jpg"),
-    dict(file="router.m4a", title="Wi-Fi router", where="Data pulses, as heard by a coil",
+    dict(file="ert-clock.m4a", title="Clock", where="The electromagnetic tick of a clock",
          kind="emf", mic="ert", image="ert-3.jpg"),
+    dict(file="ert-guitar.m4a", title="Electric guitar", where="The field around the pickups, not the strings",
+         kind="emf", mic="ert"),
+    dict(file="ert-guitar-sustain.m4a", title="Guitar sustain", where="Long notes, heard as electricity",
+         kind="emf", mic="ert", image="ert-2.jpg"),
 ]
 
 # After this many seconds with nobody touching the iPad, the sound stops and the

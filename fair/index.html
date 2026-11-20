@@ -50,9 +50,9 @@
     <section class="panel" data-panel="listen" role="tabpanel">
       <div class="panel-head">
         <h2>Tap a sound</h2>
-        <div class="chips"><button type="button" class="chip" data-filter="all" aria-pressed="true">All</button></div>
+        <div class="chips"><button type="button" class="chip" data-filter="all" aria-pressed="true">All</button><button type="button" class="chip" data-filter="contact">Contact</button><button type="button" class="chip" data-filter="emf">EMF</button></div>
       </div>
-      <div class="grid" id="grid"></div><p class="empty">No recordings yet. Put your clips in <b>fair/sounds/</b> (names are in <b>_build/content.py</b>) and re-run the build.</p>
+      <div class="grid" id="grid"></div>
     </section>
 
     <section class="panel" data-panel="how" role="tabpanel" hidden>
@@ -77,7 +77,7 @@
   <h2>The material</h2>
   <p>Stuck onto a surface, it picks up the vibration travelling inside it. No air, no room: just what the object itself is doing.</p>
   <div class="tags"><span class="tag ghost">Fences</span><span class="tag ghost">Trees</span><span class="tag ghost">Water</span><span class="tag ghost">Ice</span><span class="tag ghost">Strings</span><span class="tag ghost">Machines</span></div>
-  <p class="m how-mics">Our contact mics: FIELD5 · CRT2 · CRT1</p>
+  <p class="m how-mics">Our contact mics: FIELD5 · CRT2 · CRT1</p><button type="button" class="btn solid big" data-go="listen" data-filter="contact">Hear Contact recordings →</button>
 </article><article class="how ours">
   <div class="how-art"><svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
 <rect x="22" y="30" width="56" height="92" rx="8"/><path d="M42 112h16"/>
@@ -89,7 +89,7 @@
   <h2>Electricity</h2>
   <p>A coil turns the invisible electromagnetic fields around electronics into sound. Every device has its own voice.</p>
   <div class="tags"><span class="tag ghost">Phones</span><span class="tag ghost">Chargers</span><span class="tag ghost">Routers</span><span class="tag ghost">Screens</span><span class="tag ghost">Motors</span></div>
-  <p class="m how-mics">Our emf mics: ERT</p>
+  <p class="m how-mics">Our emf mics: ERT</p><button type="button" class="btn solid big" data-go="listen" data-filter="emf">Hear EMF recordings →</button>
 </article></div>
     </section>
 
@@ -102,7 +102,7 @@
     <h2>FIELD5</h2>
     <p>48V phantom-powered contact microphone</p>
     <p class="m dim">Submersible · 48V phantom · Neutrik XLR</p>
-    <div class="mic-buy"><span class="price">€150</span></div>
+    <div class="mic-buy"><span class="price">€150</span><button type="button" class="btn" data-go="listen" data-mic="field5">Hear it →</button></div>
   </div>
 </article><article class="mic">
   <div class="stage sm"><video src="/media/loop-crt2.mp4" poster="/media/loop-crt2.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
@@ -129,7 +129,7 @@
     <h2>ERT</h2>
     <p>Electromagnetic (EMF) microphone</p>
     <p class="m dim">Hear screens, chargers, motors</p>
-    <div class="mic-buy"><span class="price">€40</span></div>
+    <div class="mic-buy"><span class="price">€40</span><button type="button" class="btn" data-go="listen" data-mic="ert">Hear it →</button></div>
   </div>
 </article><article class="mic">
   <div class="stage sm"><img src="/media/raincatcher-2.sm.jpg" alt=""></div>
@@ -178,7 +178,7 @@
   </div>
 </div>
 
-<script type="application/json" id="fair-data">{"sounds": [], "idle": 90, "cache": "fair-3dc84d5770"}</script>
+<script type="application/json" id="fair-data">{"sounds": [{"src": "/fair/sounds/field5-heartbeat.m4a", "title": "Heartbeat", "where": "A pulse, picked up straight through the skin", "kind": "contact", "kindLabel": "Contact", "mic": "field5", "micName": "FIELD5", "img": "/media/field5-6.sm.jpg"}, {"src": "/fair/sounds/field5-metal-plate.m4a", "title": "Metal plate taps", "where": "Fingertips on a sheet of metal", "kind": "contact", "kindLabel": "Contact", "mic": "field5", "micName": "FIELD5", "img": "/media/field5-3.sm.jpg"}, {"src": "/fair/sounds/field5-water.m4a", "title": "Drinking water", "where": "Every swallow, heard from the inside", "kind": "contact", "kindLabel": "Contact", "mic": "field5", "micName": "FIELD5", "img": "/media/field5-2.sm.jpg"}, {"src": "/fair/sounds/field5-guitar.m4a", "title": "Guitar", "where": "The mic on the body of an acoustic guitar", "kind": "contact", "kindLabel": "Contact", "mic": "field5", "micName": "FIELD5", "img": "/media/field5-7.sm.jpg"}, {"src": "/fair/sounds/field5-plate-resampled.m4a", "title": "Metal plate, resampled", "where": "The plate taps, turned into an instrument", "kind": "contact", "kindLabel": "Contact", "mic": "field5", "micName": "FIELD5", "img": "/media/field5-5.sm.jpg"}, {"src": "/fair/sounds/ert-wifi.m4a", "title": "Wi-Fi router", "where": "Data pulses, as heard by a coil", "kind": "emf", "kindLabel": "EMF", "mic": "ert", "micName": "ERT", "img": "/media/ert-1.sm.jpg"}, {"src": "/fair/sounds/ert-laptop.m4a", "title": "Laptop", "where": "The hidden hum of a computer at work", "kind": "emf", "kindLabel": "EMF", "mic": "ert", "micName": "ERT", "img": "/media/ert-2.sm.jpg"}, {"src": "/fair/sounds/ert-clock.m4a", "title": "Clock", "where": "The electromagnetic tick of a clock", "kind": "emf", "kindLabel": "EMF", "mic": "ert", "micName": "ERT", "img": "/media/ert-3.sm.jpg"}, {"src": "/fair/sounds/ert-guitar.m4a", "title": "Electric guitar", "where": "The field around the pickups, not the strings", "kind": "emf", "kindLabel": "EMF", "mic": "ert", "micName": "ERT", "img": "/media/ert-shop.sm.jpg"}, {"src": "/fair/sounds/ert-guitar-sustain.m4a", "title": "Guitar sustain", "where": "Long notes, heard as electricity", "kind": "emf", "kindLabel": "EMF", "mic": "ert", "micName": "ERT", "img": "/media/ert-2.sm.jpg"}], "idle": 90, "cache": "fair-e3f51080f5"}</script>
 <script src="/fair/fair.js"></script>
 </body>
 </html>
