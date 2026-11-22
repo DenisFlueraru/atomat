@@ -326,3 +326,26 @@ FAIR_SOUNDS = [
 # After this many seconds with nobody touching the iPad, the sound stops and the
 # page goes back to the start screen.
 FAIR_IDLE_SECONDS = 90
+
+
+# ---------------------------------------------------------------- invoice generator (atomatlab.com/invoice)
+# A hidden page that builds an invoice in the browser and saves it as a PDF. Nothing typed into
+# it (client names, addresses) ever leaves the device. Products and shipping come from PRODUCTS
+# and SHIPPING above, so prices match the shop; every line can still be edited before printing.
+COMPANY = dict(
+    name="ATOMAT LAB SRL",
+    cui="52150655",
+    rc="J2025051599002",
+    capital="200 RON",
+    address="POPESTI LEORDENI str. AMURGULUI NR.8 bl. C1 ap. 25 jud. ILFOV",
+    bank="ING BANK ROMANIA",
+    iban="RO26INGB0000999917985795",
+    signer="Flueraru Denis",
+)
+INVOICE = dict(
+    series="ATO",
+    currency="EUR",
+    unit="BUC",
+    first_number=18,   # suggested number on a device that hasn't issued any invoice yet (ATO 17 was 29.03.2026)
+    note="Factura este valabila fara semnatura si stampila cf.Art.319(alin29) din Lg.227/2015 Cod Fiscal",
+)

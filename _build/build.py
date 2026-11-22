@@ -1107,6 +1107,23 @@ def fair_build() -> dict:
     return {"fair/index.html": html}
 
 
+# ---------------------------------------------------------------- invoice generator
+# A hidden page (/invoice) that fills in the ATO invoice layout in the browser and prints it to PDF.
+# Client details never leave the device; the products and shipping come from content.py.
+def invoice_build() -> dict:
+    data = {
+        "company": C.COMPANY, "invoice": C.INVOICE,
+        "products": [{"name": p["name"], "price": f"{p['price'] / 100:.2f}"} for p in C.PRODUCTS],
+        "shipping": [{"code": code, "label": label, "price": f"{cents / 100:.2f}"} for code, label, cents in C.SHIPPING],
+    }
+    html = (HERE / "invoice.html.tpl").read_text(encoding="utf-8")
+    html = html.replace("__FONTS__", FONTS).replace("__DATA__", json.dumps(data, ensure_ascii=False))
+    (ROOT / "invoice").mkdir(exist_ok=True)
+    (ROOT / "invoice" / "index.html").write_text(html, encoding="utf-8")
+    print("invoice: invoice/index.html")
+    return {"invoice/index.html": html}
+
+
 # ---------------------------------------------------------------- driver
 def build() -> dict:
     OUT.mkdir(parents=True, exist_ok=True)
@@ -1148,6 +1165,7 @@ def build() -> dict:
 
     print(f"{len(pages)} pages + assets/shop.css, assets/shop.js, api/create-checkout-session.js")
     pages.update(fair_build())
+    pages.update(invoice_build())
     return pages
 
 
