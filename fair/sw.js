@@ -4,7 +4,7 @@
    picks up the new copies the next time it opens the page online. */
 "use strict";
 
-var CACHE = "fair-e3f51080f5";
+var CACHE = "fair-b7d09db855";
 var FILES = [
   "/fair/",
   "/fair/manifest.webmanifest",
@@ -12,7 +12,6 @@ var FILES = [
   "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap",
   "/fair/fair.css",
   "/fair/fair.js",
-  "/fair/qr-shop.svg",
   "/fair/qr-instagram.svg",
   "/fair/sounds/ert-clock.m4a",
   "/fair/sounds/ert-guitar-sustain.m4a",

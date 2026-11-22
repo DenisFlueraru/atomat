@@ -867,7 +867,7 @@ def sitemap() -> str:
 # mics work, the mics, and QR codes. Everything is root-absolute and cached by fair/sw.js, so
 # once opened on good Wi-Fi it keeps working with no connection at all.
 FAIR = ROOT / "fair"
-FAIR_STATIC = ["fair/fair.css", "fair/fair.js", "fair/qr-shop.svg", "fair/qr-instagram.svg"]
+FAIR_STATIC = ["fair/fair.css", "fair/fair.js", "fair/qr-instagram.svg"]
 FONTS_CSS = ("https://fonts.googleapis.com/css2?"
              "family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap")
 CACHE_SLOT = "__FAIR_CACHE__"
@@ -876,26 +876,6 @@ FAIR_KINDS = {
     "contact": ("Contact", "Vibration inside things"),
     "emf": ("EMF", "Electromagnetic fields"),
 }
-
-# Inline line drawings for "How it works": what each kind of mic actually listens to.
-FAIR_SVG = {
-    "air": """<svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-<rect x="22" y="48" width="34" height="50" rx="17"/><path d="M39 98v22M25 120h28"/>
-<path d="M92 50a40 40 0 0 1 0 46M112 36a62 62 0 0 1 0 74M132 22a84 84 0 0 1 0 102" stroke-dasharray="3 7"/>
-<circle cx="200" cy="73" r="16"/><path d="M216 73h12"/></g></svg>""",
-    "contact": """<svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-<rect x="14" y="62" width="212" height="58" rx="3"/>
-<path d="M28 92c10-18 20 18 30 0s20 18 30 0 20 18 30 0 20 18 30 0 20 18 30 0 20 18 30 0" />
-<path d="M120 46V20h70" /></g>
-<rect x="96" y="44" width="48" height="16" rx="3" fill="var(--acc)" stroke="currentColor" stroke-width="2.5"/></svg>""",
-    "emf": """<svg viewBox="0 0 240 140" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-<rect x="22" y="30" width="56" height="92" rx="8"/><path d="M42 112h16"/>
-<path d="M88 46c22 6 22 54 0 60M100 34c34 10 34 78 0 88M112 22c46 14 46 102 0 116" stroke-dasharray="2 6"/>
-<path d="M200 76v44h28"/></g>
-<g fill="none" stroke="var(--acc)" stroke-width="5" stroke-linecap="round"><path d="M180 52c0-12 40-12 40 0s-40 12-40 24 40 12 40 0"/></g>
-<rect x="176" y="40" width="48" height="48" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>""",
-}
-
 
 def fair_sounds() -> tuple[list[dict], list[str]]:
     """Sounds whose file is in fair/sounds/, as page data, plus the names of the missing ones."""
@@ -931,14 +911,15 @@ def page_fair(sounds: list[dict]) -> str:
     filters = "".join(f'<button type="button" class="chip" data-filter="{k}"{" aria-pressed=\"true\"" if k == "all" else ""}>{t}</button>'
                       for k, t in [("all", "All")] + [(k, FAIR_KINDS[k][0]) for k in FAIR_KINDS if k in kinds])
 
-    def how(key: str, title: str, hears: str, text: str, tryon: list[str], mics: list[str], ours: bool) -> str:
+    def how(key: str, title: str, hears: str, text: str, tryon: list[str], mics: list[str], ours: bool,
+            photo: str = "") -> str:
         names = " · ".join(C.BY_SLUG[m]["name"] for m in mics)
         btn = (f'<button type="button" class="btn solid big" data-go="listen" data-filter="{key}">Hear {FAIR_KINDS[key][0]} recordings →</button>'
                if key in kinds else "")
         foot = (f'<p class="m how-mics">Our {title.lower()}s: {names}</p>{btn}' if ours else
                 '<p class="m how-mics">Microphones you already know</p>')
         return f"""<article class="how{' ours' if ours else ''}">
-  <div class="how-art">{FAIR_SVG[key if ours else 'air']}</div>
+  {f'<div class="how-art"><img src="/{media(photo, small=True)}" alt=""></div>' if photo else ''}
   <p class="m">{'A normal mic' if not ours else 'A ' + title.lower()} hears</p>
   <h2>{hears}</h2>
   <p>{text}</p>
@@ -953,11 +934,12 @@ def page_fair(sounds: list[dict]) -> str:
         + how("contact", "Contact mic", "The material",
               "Stuck onto a surface, it picks up the vibration travelling inside it. "
               "No air, no room: just what the object itself is doing.",
-              ["Fences", "Trees", "Water", "Ice", "Strings", "Machines"], ["field5", "crt2", "crt1"], True)
+              ["Fences", "Trees", "Water", "Ice", "Strings", "Machines"], ["field5", "crt2", "crt1"], True,
+              "field5-3.jpg")
         + how("emf", "EMF mic", "Electricity",
               "A coil turns the invisible electromagnetic fields around electronics into sound. "
               "Every device has its own voice.",
-              ["Phones", "Chargers", "Routers", "Screens", "Motors"], ["ert"], True))
+              ["Phones", "Chargers", "Routers", "Screens", "Motors"], ["ert"], True, "ert-1.jpg"))
 
     mic_cards = []
     for p in C.PRODUCTS:
@@ -1047,15 +1029,9 @@ def page_fair(sounds: list[dict]) -> str:
     </section>
 
     <section class="panel" data-panel="home" role="tabpanel" hidden>
-      <div class="panel-head"><h2>Take it home</h2><span class="m dim">Point your phone camera at a code</span></div>
+      <div class="panel-head"><h2>Take it home</h2></div>
       <div class="qrs">
-        <div class="qr"><img src="/fair/qr-shop.svg" alt="QR code for atomatlab.com"><h3>Shop &amp; recordings</h3><p class="m">atomatlab.com</p></div>
         <div class="qr"><img src="/fair/qr-instagram.svg" alt="QR code for Instagram @atomatlab"><h3>Follow the lab</h3><p class="m">Instagram @atomatlab</p></div>
-        <div class="qr-txt">
-          <p class="lead">Like what you heard? Every mic is on the table: pick one up, try it, take it with you.</p>
-          {ruler(light=True)}
-          <p class="m">{C.EMAIL}<br>soundcloud.com/atomat-lab</p>
-        </div>
       </div>
     </section>
   </main>
