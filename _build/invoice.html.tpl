@@ -114,9 +114,10 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
         <label>Number <input id="number" inputmode="numeric"></label>
         <label>Rate EUR→RON <input id="rate" inputmode="decimal" placeholder="5.0951"></label>
       </div>
-      <div class="row2">
+      <div class="row3">
         <label>Date <input id="date" type="date"></label>
         <label>Due date <input id="due" type="date"></label>
+        <label>Currency <select id="currency"><option value="EUR">EUR</option><option value="RON">RON only</option></select></label>
       </div>
       <a class="hint" href="https://www.bnr.ro/Cursul-de-schimb-524.aspx" target="_blank" rel="noopener">BNR exchange rate ↗</a>
     </fieldset>
@@ -141,7 +142,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
       <div class="adds"><button type="button" id="add-custom">+ Custom line</button></div>
       <div class="row2">
         <label>Discount <input id="disc" inputmode="decimal" placeholder="0"></label>
-        <label>Discount type <select id="disc-type"><option value="amount">Amount (EUR)</option><option value="percent">Percent (%)</option></select></label>
+        <label>Discount type <select id="disc-type"><option value="amount" id="disc-amount">Amount (EUR)</option><option value="percent">Percent (%)</option></select></label>
       </div>
     </fieldset>
 
@@ -164,7 +165,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
         <div class="title">
           <h2>INVOICE</h2>
           <p>Series <span data-v="series"></span>&nbsp; NR. <span data-v="number"></span></p>
-          <p>Date <span data-v="date"></span>&nbsp;&nbsp;&nbsp;Due date <span data-v="due"></span><span class="rate">- <span data-v="currency"></span> -&nbsp; Exchange Rate&nbsp; <span data-v="rate"></span></span></p>
+          <p>Date <span data-v="date"></span>&nbsp;&nbsp;&nbsp;Due date <span data-v="due"></span><span class="rate">- <span data-v="currency"></span> -<span id="rate-part">&nbsp; Exchange Rate&nbsp; <span data-v="rate"></span></span></span></p>
         </div>
         <div class="parties">
           <div class="supplier"><span>Supplier</span><b class="nm" data-v="co-name"></b><div class="body" id="co-body"></div></div>
@@ -208,6 +209,19 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
   function dmy(iso) { if (!iso) return ""; var p = iso.split("-"); return p[2] + "." + p[1] + "." + p[0]; }
   function today() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
   function num(v) { return parseFloat(String(v).replace(",", ".")) || 0; }
+
+  /* ---------------------------------------------------------------- currency */
+  // Shop prices are in EUR. On a RON invoice they are converted at the rate in the form.
+  function cur() { return $("currency").value; }
+  function rate() { return num($("rate").value); }
+  function fromEur(eur) {
+    if (cur() !== "RON" || !num(eur)) return eur;
+    return fix(num(eur) * rate(), 2);
+  }
+  function needRate() {
+    if (cur() === "RON" && !rate()) { alert("Enter the EUR→RON rate first, so shop prices can be converted to RON."); return true; }
+    return false;
+  }
 
   /* ---------------------------------------------------------------- lines */
   function addLine(name, price, qty) {
@@ -260,7 +274,9 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
     set("number", $("number").value);
     set("date", dmy($("date").value));
     set("due", dmy($("due").value));
-    set("currency", D.invoice.currency);
+    set("currency", cur());
+    $("rate-part").hidden = cur() === "RON";
+    $("disc-amount").textContent = "Amount (" + cur() + ")";
     set("rate", $("rate").value);
     set("co-name", D.company.name);
     set("c-name", $("c-name").value);
@@ -288,8 +304,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
 
     var t = totals(), sums = $("sums");
     sums.innerHTML = "";
-    if (t.disc > 0) sums.appendChild(sumRow("Discount (" + D.invoice.currency + ")", "-" + fix(t.disc, 2)));
-    sums.appendChild(sumRow("Total (" + D.invoice.currency + ")", fix(t.total, 2)));
+    if (t.disc > 0) sums.appendChild(sumRow("Discount (" + cur() + ")", "-" + fix(t.disc, 2)));
+    sums.appendChild(sumRow("Total (" + cur() + ")", fix(t.total, 2)));
 
     document.title = fileName();
     fit();
@@ -324,7 +340,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
       var row = document.createElement("div");
       var a = document.createElement("span"); a.textContent = l.series + " " + l.number;
       var b = document.createElement("span"); b.textContent = l.date + " · " + l.client;
-      var c = document.createElement("span"); c.textContent = l.total + " " + D.invoice.currency;
+      var c = document.createElement("span"); c.textContent = l.total + " " + (l.currency || D.invoice.currency);
       var x = document.createElement("button"); x.type = "button"; x.textContent = "×"; x.title = "Remove from this list";
       x.onclick = function () {
         if (!confirm("Remove " + l.series + " " + l.number + " from this list? (The PDF itself is not affected.)")) return;
@@ -339,7 +355,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
   function remember() {
     var s = store();
     var entry = { series: $("series").value, number: $("number").value, date: dmy($("date").value),
-                  client: $("c-name").value.trim() || "—", total: fix(totals().total, 2) };
+                  client: $("c-name").value.trim() || "—", total: fix(totals().total, 2), currency: cur() };
     s.log = s.log.filter(function (e) { return !(e.series === entry.series && e.number === entry.number); });
     s.log.push(entry);
     s.rate = $("rate").value;
@@ -352,18 +368,18 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
     var b = document.createElement("button");
     b.type = "button";
     b.textContent = "+ " + p.name;
-    b.onclick = function () { addLine(p.name, p.price); };
+    b.onclick = function () { if (!needRate()) addLine(p.name, fromEur(p.price)); };
     $("adds").appendChild(b);
   });
   D.shipping.forEach(function (s) {
     var o = document.createElement("option");
-    o.value = s.code; o.textContent = s.label + " (" + s.code + ") · " + s.price;
+    o.value = s.code; o.textContent = s.label + " (" + s.code + ") · €" + s.price;
     $("ship-country").appendChild(o);
   });
   $("ship-country").value = "GB";
   $("add-ship").onclick = function () {
     var s = D.shipping.filter(function (x) { return x.code === $("ship-country").value; })[0];
-    if (s) addLine("SHIPPING (" + s.code + ")", s.price);
+    if (s && !needRate()) addLine("SHIPPING (" + s.code + ")", fromEur(s.price));
   };
   $("add-free").onclick = function () { addLine("FREE SHIPPING (" + $("ship-country").value + ")", "0"); };
   $("add-custom").onclick = function () { addLine("", ""); $("lines").lastChild.firstChild.focus(); };
@@ -376,9 +392,23 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
     $("rate").value = store().rate || "";
     ["c-name", "c-vat", "c-addr", "disc"].forEach(function (id) { $(id).value = ""; });
     $("disc-type").value = "amount";
+    $("currency").value = shown = D.invoice.currency;
     drawLines();
     render();
   }
+
+  var shown = "EUR";
+  $("currency").addEventListener("change", function () {
+    var to = cur();
+    if (to === shown) return;
+    if (!rate()) { $("currency").value = shown; alert("Enter the EUR→RON rate first, so the prices can be converted."); return; }
+    var k = to === "RON" ? rate() : 1 / rate();
+    lines.forEach(function (l) { if (num(l.price)) l.price = fix(num(l.price) * k, 2); });
+    if ($("disc-type").value === "amount" && num($("disc").value)) $("disc").value = fix(num($("disc").value) * k, 2);
+    shown = to;
+    drawLines();
+    render();
+  });
 
   $("form").addEventListener("input", function (e) {
     if (e.target.id === "date" && $("due").value < $("date").value) $("due").value = $("date").value;
