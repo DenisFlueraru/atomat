@@ -31,7 +31,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
   border: var(--line); border-radius: 999px; padding: 8px 12px; background: none;
 }
 .adds button:hover, .mini:hover { background: var(--ink); color: var(--paper); }
-.ship { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.ship { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; }
 .lines { display: grid; gap: 8px; }
 .line { display: grid; grid-template-columns: 1fr 64px 96px 34px; gap: 6px; align-items: center; }
 .line input { padding: 8px; font-size: 15px; }
@@ -134,6 +134,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
       <div class="ship">
         <select id="ship-country" aria-label="Shipping country"></select>
         <button type="button" class="mini" id="add-ship">+ Shipping</button>
+        <button type="button" class="mini" id="add-free">+ Free shipping</button>
       </div>
       <div class="line line-head" aria-hidden="true"><span>Line</span><span>Qty</span><span>Unit price</span><span></span></div>
       <div class="lines" id="lines"></div>
@@ -364,6 +365,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--acc); outli
     var s = D.shipping.filter(function (x) { return x.code === $("ship-country").value; })[0];
     if (s) addLine("SHIPPING (" + s.code + ")", s.price);
   };
+  $("add-free").onclick = function () { addLine("FREE SHIPPING (" + $("ship-country").value + ")", "0"); };
   $("add-custom").onclick = function () { addLine("", ""); $("lines").lastChild.firstChild.focus(); };
 
   function fresh() {
