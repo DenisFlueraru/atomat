@@ -3,16 +3,16 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://atomatlab.com/</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/field5-shop.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://atomatlab.com/shop.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
   </url>
   <url>
     <loc>https://atomatlab.com/about.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/about-studio.jpg</image:loc></image:image>
   </url>
   <url>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://atomatlab.com/field5.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/field5-1.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/field5-2.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/field5-3.jpg</image:loc></image:image>
@@ -34,14 +34,17 @@
   </url>
   <url>
     <loc>https://atomatlab.com/crt2.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/crt2-1.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/crt2-2.jpg</image:loc></image:image>
-    <image:image><image:loc>https://atomatlab.com/media/crt2-shop.jpg</image:loc></image:image>
+    <image:image><image:loc>https://atomatlab.com/media/crt2-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://atomatlab.com/media/crt2-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://atomatlab.com/media/crt2-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://atomatlab.com/media/crt2-6.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://atomatlab.com/crt1.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/crt1-1.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/crt1-2.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/crt1-3.jpg</image:loc></image:image>
@@ -49,7 +52,7 @@
   </url>
   <url>
     <loc>https://atomatlab.com/ert.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/ert-1.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/ert-2.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/ert-3.jpg</image:loc></image:image>
@@ -57,7 +60,7 @@
   </url>
   <url>
     <loc>https://atomatlab.com/raincatcher.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <image:image><image:loc>https://atomatlab.com/media/raincatcher-1.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/raincatcher-2.jpg</image:loc></image:image>
     <image:image><image:loc>https://atomatlab.com/media/raincatcher-3.jpg</image:loc></image:image>

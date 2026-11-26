@@ -9,15 +9,15 @@
     "name": "FIELD5",
     "serial": "AL-F5",
     "price": 15000,
-    "thumb": "media/field5-shop.sm.jpg",
+    "thumb": "media/field5-5.sm.jpg",
     "soldout": false
   },
   "crt2": {
     "name": "CRT2",
     "serial": "AL-C2",
     "price": 6000,
-    "thumb": "media/crt2-shop.sm.jpg",
-    "soldout": true
+    "thumb": "media/crt2-1.sm.jpg",
+    "soldout": false
   },
   "crt1": {
     "name": "CRT1",

@@ -4,7 +4,7 @@
    picks up the new copies the next time it opens the page online. */
 "use strict";
 
-var CACHE = "fair-b7d09db855";
+var CACHE = "fair-0778cea655";
 var FILES = [
   "/fair/",
   "/fair/manifest.webmanifest",
@@ -23,6 +23,8 @@ var FILES = [
   "/fair/sounds/field5-metal-plate.m4a",
   "/fair/sounds/field5-plate-resampled.m4a",
   "/fair/sounds/field5-water.m4a",
+  "/media/crt1-shop.sm.jpg",
+  "/media/crt2-1.sm.jpg",
   "/media/ert-1.sm.jpg",
   "/media/ert-2.sm.jpg",
   "/media/ert-3.sm.jpg",
@@ -35,14 +37,6 @@ var FILES = [
   "/media/field5-7.sm.jpg",
   "/media/logo-rotating.sm.png",
   "/media/logo.png",
-  "/media/loop-crt1.jpg",
-  "/media/loop-crt1.mp4",
-  "/media/loop-crt2.jpg",
-  "/media/loop-crt2.mp4",
-  "/media/loop-ert.jpg",
-  "/media/loop-ert.mp4",
-  "/media/loop-field5.jpg",
-  "/media/loop-field5.mp4",
   "/media/raincatcher-2.sm.jpg",
   "/media/textlogo.sm.png"
 ];

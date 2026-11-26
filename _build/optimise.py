@@ -25,9 +25,12 @@ PHOTOS = {
     "FIELD5/soil.jpg":                  "field5-9.jpg",
     "FIELD5/Hero Product Field5.jpg":   "field5-shop.jpg",
     # CRT2
-    "CRT2/CRT2_FRONT.jpg":              "crt2-1.jpg",
-    "CRT2/CRT2FRONT.jpg":               "crt2-2.jpg",
-    "SHOP SECTION/CRT2.png":            "crt2-shop.jpg",
+    "CRT2/_DSC9277.jpg":                "crt2-1.jpg",
+    "CRT2/_DSC9278.jpg":                "crt2-2.jpg",
+    "CRT2/_DSC9279.jpg":                "crt2-3.jpg",
+    "CRT2/_DSC9282.jpg":                "crt2-4.jpg",
+    "CRT2/_DSC9285.jpg":                "crt2-5.jpg",
+    "CRT2/_DSC9289.jpg":                "crt2-6.jpg",
     # CRT1
     "CRT1/CRT1.jpg":                    "crt1-1.jpg",
     "CRT1/CRT1_BACK.jpg":               "crt1-2.jpg",

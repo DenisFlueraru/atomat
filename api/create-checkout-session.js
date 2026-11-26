@@ -23,7 +23,7 @@ const CATALOG = {
     "serial": "AL-C2",
     "price": 6000,
     "image": "media/crt2-1.sm.jpg",
-    "soldout": true
+    "soldout": false
   },
   "crt1": {
     "name": "CRT1",

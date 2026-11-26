@@ -53,7 +53,7 @@ PRODUCTS = [
                 ("Field &amp; studio", "Copper shielding and a male Neutrik XLR output."),
                 ("Phantom powered", "Runs on 48V from any recorder — no external preamp.")],
         review=("Very good, as described! Quality and sound top notch!", "Verified buyer"),
-        loop="loop-field5", hero="field5-shop.jpg",
+        loop=None, hero="field5-5.jpg",
         gallery=["field5-1.jpg", "field5-2.jpg", "field5-3.jpg", "field5-shop.jpg", "field5-5.jpg",
                  "field5-6.jpg", "field5-7.jpg", "field5-8.jpg", "field5-9.jpg"],
         playlist="2189812859", playlist_name="FIELD5 MIC SAMPLES",
@@ -61,7 +61,6 @@ PRODUCTS = [
     ),
     dict(
         slug="crt2", name="CRT2", serial="AL-C2", price=6000, cat="mic",
-        soldout=True,  # shows "Sold out", blocks add to cart and checkout; delete to sell again
         tagline="Submersible contact microphone",
         seo_title="CRT2 — Submersible Contact Microphone | ATOMAT LAB",
         seo_desc=("CRT2 is a submersible contact microphone with copper shielding and velcro mounting "
@@ -87,8 +86,8 @@ PRODUCTS = [
                 ("Flexible mounting", "Textured base for Blu Tack and a velcro hole.")
                 , ("Refined sound", "Copper shielding and an internal capacitor tame the harsh highs.")],
         review=("Excellent microphone and excellent service by Dennis!", "Verified buyer"),
-        loop="loop-crt2", hero="crt2-shop.jpg",
-        gallery=["crt2-1.jpg", "crt2-2.jpg", "crt2-shop.jpg"],
+        loop=None, hero="crt2-1.jpg",
+        gallery=["crt2-1.jpg", "crt2-2.jpg", "crt2-3.jpg", "crt2-4.jpg", "crt2-5.jpg", "crt2-6.jpg"],
         playlist=None, playlist_name=None, playlist_url=None,
     ),
     dict(
@@ -119,7 +118,7 @@ PRODUCTS = [
                 ("Built to explore", "Hands-on, robust and intuitive."),
                 ("Entry point", "A good way to break the ice of experimental recording.")],
         review=("Great Mic. I really like it and ordered one more.", "Verified buyer"),
-        loop="loop-crt1", hero="crt1-shop.jpg",
+        loop=None, hero="crt1-shop.jpg",
         gallery=["crt1-1.jpg", "crt1-2.jpg", "crt1-3.jpg", "crt1-shop.jpg"],
         playlist=None, playlist_name=None, playlist_url=None,
     ),
@@ -149,7 +148,7 @@ PRODUCTS = [
                 ("Mobile exploration", "Walk, scan and discover electronic environments."),
                 ("Immediate feedback", "Direct connection to recorders and interfaces.")],
         review=("Amazing mic, picks up loads of sounds", "Verified buyer"),
-        loop="loop-ert", hero="ert-shop.jpg",
+        loop=None, hero="ert-shop.jpg",
         gallery=["ert-1.jpg", "ert-2.jpg", "ert-3.jpg", "ert-shop.jpg"],
         playlist="2190450968", playlist_name="ERT1 Microphone",
         playlist_url="https://soundcloud.com/atomat-lab",
